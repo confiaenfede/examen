@@ -1,0 +1,1126 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PPRC — 1er Parcial · Guía de Estudio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;900&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,300;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f9f8f6;
+    --bg2: #ffffff;
+    --bg3: #f2f0ec;
+    --border: #e0dbd2;
+    --gold: #8a6a1f;
+    --gold-dim: #b89040;
+    --cream: #1a1814;
+    --cream-dim: #6b6456;
+    --red: #b02a1e;
+    --green: #1a7a40;
+    --blue: #1a5fa8;
+    --tag-bg: #f0ece4;
+    --sidebar-w: 260px;
+    --radius: 8px;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--cream);
+    font-family: 'Source Serif 4', serif;
+    font-size: 17px;
+    line-height: 1.75;
+    display: flex;
+    min-height: 100vh;
+  }
+
+  /* ── SIDEBAR ── */
+  #sidebar {
+    width: var(--sidebar-w);
+    min-width: var(--sidebar-w);
+    background: var(--bg2);
+    border-right: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    overflow-y: auto;
+    padding: 0 0 40px;
+    display: flex;
+    flex-direction: column;
+    z-index: 100;
+  }
+  #sidebar::-webkit-scrollbar { width: 4px; }
+  #sidebar::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+  .sidebar-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: .2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    padding: 28px 20px 8px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 12px;
+    line-height: 1.3;
+  }
+  .sidebar-subtitle {
+    font-size: 10px;
+    color: var(--cream-dim);
+    font-family: 'JetBrains Mono', monospace;
+    letter-spacing: .05em;
+    margin-top: 4px;
+  }
+
+  .nav-item {
+    display: block;
+    padding: 7px 20px;
+    color: var(--cream-dim);
+    text-decoration: none;
+    font-size: 12.5px;
+    font-family: 'JetBrains Mono', monospace;
+    border-left: 2px solid transparent;
+    transition: all .15s;
+    line-height: 1.4;
+  }
+  .nav-item:hover { color: var(--cream); border-left-color: var(--gold-dim); background: var(--bg3); }
+  .nav-item.active { color: var(--gold); border-left-color: var(--gold); background: var(--bg3); }
+  .nav-num { color: var(--gold-dim); margin-right: 6px; }
+
+  .progress-bar {
+    height: 2px;
+    background: var(--border);
+    margin: 0 20px 20px;
+    border-radius: 2px;
+    overflow: hidden;
+  }
+  .progress-fill {
+    height: 100%;
+    background: var(--gold);
+    width: 0%;
+    transition: width .3s;
+    border-radius: 2px;
+  }
+
+  /* ── MAIN ── */
+  #main {
+    flex: 1;
+    max-width: 860px;
+    padding: 60px 60px 120px;
+  }
+
+  .page-header {
+    margin-bottom: 60px;
+    padding-bottom: 32px;
+    border-bottom: 1px solid var(--border);
+  }
+  .page-header h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 42px;
+    font-weight: 900;
+    color: var(--cream);
+    line-height: 1.1;
+    margin-bottom: 8px;
+  }
+  .page-header h1 span { color: var(--gold); }
+  .page-header p {
+    color: var(--cream-dim);
+    font-size: 14px;
+    font-family: 'JetBrains Mono', monospace;
+    letter-spacing: .05em;
+  }
+
+  /* ── SECTION ── */
+  .topic {
+    margin-bottom: 80px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border);
+  }
+  .topic:first-of-type { border-top: none; }
+
+  .topic-header {
+    display: flex;
+    align-items: baseline;
+    gap: 16px;
+    margin-bottom: 28px;
+  }
+  .topic-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 64px;
+    font-weight: 900;
+    color: var(--border);
+    line-height: 1;
+    flex-shrink: 0;
+    user-select: none;
+  }
+  .topic-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--cream);
+    line-height: 1.2;
+  }
+  .topic-tag {
+    display: inline-block;
+    background: var(--tag-bg);
+    border: 1px solid var(--border);
+    color: var(--gold);
+    font-size: 10px;
+    font-family: 'JetBrains Mono', monospace;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    padding: 3px 8px;
+    border-radius: 3px;
+    margin-bottom: 6px;
+  }
+
+  h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--gold);
+    margin: 28px 0 10px;
+  }
+
+  p { margin-bottom: 14px; color: var(--cream); }
+  p:last-child { margin-bottom: 0; }
+
+  ul, ol {
+    padding-left: 22px;
+    margin-bottom: 16px;
+  }
+  li { margin-bottom: 7px; color: var(--cream); }
+  li strong { color: var(--gold); }
+
+  /* Article / Ley highlight */
+  .article-ref {
+    display: block;
+    background: var(--bg3);
+    border-left: 3px solid var(--gold);
+    padding: 14px 18px;
+    margin: 16px 0;
+    border-radius: 0 var(--radius) var(--radius) 0;
+    font-style: italic;
+  }
+  .article-ref .label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--gold);
+    font-style: normal;
+    letter-spacing: .1em;
+    display: block;
+    margin-bottom: 4px;
+  }
+
+  /* Inhabilitaciones block */
+  .inh-block {
+    background: var(--bg3);
+    border: 1px solid #f0d0ce;
+    border-left: 3px solid var(--red);
+    border-radius: 0 var(--radius) var(--radius) 0;
+    padding: 14px 18px;
+    margin: 12px 0;
+  }
+  .inh-block .label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--red);
+    letter-spacing: .1em;
+    display: block;
+    margin-bottom: 8px;
+  }
+
+  /* Comparación tabla */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 16px 0;
+    font-size: 15px;
+  }
+  th {
+    background: var(--bg3);
+    color: var(--gold);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    padding: 10px 14px;
+    text-align: left;
+    border-bottom: 1px solid var(--border);
+  }
+  td {
+    padding: 9px 14px;
+    border-bottom: 1px solid var(--border);
+    color: var(--cream);
+    vertical-align: top;
+  }
+  tr:last-child td { border-bottom: none; }
+  tr:hover td { background: var(--bg3); }
+
+  /* Proceso steps */
+  .steps {
+    list-style: none;
+    padding: 0;
+    counter-reset: step;
+  }
+  .steps li {
+    counter-increment: step;
+    display: flex;
+    gap: 16px;
+    margin-bottom: 14px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid var(--border);
+    align-items: flex-start;
+  }
+  .steps li:last-child { border-bottom: none; }
+  .steps li::before {
+    content: counter(step);
+    background: var(--gold);
+    color: #ffffff;
+    font-family: 'Playfair Display', serif;
+    font-weight: 900;
+    font-size: 13px;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  /* ── RESUMEN + TÍA ── */
+  .summary-area {
+    margin-top: 36px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+  .summary-box {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 20px 22px;
+  }
+  .summary-box.tecnico { border-top: 3px solid var(--blue); }
+  .summary-box.tia { border-top: 3px solid var(--gold); }
+  .summary-box h4 {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: .15em;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+  .summary-box.tecnico h4 { color: var(--blue); }
+  .summary-box.tia h4 { color: var(--gold); }
+  .summary-box p {
+    font-size: 14px;
+    line-height: 1.65;
+    color: var(--cream-dim);
+  }
+  .summary-box.tia p { font-style: italic; }
+  .tia-icon { font-size: 20px; margin-right: 6px; }
+
+  /* Clasificacion chips */
+  .chip-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 12px 0;
+  }
+  .chip {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 5px 12px;
+    font-size: 13px;
+    font-family: 'JetBrains Mono', monospace;
+    color: var(--cream-dim);
+  }
+  .chip b { color: var(--cream); }
+  .chip.pair { border-color: var(--gold-dim); }
+
+  /* divider */
+  hr { border: none; border-top: 1px solid var(--border); margin: 24px 0; }
+
+  /* ── TOP NAV ── */
+  #topnav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    height: 52px;
+    background: rgba(255,255,255,0.95);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 0 16px 0 calc(var(--sidebar-w) + 16px);
+    z-index: 200;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  #topnav::-webkit-scrollbar { display: none; }
+
+  .tnav-btn {
+    flex-shrink: 0;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 5px 12px;
+    border-radius: 20px;
+    border: 1px solid var(--border);
+    background: var(--bg3);
+    color: var(--cream-dim);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    text-decoration: none;
+    transition: all .15s;
+    white-space: nowrap;
+  }
+  .tnav-btn:hover { background: var(--gold); color: #fff; border-color: var(--gold); }
+  .tnav-btn.active { background: var(--gold); color: #fff; border-color: var(--gold); }
+  .tnav-btn .tn-num { font-weight: 700; opacity: .7; }
+
+  body { padding-top: 52px; }
+  #sidebar { top: 52px; height: calc(100vh - 52px); }
+
+  /* ── MOBILE FAB ── */
+  #menu-fab {
+    display: none;
+    position: fixed;
+    bottom: 24px; right: 24px;
+    width: 54px; height: 54px;
+    border-radius: 50%;
+    background: var(--gold);
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    font-size: 22px;
+    box-shadow: 0 4px 20px rgba(0,0,0,.18);
+    z-index: 300;
+    align-items: center;
+    justify-content: center;
+    transition: transform .2s;
+  }
+  #menu-fab:active { transform: scale(.93); }
+
+  /* ── OVERLAY MENU ── */
+  #menu-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(249,248,246,.97);
+    z-index: 400;
+    flex-direction: column;
+    padding: 28px 24px 40px;
+    overflow-y: auto;
+  }
+  #menu-overlay.open { display: flex; }
+
+  .overlay-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 28px;
+  }
+  .overlay-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--cream);
+  }
+  .overlay-title span { color: var(--gold); }
+  #menu-close {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: 50%;
+    width: 40px; height: 40px;
+    font-size: 18px;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    color: var(--cream-dim);
+  }
+  .overlay-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+  .overlay-card {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: 16px 18px;
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--border);
+    border-radius: 10px;
+    text-decoration: none;
+    color: var(--cream);
+    transition: all .15s;
+  }
+  .overlay-card:hover { border-left-color: var(--gold); background: var(--bg3); }
+  .overlay-card .oc-num { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--gold); font-weight: 700; }
+  .overlay-card .oc-title { font-family: 'Playfair Display', serif; font-size: 14px; font-weight: 600; line-height: 1.3; }
+  .overlay-card .oc-tag { font-family: 'JetBrains Mono', monospace; font-size: 9px; color: var(--cream-dim); margin-top: 2px; }
+
+  @media (max-width: 900px) {
+    #sidebar { display: none; }
+    #topnav { padding-left: 16px; }
+    #main { padding: 20px 18px 100px; }
+    .summary-area { grid-template-columns: 1fr; }
+    .topic-num { font-size: 40px; }
+    #menu-fab { display: flex; }
+    .overlay-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- TOP NAV BAR -->
+<nav id="topnav">
+  <a class="tnav-btn active" href="#t1"><span class="tn-num">01</span> Los Profesionales</a>
+  <a class="tnav-btn" href="#t2"><span class="tn-num">02</span> Inhabilitaciones</a>
+  <a class="tnav-btn" href="#t3"><span class="tn-num">03</span> Actos y Hechos</a>
+  <a class="tnav-btn" href="#t4"><span class="tn-num">04</span> Teoría del Contrato</a>
+  <a class="tnav-btn" href="#t5"><span class="tn-num">05</span> Contratos Específicos</a>
+  <a class="tnav-btn" href="#t6"><span class="tn-num">06</span> Valor y Precio</a>
+  <a class="tnav-btn" href="#t7"><span class="tn-num">07</span> Locación</a>
+  <a class="tnav-btn" href="#t8"><span class="tn-num">08</span> Proceso de Locación</a>
+</nav>
+
+<!-- MOBILE FAB -->
+<button id="menu-fab" onclick="openMenu()">☰</button>
+
+<!-- OVERLAY MENU -->
+<div id="menu-overlay">
+  <div class="overlay-header">
+    <div class="overlay-title">Ir a un <span>tema</span></div>
+    <button id="menu-close" onclick="closeMenu()">✕</button>
+  </div>
+  <div class="overlay-grid">
+    <a class="overlay-card" href="#t1" onclick="closeMenu()">
+      <span class="oc-num">01</span>
+      <span class="oc-title">Los Profesionales</span>
+      <span class="oc-tag">Martillero · Corredor · Perito</span>
+    </a>
+    <a class="overlay-card" href="#t2" onclick="closeMenu()">
+      <span class="oc-num">02</span>
+      <span class="oc-title">Inhabilitaciones</span>
+      <span class="oc-tag">Ley 20.266 · Ley 10.973</span>
+    </a>
+    <a class="overlay-card" href="#t3" onclick="closeMenu()">
+      <span class="oc-num">03</span>
+      <span class="oc-title">Actos y Hechos Jurídicos</span>
+      <span class="oc-tag">Clasificación · Elementos</span>
+    </a>
+    <a class="overlay-card" href="#t4" onclick="closeMenu()">
+      <span class="oc-num">04</span>
+      <span class="oc-title">Teoría General del Contrato</span>
+      <span class="oc-tag">Arts. 957 · 958 · 959 · 961</span>
+    </a>
+    <a class="overlay-card" href="#t5" onclick="closeMenu()">
+      <span class="oc-num">05</span>
+      <span class="oc-title">Contratos Específicos</span>
+      <span class="oc-tag">Compraventa · Hipoteca · Fianza</span>
+    </a>
+    <a class="overlay-card" href="#t6" onclick="closeMenu()">
+      <span class="oc-num">06</span>
+      <span class="oc-title">Valor y Precio</span>
+      <span class="oc-tag">Principios de valuación</span>
+    </a>
+    <a class="overlay-card" href="#t7" onclick="closeMenu()">
+      <span class="oc-num">07</span>
+      <span class="oc-title">Contrato de Locación</span>
+      <span class="oc-tag">Obligaciones · Cláusulas</span>
+    </a>
+    <a class="overlay-card" href="#t8" onclick="closeMenu()">
+      <span class="oc-num">08</span>
+      <span class="oc-title">Proceso de Locación</span>
+      <span class="oc-tag">8 etapas del corretaje</span>
+    </a>
+  </div>
+</div>
+
+<!-- SIDEBAR -->
+<nav id="sidebar">
+  <div class="sidebar-title">
+    PPRC · 1er Parcial
+    <div class="sidebar-subtitle">Guía de Estudio Oral</div>
+  </div>
+  <div class="progress-bar"><div class="progress-fill" id="prog"></div></div>
+  <a class="nav-item active" href="#t1"><span class="nav-num">01</span>Los Profesionales</a>
+  <a class="nav-item" href="#t2"><span class="nav-num">02</span>Inhabilitaciones</a>
+  <a class="nav-item" href="#t3"><span class="nav-num">03</span>Actos y Hechos Jurídicos</a>
+  <a class="nav-item" href="#t4"><span class="nav-num">04</span>Teoría General del Contrato</a>
+  <a class="nav-item" href="#t5"><span class="nav-num">05</span>Contratos Específicos</a>
+  <a class="nav-item" href="#t6"><span class="nav-num">06</span>Valor y Precio</a>
+  <a class="nav-item" href="#t7"><span class="nav-num">07</span>Contrato de Locación</a>
+  <a class="nav-item" href="#t8"><span class="nav-num">08</span>Proceso de Locación</a>
+</nav>
+
+<!-- MAIN -->
+<main id="main">
+
+  <header class="page-header">
+    <h1>Principios y Prácticas de<br><span>Remates y Corretaje</span></h1>
+    <p>1er Parcial · Material de estudio para oral · Organizado por temas</p>
+  </header>
+
+  <!-- ── TEMA 1 ── -->
+  <section class="topic" id="t1">
+    <div class="topic-header">
+      <div class="topic-num">01</div>
+      <div>
+        <div class="topic-tag">Marco profesional · Ley 20.266 / 25.028</div>
+        <div class="topic-title">Los Profesionales:<br>Martillero, Corredor y Perito</div>
+      </div>
+    </div>
+
+    <h3>Martillero</h3>
+    <p>Profesional habilitado legalmente para realizar <strong>remates y subastas</strong> públicas o privadas de bienes muebles e inmuebles. Actúa como <strong>intermediario imparcial</strong> entre vendedor y comprador. Regulado por la <strong>Ley 20.266</strong> (mod. por Ley 25.028).</p>
+    <ul>
+      <li>Dirige remates y subastas judiciales o extrajudiciales.</li>
+      <li>Garantiza <strong>transparencia y publicidad</strong> del acto de subasta.</li>
+      <li>Percibe y entrega el precio obtenido al vendedor o a quien corresponda.</li>
+      <li>Valúa bienes muebles o inmuebles que van a subastarse.</li>
+      <li>Asesora sobre condiciones de venta y adquisición.</li>
+    </ul>
+
+    <h3>Corredor</h3>
+    <p>Profesional que actúa como <strong>intermediario</strong> en transacciones de bienes inmuebles, <strong>sin estar vinculado a ninguna de las partes</strong>. No es parte del contrato: es un mediador independiente.</p>
+    <table>
+      <tr><th>Funciones</th><th>Obligaciones</th><th>Derechos</th></tr>
+      <tr>
+        <td>Mediar neutral en compraventas.<br>Informar condiciones de mercado.<br>Proponer oportunidades.<br>Certificar contratos con su firma.</td>
+        <td>Llevar libro rubricado de operaciones.<br>Verificar identidad de las partes.<br>Comprobar titularidad y estado del bien.<br>Convenir por escrito gastos y condiciones.<br>Actuar con ética y claridad.<br>Mantener secreto profesional.<br>Conservar copia de contratos.</td>
+        <td>Cobrar remuneración por los negocios en que intervenga.</td>
+      </tr>
+    </table>
+
+    <h3>Perito Auxiliar de Justicia</h3>
+    <p>Auxiliar de la justicia, especialista en una ciencia, arte, técnica u oficio, que <strong>aporta conocimientos técnicos al juez</strong> para resolver cuestiones que exceden el saber jurídico.</p>
+    <ul>
+      <li>Realiza pericias e informes técnicos a pedido de juez o tribunal.</li>
+      <li>Produce dictámenes objetivos y fundamentados.</li>
+      <li>Responde a puntos de pericia propuestos por las partes y el juez.</li>
+      <li>Asiste a audiencias para ratificar o explicar su dictamen.</li>
+    </ul>
+
+    <div class="summary-area">
+      <div class="summary-box tecnico">
+        <h4>📋 Resumen Técnico</h4>
+        <p>Los tres roles son auxiliares del mercado inmobiliario con funciones diferenciadas. El <strong>martillero</strong> conduce actos de subasta pública o privada con poder de dirección. El <strong>corredor</strong> es un mediador imparcial sin vínculo contractual con las partes, con obligaciones de registro y secreto profesional reguladas por la Ley 20.266. El <strong>perito</strong> es un auxiliar del Poder Judicial que colabora con el juez aportando saber técnico-científico en el marco de un proceso.</p>
+      </div>
+      <div class="summary-box tia">
+        <h4><span class="tia-icon">👵</span>Explicación para tu tía</h4>
+        <p>El <em>martillero</em> es el señor que dirige los remates —el que grita "¡vendido!"—. El <em>corredor</em> es el inmobiliario de toda la vida: te conecta con el que vende y no le debe favores a ninguno. Y el <em>perito</em> es el experto que le explica al juez lo que el juez no entiende de su oficio.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── TEMA 2 ── -->
+  <section class="topic" id="t2">
+    <div class="topic-header">
+      <div class="topic-num">02</div>
+      <div>
+        <div class="topic-tag">Ley 20.266 · Ley 10.973 · Código Civil</div>
+        <div class="topic-title">Inhabilitaciones para el Ejercicio</div>
+      </div>
+    </div>
+
+    <p>La ley establece quiénes <strong>no pueden ejercer</strong> las actividades de martillero ni corredor. Existen dos regímenes principales:</p>
+
+    <div class="inh-block">
+      <span class="label">⛔ Ley 20.266 — Inhabilitaciones</span>
+      <ul>
+        <li>Quienes no pueden ejercer el comercio.</li>
+        <li>Fallidos y concursados con conducta <strong>calificada como fraudulenta o culpable</strong>, hasta <strong>5 años</strong> después de su rehabilitación.</li>
+        <li>Los <strong>inhibidos</strong> para disponer de sus bienes.</li>
+        <li>Condenados por hurto, robo, extorsión, estafas, usura, cohecho, malversación de caudales públicos y delitos contra la fe pública, hasta <strong>10 años</strong> después de cumplida la condena.</li>
+        <li>Excluidos temporal o definitivamente del ejercicio por <strong>sanción disciplinaria</strong>.</li>
+        <li>Los comprendidos en el <strong>Art. 152 bis</strong> del Código Civil (inhabilitados judicialmente).</li>
+      </ul>
+    </div>
+
+    <div class="inh-block">
+      <span class="label">⛔ Ley 10.973 — Inhabilitaciones</span>
+      <ul>
+        <li>Condenados por hurto, robo, extorsión, estafa, usura, cohecho, malversación y delitos contra la fe pública, <strong>hasta cumplida la condena</strong>.</li>
+        <li>Los fallidos <strong>mientras dure su inhabilitación</strong>.</li>
+        <li>Excluidos temporal o definitivamente por <strong>sanción disciplinaria</strong>.</li>
+        <li>Los comprendidos en el <strong>Art. 152 bis</strong> del Código Civil.</li>
+      </ul>
+    </div>
+
+    <h3>Diferencia clave entre las leyes</h3>
+    <table>
+      <tr><th>Punto</th><th>Ley 20.266</th><th>Ley 10.973</th></tr>
+      <tr><td>Fallidos/Concursados</td><td>Hasta 5 años post-rehabilitación si conducta fraudulenta</td><td>Mientras dure la inhabilitación (sin distinción de conducta)</td></tr>
+      <tr><td>Plazos post-condena</td><td>Hasta 10 años de cumplida la condena</td><td>Hasta cumplida la condena</td></tr>
+      <tr><td>Inhabilitados (Art. 152 bis CC)</td><td>Sí incluye</td><td>Sí incluye</td></tr>
+    </table>
+
+    <div class="summary-area">
+      <div class="summary-box tecnico">
+        <h4>📋 Resumen Técnico</h4>
+        <p>Las inhabilitaciones son restricciones al ejercicio de la actividad de martillero/corredor establecidas por ley. La Ley 20.266 es más explícita en los plazos: 5 años para fallidos con conducta reprochable y 10 años para ciertos delitos post-condena. La Ley 10.973 aplica la inhabilitación durante la condena, sin plazos adicionales. Ambas incluyen la sanción disciplinaria y el Art. 152 bis CC (incapacidad de hecho relativa).</p>
+      </div>
+      <div class="summary-box tia">
+        <h4><span class="tia-icon">👵</span>Explicación para tu tía</h4>
+        <p>Son las personas a las que la ley les dice "vos no podés trabajar de esto". Si alguien robó, estafó o fundió una empresa de mala fe, no puede ser inmobiliario ni martillero. Hay plazos: uno no puede rehabilitarse de un día para el otro.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── TEMA 3 ── -->
+  <section class="topic" id="t3">
+    <div class="topic-header">
+      <div class="topic-num">03</div>
+      <div>
+        <div class="topic-tag">Derecho Civil · Código Civil y Comercial</div>
+        <div class="topic-title">Actos Jurídicos y Hechos Jurídicos</div>
+      </div>
+    </div>
+
+    <h3>Hecho Jurídico</h3>
+    <p>Es todo hecho —natural o humano— que <strong>produce consecuencias y efectos en el ámbito del derecho</strong>.</p>
+
+    <h3>Clasificación de los Hechos Jurídicos</h3>
+    <ul>
+      <li><strong>Naturales:</strong> independientes de la voluntad humana (nacimiento, muerte, fenómenos naturales).</li>
+      <li><strong>Humanos:</strong> provienen de conducta humana.
+        <ul>
+          <li><strong>Voluntarios:</strong> realizados con <em>discernimiento</em>, <em>intención</em> y <em>libertad</em>. Se dividen en <strong>lícitos</strong> (ajustados al derecho) e <strong>ilícitos</strong> (contrarios a la ley).</li>
+          <li><strong>Involuntarios:</strong> sin control del sujeto (accidentes, inconsciencia, fuerza mayor).</li>
+        </ul>
+      </li>
+    </ul>
+
+    <h3>Los tres pilares del acto voluntario</h3>
+    <div class="chip-grid">
+      <div class="chip"><b>Discernimiento</b> · capacidad de distinguir el bien del mal y entender las consecuencias</div>
+      <div class="chip"><b>Intención</b> · voluntad dirigida a producir efectos jurídicos</div>
+      <div class="chip"><b>Libertad</b> · actuar sin coacción</div>
+    </div>
+
+    <hr>
+
+    <h3>Acto Jurídico</h3>
+    <article class="article-ref">
+      <span class="label">CCCN — Definición</span>
+      Es el acto voluntario <strong>lícito</strong> que tiene por fin inmediato la <strong>adquisición, modificación o extinción</strong> de relaciones o situaciones jurídicas.
+    </article>
+
+    <h3>Elementos Esenciales del Acto Jurídico</h3>
+    <table>
+      <tr><th>Elemento</th><th>Descripción</th></tr>
+      <tr><td><strong>Sujeto</strong></td><td>Persona/s que intervienen en la celebración del acto.</td></tr>
+      <tr><td><strong>Capacidad</strong></td><td>Las partes deben tener capacidad de ejercicio y de derecho.</td></tr>
+      <tr><td><strong>Objeto</strong></td><td>La cosa o el hecho sobre el cual recae la obligación.</td></tr>
+      <tr><td><strong>Forma</strong></td><td>Medio por el cual la persona exterioriza su voluntad.</td></tr>
+      <tr><td><strong>Causa</strong></td><td>El fin inmediato autorizado por el ordenamiento que determinó la voluntad.</td></tr>
+    </table>
+
+    <h3>Actos Jurídicos de Familia</h3>
+    <p>Son declaraciones de voluntad (individuales o conjuntas) que <strong>crean, modifican o extinguen derechos y obligaciones de índole familiar</strong> (matrimonio, reconocimiento de hijo, divorcio). Se clasifican por:</p>
+    <div class="chip-grid">
+      <div class="chip pair"><b>Unilaterales</b> vs <b>Bilaterales</b></div>
+      <div class="chip pair"><b>Solemnes</b> vs <b>No solemnes</b></div>
+      <div class="chip pair"><b>Emplazamiento</b> vs <b>Desplazamiento</b> vs <b>Ejercicio del estado</b></div>
+    </div>
+
+    <div class="summary-area">
+      <div class="summary-box tecnico">
+        <h4>📋 Resumen Técnico</h4>
+        <p>El <strong>hecho jurídico</strong> es el género: cualquier acontecimiento con relevancia jurídica. El <strong>acto jurídico</strong> es la especie: requiere voluntad lícita y finalidad jurídica directa. Para que un acto sea voluntario deben concurrir <strong>discernimiento + intención + libertad</strong>. Sin alguno de estos, el acto puede ser involuntario o viciado. Los elementos esenciales del acto son: sujeto, capacidad, objeto, forma y causa.</p>
+      </div>
+      <div class="summary-box tia">
+        <h4><span class="tia-icon">👵</span>Explicación para tu tía</h4>
+        <p>Un <em>hecho jurídico</em> es cualquier cosa que le importa al derecho: que te caigas, que nazca un bebé, que muera alguien. Un <em>acto jurídico</em> ya es algo que hacés a propósito para generar derechos y obligaciones, como firmar un contrato o casarte. Para que valga, tiene que ser voluntario (sabés lo que hacés), libre (nadie te obligó) y lícito (no va contra la ley).</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── TEMA 4 ── -->
+  <section class="topic" id="t4">
+    <div class="topic-header">
+      <div class="topic-num">04</div>
+      <div>
+        <div class="topic-tag">CCCN Arts. 957 · 958 · 959 · 961</div>
+        <div class="topic-title">Teoría General del Contrato</div>
+      </div>
+    </div>
+
+    <article class="article-ref">
+      <span class="label">Art. 957 — Contrato</span>
+      Es el acto jurídico mediante el cual <strong>dos o más partes manifiestan su consentimiento</strong> para crear, regular, modificar, transferir o extinguir <strong>relaciones jurídicas patrimoniales</strong>.
+    </article>
+
+    <article class="article-ref">
+      <span class="label">Art. 958 — Libertad de Contratación</span>
+      Las partes son libres para celebrar un contrato y determinar su contenido, dentro de los <strong>límites impuestos por la ley o el orden público</strong>. Las normas legales son de aplicación supletoria a la voluntad de las partes, salvo que la norma sea expresamente imperativa.
+    </article>
+
+    <article class="article-ref">
+      <span class="label">Art. 959 — Efecto Vinculante</span>
+      Todo contrato válidamente celebrado es <strong>obligatorio para las partes</strong>. Su contenido sólo puede modificarse o extinguirse por acuerdo de partes o en los supuestos que la ley prevé.
+    </article>
+
+    <article class="article-ref">
+      <span class="label">Art. 961 — Buena Fe</span>
+      Los contratos deben celebrarse, interpretarse y ejecutarse de <strong>buena fe</strong>. Obligan no sólo a lo expresado formalmente, sino a todas las consecuencias que puedan considerarse comprendidas en ellos.
+    </article>
+
+    <h3>Elementos Esenciales del Contrato</h3>
+    <table>
+      <tr><th>Elemento</th><th>Descripción</th></tr>
+      <tr><td><strong>Consentimiento</strong></td><td>Voluntad de las partes.</td></tr>
+      <tr><td><strong>Objeto</strong></td><td>La prestación o contraprestación.</td></tr>
+      <tr><td><strong>Causa</strong></td><td>El fin por el cual se celebra.</td></tr>
+      <tr><td><strong>Sujeto</strong></td><td>Quienes realizan el contrato.</td></tr>
+      <tr><td><strong>Forma</strong></td><td>La forma de su celebración.</td></tr>
+    </table>
+
+    <h3>Clasificación de los Contratos</h3>
+    <table>
+      <tr><th>Par</th><th>Opción A</th><th>Opción B</th></tr>
+      <tr>
+        <td><strong>Partes obligadas</strong></td>
+        <td><b>Unilateral:</b> solo una parte se obliga</td>
+        <td><b>Bilateral:</b> ambas partes se obligan recíprocamente</td>
+      </tr>
+      <tr>
+        <td><strong>Onerosidad</strong></td>
+        <td><b>Oneroso:</b> cada ventaja tiene una contraprestación</td>
+        <td><b>Gratuito:</b> ventaja sin contraprestación a cargo</td>
+      </tr>
+      <tr>
+        <td><strong>Certeza</strong></td>
+        <td><b>Conmutativo:</b> ventajas ciertas para todos</td>
+        <td><b>Aleatorio:</b> ventajas o pérdidas dependen de hecho incierto</td>
+      </tr>
+      <tr>
+        <td><strong>Regulación legal</strong></td>
+        <td><b>Nominado:</b> regulado especialmente por ley</td>
+        <td><b>Innominado:</b> no regulado específicamente</td>
+      </tr>
+      <tr>
+        <td><strong>Forma</strong></td>
+        <td><b>Formal:</b> requiere forma legal específica</td>
+        <td><b>No formal:</b> sin requisitos formales</td>
+      </tr>
+    </table>
+
+    <div class="summary-area">
+      <div class="summary-box tecnico">
+        <h4>📋 Resumen Técnico</h4>
+        <p>El contrato es un acto jurídico bilateral patrimonial. Sus cuatro artículos pilares son: <strong>Art. 957</strong> (definición), <strong>Art. 958</strong> (autonomía de la voluntad con límites de orden público), <strong>Art. 959</strong> (fuerza vinculante —pacta sunt servanda—) y <strong>Art. 961</strong> (buena fe objetiva como estándar de conducta). La clasificación se estructura en pares dicotómicos: unilateral/bilateral, oneroso/gratuito, conmutativo/aleatorio, formal/no formal, nominado/innominado.</p>
+      </div>
+      <div class="summary-box tia">
+        <h4><span class="tia-icon">👵</span>Explicación para tu tía</h4>
+        <p>Un contrato es un acuerdo entre dos o más personas donde cada uno sabe qué tiene que hacer y qué va a recibir. Una vez firmado, los dos tienen que cumplirlo —la ley los obliga—. Y todo tiene que hacerse de buena fe: no se vale esconder la letra chica para engañar al otro.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── TEMA 5 ── -->
+  <section class="topic" id="t5">
+    <div class="topic-header">
+      <div class="topic-num">05</div>
+      <div>
+        <div class="topic-tag">CCCN Arts. 1123 · 1187 · 2205 · 1574</div>
+        <div class="topic-title">Contratos Específicos</div>
+      </div>
+    </div>
+
+    <article class="article-ref">
+      <span class="label">Art. 1123 — Compraventa</span>
+      Si una de las partes se obliga a <strong>transferir la propiedad</strong> de una cosa y la otra a <strong>pagar un precio en dinero</strong>.
+    </article>
+
+    <article class="article-ref">
+      <span class="label">Art. 1187 — Locación</span>
+      Si una parte se obliga a otorgar a otra el <strong>uso y goce temporario</strong> de una cosa, a cambio del pago de un precio en dinero.
+    </article>
+
+    <article class="article-ref">
+      <span class="label">Art. 2205 — Hipoteca</span>
+      Es el <strong>derecho real de garantía</strong> que recae sobre uno o más inmuebles individualizados que continúan en poder del constituyente, y que otorga al acreedor, ante el incumplimiento del deudor, las facultades de <strong>persecución y preferencia</strong> para cobrar sobre su producido el crédito garantizado.
+    </article>
+
+    <article class="article-ref">
+      <span class="label">Art. 1574 — Fianza</span>
+      Cuando una persona se obliga <strong>accesoriamente</strong> por otra a satisfacer una prestación para el caso de <strong>incumplimiento</strong>.
+    </article>
+
+    <h3>Diferencias clave entre Hipoteca y Fianza</h3>
+    <table>
+      <tr><th>Aspecto</th><th>Hipoteca</th><th>Fianza</th></tr>
+      <tr><td>Naturaleza</td><td>Derecho real de garantía</td><td>Obligación personal accesoria</td></tr>
+      <tr><td>Recae sobre</td><td>Un bien inmueble determinado</td><td>Una persona (el fiador)</td></tr>
+      <tr><td>El deudor</td><td>Sigue poseyendo el bien</td><td>El fiador responde si el deudor incumple</td></tr>
+      <tr><td>Facultades del acreedor</td><td>Persecución + preferencia</td><td>Cobro al fiador por incumplimiento</td></tr>
+    </table>
+
+    <div class="summary-area">
+      <div class="summary-box tecnico">
+        <h4>📋 Resumen Técnico</h4>
+        <p>La <strong>compraventa</strong> transfiere dominio a cambio de precio. La <strong>locación</strong> cede uso y goce temporal. La <strong>hipoteca</strong> es un derecho real de garantía sobre inmueble: el deudor conserva la posesión pero el acreedor tiene preferencia de cobro y acción real. La <strong>fianza</strong> es personal y accesoria: el fiador responde con su patrimonio si el deudor principal incumple.</p>
+      </div>
+      <div class="summary-box tia">
+        <h4><span class="tia-icon">👵</span>Explicación para tu tía</h4>
+        <p>La <em>compraventa</em> es cuando comprás algo y pagás. La <em>locación</em> es el alquiler. La <em>hipoteca</em> es cuando ponés tu casa como garantía de un préstamo: el banco no te saca la casa, pero si no pagás puede ejecutarla. La <em>fianza</em> es un amigo o familiar que dice "si el inquilino no paga, pago yo".</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── TEMA 6 ── -->
+  <section class="topic" id="t6">
+    <div class="topic-header">
+      <div class="topic-num">06</div>
+      <div>
+        <div class="topic-tag">Valuación Inmobiliaria · Principios de Mercado</div>
+        <div class="topic-title">Valor y Precio</div>
+      </div>
+    </div>
+
+    <table>
+      <tr><th></th><th>Valor</th><th>Precio</th></tr>
+      <tr><td><strong>Definición</strong></td><td>Característica de las cosas que permite asignarles una cuantía. <strong>Subjetivo.</strong></td><td>Lo que efectivamente se paga por un bien. Determinado por oferta y demanda. <strong>Objetivo.</strong></td></tr>
+      <tr><td><strong>Medida</strong></td><td>No necesariamente en dinero</td><td>Siempre en dinero</td></tr>
+    </table>
+
+    <h3>Factores que influyen en el Valor y Precio</h3>
+    <ul>
+      <li><strong>Principio de reemplazo o sustitución:</strong> el valor se ve influido por el costo de adquirir una propiedad de características similares.</li>
+      <li><strong>Principio del más alto y mejor uso:</strong> la propiedad alcanza su valor máximo en su mejor aprovechamiento posible.</li>
+      <li><strong>Oferta y demanda:</strong> factor más importante que afecta a un inmueble.</li>
+      <li><strong>Equilibrio:</strong> en mercado equilibrado hay más propiedades en venta que compradores.</li>
+      <li><strong>Cambio:</strong> los cambios físicos y económicos impactan directamente en el mercado.</li>
+      <li><strong>Conformidad, progresión y regresión:</strong>
+        <ul>
+          <li><em>Conformidad:</em> el inmueble es similar a los de su entorno.</li>
+          <li><em>Progresión:</em> inmueble de menor valor rodeado de mejores → sube.</li>
+          <li><em>Regresión:</em> inmueble de mayor valor rodeado de peores → baja.</li>
+        </ul>
+      </li>
+      <li><strong>Crecimiento, equilibrio, declinación y reciclado:</strong> ciclo de vida del mercado inmobiliario.</li>
+      <li><strong>Mejoras:</strong> en general aumentan el valor; el impacto depende de cómo incide la mejora en la propiedad.</li>
+    </ul>
+
+    <h3>Factores que determinan el Valor</h3>
+    <div class="chip-grid">
+      <div class="chip">📍 Ubicación</div>
+      <div class="chip">🏛️ Zonificación</div>
+      <div class="chip">🏠 Características del inmueble</div>
+      <div class="chip">📈 Oferta y demanda</div>
+      <div class="chip">💵 Situación económica</div>
+      <div class="chip">🧾 Impuestos y tasas</div>
+    </div>
+
+    <div class="summary-area">
+      <div class="summary-box tecnico">
+        <h4>📋 Resumen Técnico</h4>
+        <p>El <strong>valor</strong> es subjetivo e intangible; el <strong>precio</strong> es su expresión objetiva y monetaria resultante del mercado. Los principios valuatorios clave son: sustitución, mayor y mejor uso, y oferta/demanda. El principio de progresión/regresión explica el efecto del entorno sobre el valor individual del inmueble. La ubicación sigue siendo el factor determinante primario en valuación inmobiliaria.</p>
+      </div>
+      <div class="summary-box tia">
+        <h4><span class="tia-icon">👵</span>Explicación para tu tía</h4>
+        <p>El <em>valor</em> es lo que vos creés que vale algo: "para mí, este departamento vale una fortuna porque crecí ahí". El <em>precio</em> es lo que el mercado dice, lo que realmente se termina pagando. Y si tu casa está en un barrio lindo que se está poniendo mejor, el barrio sube tu propiedad aunque no hagas nada. Al revés también pasa.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── TEMA 7 ── -->
+  <section class="topic" id="t7">
+    <div class="topic-header">
+      <div class="topic-num">07</div>
+      <div>
+        <div class="topic-tag">CCCN Art. 1187 · Régimen de Locaciones Urbanas</div>
+        <div class="topic-title">Contrato de Locación</div>
+      </div>
+    </div>
+
+    <p>Es el contrato por el cual <strong>una parte (locador) se obliga a otorgar a otra (locatario) el uso y goce temporario</strong> de una cosa, a cambio de un precio en dinero.</p>
+
+    <h3>Características del Contrato de Locación</h3>
+    <div class="chip-grid">
+      <div class="chip pair"><b>Bilateral</b> · genera obligaciones para ambas partes</div>
+      <div class="chip pair"><b>Oneroso</b> · cada ventaja tiene contraprestación</div>
+      <div class="chip pair"><b>Conmutativo</b> · las ventajas son ciertas para ambas partes</div>
+    </div>
+
+    <h3>Elementos Esenciales</h3>
+    <table>
+      <tr><th>Elemento</th><th>Descripción</th></tr>
+      <tr><td><strong>Sujeto</strong></td><td>Locador y locatario</td></tr>
+      <tr><td><strong>Objeto</strong></td><td>La cosa dada en uso y goce</td></tr>
+      <tr><td><strong>Precio</strong></td><td>El canon locativo en dinero</td></tr>
+      <tr><td><strong>Plazo</strong></td><td>Duración del contrato (mín. 3 años para vivienda, salvo excepciones)</td></tr>
+    </table>
+
+    <h3>Obligaciones del Locador</h3>
+    <ul>
+      <li><strong>Entregar la cosa</strong> una vez concretado el contrato.</li>
+      <li><strong>Conservar la cosa</strong>: realizar las reparaciones necesarias.</li>
+      <li><strong>Cargas y contribuciones</strong>: abonar expensas extraordinarias, ARBA, etc.</li>
+      <li><strong>Sello de contrato</strong>: suele asumirlo o distribuirse entre partes.</li>
+    </ul>
+
+    <h3>Obligaciones del Locatario</h3>
+    <ul>
+      <li><strong>Pagar</strong> puntualmente el precio convenido.</li>
+      <li><strong>No cambiar el destino</strong> de la locación.</li>
+      <li><strong>Restituir la cosa</strong> al finalizar, en el estado recibido (salvo deterioro normal).</li>
+      <li><strong>Conservar la cosa</strong>: reparaciones menores y mantenimiento ordinario.</li>
+      <li>Hacerse cargo de <strong>cargas y contribuciones</strong> que le correspondan.</li>
+    </ul>
+
+    <h3>Cláusulas más importantes del contrato</h3>
+    <table>
+      <tr><th>Cláusula</th><th>Contenido</th></tr>
+      <tr><td>Objeto</td><td>La cosa o prestación objeto del contrato.</td></tr>
+      <tr><td>Destino</td><td>Uso que se dará al inmueble (vivienda, comercio, etc.).</td></tr>
+      <tr><td>Plazo</td><td>Duración del contrato.</td></tr>
+      <tr><td>Precio</td><td>Monto del alquiler o canon locativo.</td></tr>
+      <tr><td>Período y lugar de pago</td><td>Frecuencia y modalidad de pago.</td></tr>
+      <tr><td>Prohibiciones y obligaciones</td><td>Ej.: prohibición de subarrendar sin autorización.</td></tr>
+      <tr><td>Expensas e impuestos</td><td>Qué cargas paga cada parte.</td></tr>
+      <tr><td>Incumplimiento</td><td>Intereses por mora, resolución del contrato.</td></tr>
+      <tr><td>Garantía y fianza</td><td>Tipo de garantía: propietaria, seguro de caución, recibo de sueldo.</td></tr>
+      <tr><td>Depósito</td><td>Monto y condiciones de devolución.</td></tr>
+      <tr><td>Resolución anticipada</td><td>Condiciones: preaviso, indemnización.</td></tr>
+      <tr><td>Restitución</td><td>Estado de conservación y entrega de llaves.</td></tr>
+    </table>
+
+    <div class="summary-area">
+      <div class="summary-box tecnico">
+        <h4>📋 Resumen Técnico</h4>
+        <p>La locación es un contrato bilateral, oneroso y conmutativo. Sus elementos esenciales son sujeto, objeto, precio y plazo. El locador tiene obligación de entrega y conservación del bien; el locatario, de pago, destino y restitución. Las cláusulas de garantía, resolución anticipada e incumplimiento son críticas en la práctica profesional. El plazo mínimo legal para vivienda es de 3 años (CCCN).</p>
+      </div>
+      <div class="summary-box tia">
+        <h4><span class="tia-icon">👵</span>Explicación para tu tía</h4>
+        <p>El contrato de alquiler es el acuerdo donde el dueño te presta su casa a cambio de que vos pagues todos los meses. El dueño tiene que entregártela en buen estado y arreglar lo que se rompe por antigüedad. Vos tenés que pagar en tiempo, no usarla para otra cosa y devolvérsela como te la dieron. Todo eso queda escrito en el contrato para que ninguno se haga el distraído.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── TEMA 8 ── -->
+  <section class="topic" id="t8">
+    <div class="topic-header">
+      <div class="topic-num">08</div>
+      <div>
+        <div class="topic-tag">Corretaje Inmobiliario · Práctica Profesional</div>
+        <div class="topic-title">Proceso de Locación</div>
+      </div>
+    </div>
+
+    <p>El proceso de corretaje inmobiliario es una <strong>secuencia de fases profesionales y metódicas</strong> que garantizan la correcta celebración de un contrato de locación, desde el primer contacto hasta la gestión continua del acuerdo.</p>
+
+    <ol class="steps">
+      <li>
+        <div>
+          <strong>Captación y mandato de exclusividad</strong><br>
+          El corredor capta la propiedad para su comercialización. Puede firmarse un contrato de exclusividad que otorga al corredor la facultad exclusiva de intermediar.
+        </div>
+      </li>
+      <li>
+        <div>
+          <strong>Valuación inmobiliaria y plan de marketing</strong><br>
+          Se determina el valor locativo según mercado, ubicación y características (generalmente método comparativo). Se define la estrategia de publicidad y medios de difusión.
+        </div>
+      </li>
+      <li>
+        <div>
+          <strong>Proceso de oferta y demanda</strong><br>
+          Publicación de la propiedad, recepción de interesados, visitas al inmueble y recopilación de propuestas con análisis de condiciones ofrecidas.
+        </div>
+      </li>
+      <li>
+        <div>
+          <strong>Análisis de viabilidad y solvencia del postulante</strong><br>
+          Evaluación de antecedentes, ingresos y garantías; comprobación de la capacidad de pago del potencial locatario.
+        </div>
+      </li>
+      <li>
+        <div>
+          <strong>Negociación y acuerdo preliminar</strong><br>
+          Ajuste de condiciones (precio, plazo, destino) y firma de una <strong>reserva de locación</strong>.
+        </div>
+      </li>
+      <li>
+        <div>
+          <strong>Formalización del contrato de locación</strong><br>
+          Redacción y firma del contrato definitivo.
+        </div>
+      </li>
+      <li>
+        <div>
+          <strong>Cumplimiento de obligaciones posteriores y de registro</strong><br>
+          Pago de sellado o timbrado; inscripción en organismos correspondientes; entrega de llaves y posesión al locatario.
+        </div>
+      </li>
+      <li>
+        <div>
+          <strong>Administración y gestión post-firma</strong><br>
+          Cobro mensual de alquileres, gestión de expensas e impuestos, supervisión del cumplimiento e intervención en conflictos o incumplimientos.
+        </div>
+      </li>
+    </ol>
+
+    <div class="summary-area">
+      <div class="summary-box tecnico">
+        <h4>📋 Resumen Técnico</h4>
+        <p>El proceso de locación es integral: abarca aspectos legales (contrato, registro), financieros (valuación, solvencia) y de gestión de riesgos (análisis de postulante, garantías). El corredor no solo facilita la transacción: construye relaciones de confianza, actúa con solvencia técnica y transparencia, y supervisa el cumplimiento contractual de forma continua. El mandato de exclusividad y la reserva de locación son hitos clave en el proceso.</p>
+      </div>
+      <div class="summary-box tia">
+        <h4><span class="tia-icon">👵</span>Explicación para tu tía</h4>
+        <p>Cuando un inmobiliario busca inquilino para una casa, no es solo poner un cartel. Primero consigue la propiedad, la tasa a un valor justo, la publica, recibe interesados, verifica que el candidato pueda pagar, negocia, firma el contrato y después sigue cobrando el alquiler y resolviendo problemas. Es un trabajo de principio a fin, no solo de juntar gente.</p>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<script>
+  // Progress bar
+  const prog = document.getElementById('prog');
+  window.addEventListener('scroll', () => {
+    const scrolled = window.scrollY;
+    const total = document.body.scrollHeight - window.innerHeight;
+    prog.style.width = (scrolled / total * 100) + '%';
+  });
+
+  // Active nav link (sidebar + topnav)
+  const navLinks = document.querySelectorAll('.nav-item');
+  const tnavBtns = document.querySelectorAll('.tnav-btn');
+  const sections = document.querySelectorAll('.topic');
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const id = entry.target.id;
+        navLinks.forEach(l => l.classList.remove('active'));
+        tnavBtns.forEach(l => l.classList.remove('active'));
+        const sideActive = document.querySelector(`.nav-item[href="#${id}"]`);
+        const topActive  = document.querySelector(`.tnav-btn[href="#${id}"]`);
+        if (sideActive) sideActive.classList.add('active');
+        if (topActive) {
+          topActive.classList.add('active');
+          topActive.scrollIntoView({ inline: 'center', block: 'nearest' });
+        }
+      }
+    });
+  }, { rootMargin: '-30% 0px -60% 0px' });
+
+  sections.forEach(s => observer.observe(s));
+
+  // Mobile overlay
+  function openMenu()  { document.getElementById('menu-overlay').classList.add('open'); }
+  function closeMenu() { document.getElementById('menu-overlay').classList.remove('open'); }
+</script>
+</body>
+</html>
