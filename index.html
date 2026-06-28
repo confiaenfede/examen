@@ -3,1379 +3,799 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>PPRC — 1er Parcial · Guía de Estudio</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;900&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,300;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<title>Tasaciones I — Resumen completo para el parcial</title>
 <style>
-  :root {
-    --bg: #f9f8f6;
-    --bg2: #ffffff;
-    --bg3: #f2f0ec;
-    --border: #e0dbd2;
-    --gold: #8a6a1f;
-    --gold-dim: #b89040;
-    --cream: #1a1814;
-    --cream-dim: #6b6456;
-    --red: #b02a1e;
-    --green: #1a7a40;
-    --blue: #1a5fa8;
-    --tag-bg: #f0ece4;
-    --sidebar-w: 260px;
-    --radius: 8px;
+  :root{
+    --navy:#1c2b3a;
+    --paper:#fafaf7;
+    --ink:#23303d;
+    --amber:#f3a847;
+    --amber-soft:#fdf3e1;
+    --green:#3d6b5c;
+    --green-soft:#eaf2ee;
+    --line:#dfe3e0;
+    --muted:#5d6b78;
   }
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    background:var(--paper);
+    color:var(--ink);
+    line-height:1.65;
+    font-size:17px;
+  }
+  header.top{
+    background:var(--navy);
+    color:#fff;
+    padding:34px 22px 30px;
+    text-align:center;
+  }
+  header.top h1{margin:0 0 6px;font-size:1.9rem;letter-spacing:.3px;}
+  header.top p{margin:4px 0 0;color:#c5d0da;font-size:1rem;}
+  .wrap{max-width:880px;margin:0 auto;padding:0 20px 80px;}
 
-  html { scroll-behavior: smooth; }
+  /* índice */
+  .toc{
+    background:#fff;border:1px solid var(--line);border-radius:14px;
+    padding:22px 26px;margin:34px 0;
+    box-shadow:0 2px 10px rgba(28,43,58,.05);
+  }
+  .toc h2{margin:0 0 14px;font-size:1.15rem;color:var(--navy);}
+  .toc .part{font-weight:700;color:var(--green);margin:14px 0 6px;font-size:.95rem;text-transform:uppercase;letter-spacing:.5px;}
+  .toc ol{margin:0;padding-left:20px;}
+  .toc li{margin:5px 0;}
+  .toc a{color:var(--ink);text-decoration:none;border-bottom:1px dotted #b9c2cb;}
+  .toc a:hover{color:var(--amber);}
 
-  body {
-    background: var(--bg);
-    color: var(--cream);
-    font-family: 'Source Serif 4', serif;
-    font-size: 17px;
-    line-height: 1.75;
-    display: flex;
-    min-height: 100vh;
+  /* secciones */
+  section{margin:48px 0;scroll-margin-top:20px;}
+  .part-title{
+    font-size:.85rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;
+    color:var(--green);border-top:2px solid var(--green);padding-top:10px;margin:60px 0 0;
   }
+  h2.tema{
+    font-size:1.45rem;color:var(--navy);margin:10px 0 14px;
+    padding-bottom:8px;border-bottom:2px solid var(--amber);
+  }
+  h3{font-size:1.12rem;color:var(--green);margin:24px 0 8px;}
+  h4{font-size:1rem;color:var(--navy);margin:18px 0 6px;}
+  p{margin:10px 0;}
+  ul,ol.lista{margin:8px 0 8px;padding-left:24px;}
+  li{margin:5px 0;}
+  strong{color:var(--navy);}
 
-  /* ── SIDEBAR ── */
-  #sidebar {
-    width: var(--sidebar-w);
-    min-width: var(--sidebar-w);
-    background: var(--bg2);
-    border-right: 1px solid var(--border);
-    position: sticky;
-    top: 0;
-    height: 100vh;
-    overflow-y: auto;
-    padding: 0 0 40px;
-    display: flex;
-    flex-direction: column;
-    z-index: 100;
-  }
-  #sidebar::-webkit-scrollbar { width: 4px; }
-  #sidebar::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+  /* tablas */
+  table{width:100%;border-collapse:collapse;margin:16px 0;font-size:.95rem;background:#fff;border-radius:10px;overflow:hidden;box-shadow:0 1px 6px rgba(28,43,58,.06);}
+  th{background:var(--navy);color:#fff;text-align:left;padding:9px 12px;font-weight:600;}
+  td{padding:9px 12px;border-top:1px solid var(--line);vertical-align:top;}
+  tr:nth-child(even) td{background:#f6f7f5;}
 
-  .sidebar-title {
-    font-family: 'Playfair Display', serif;
-    font-size: 13px;
-    font-weight: 700;
-    letter-spacing: .2em;
-    text-transform: uppercase;
-    color: var(--gold);
-    padding: 28px 20px 8px;
-    border-bottom: 1px solid var(--border);
-    margin-bottom: 12px;
-    line-height: 1.3;
+  /* fórmula */
+  .formula{
+    background:var(--navy);color:#fff;border-radius:10px;padding:16px 20px;
+    font-family:"Courier New",monospace;font-size:1.05rem;margin:14px 0;text-align:center;
   }
-  .sidebar-subtitle {
-    font-size: 10px;
-    color: var(--cream-dim);
-    font-family: 'JetBrains Mono', monospace;
-    letter-spacing: .05em;
-    margin-top: 4px;
-  }
+  .formula small{display:block;color:#aebcc8;font-family:inherit;font-size:.8rem;margin-top:6px;}
 
-  .nav-item {
-    display: block;
-    padding: 7px 20px;
-    color: var(--cream-dim);
-    text-decoration: none;
-    font-size: 12.5px;
-    font-family: 'JetBrains Mono', monospace;
-    border-left: 2px solid transparent;
-    transition: all .15s;
-    line-height: 1.4;
+  /* caja tía */
+  .tia{
+    background:var(--amber-soft);border-left:5px solid var(--amber);border-radius:0 12px 12px 0;
+    padding:16px 20px;margin:22px 0 0;
   }
-  .nav-item:hover { color: var(--cream); border-left-color: var(--gold-dim); background: var(--bg3); }
-  .nav-item.active { color: var(--gold); border-left-color: var(--gold); background: var(--bg3); }
-  .nav-num { color: var(--gold-dim); margin-right: 6px; }
+  .tia .lbl{font-weight:700;color:#9a6510;font-size:.82rem;letter-spacing:.5px;text-transform:uppercase;display:block;margin-bottom:6px;}
+  .tia p{margin:6px 0;}
 
-  .progress-bar {
-    height: 2px;
-    background: var(--border);
-    margin: 0 20px 20px;
-    border-radius: 2px;
-    overflow: hidden;
+  /* caja ejemplo */
+  .ej{
+    background:var(--green-soft);border-left:5px solid var(--green);border-radius:0 12px 12px 0;
+    padding:14px 20px;margin:14px 0 0;
   }
-  .progress-fill {
-    height: 100%;
-    background: var(--gold);
-    width: 0%;
-    transition: width .3s;
-    border-radius: 2px;
-  }
+  .ej .lbl{font-weight:700;color:var(--green);font-size:.82rem;letter-spacing:.5px;text-transform:uppercase;display:block;margin-bottom:6px;}
+  .ej p{margin:6px 0;}
 
-  /* ── MAIN ── */
-  #main {
-    flex: 1;
-    max-width: 860px;
-    padding: 60px 60px 120px;
+  /* tip examen */
+  .examen{
+    background:#fff;border:1px dashed var(--navy);border-radius:12px;padding:14px 20px;margin:18px 0 0;
   }
+  .examen .lbl{font-weight:700;color:var(--navy);font-size:.82rem;letter-spacing:.5px;text-transform:uppercase;display:block;margin-bottom:4px;}
+  .examen em{color:var(--ink);}
 
-  .page-header {
-    margin-bottom: 60px;
-    padding-bottom: 32px;
-    border-bottom: 1px solid var(--border);
+  .top-btn{
+    position:fixed;bottom:22px;right:22px;background:var(--navy);color:#fff;
+    text-decoration:none;padding:11px 15px;border-radius:30px;font-size:.85rem;
+    box-shadow:0 3px 12px rgba(0,0,0,.25);z-index:50;
   }
-  .page-header h1 {
-    font-family: 'Playfair Display', serif;
-    font-size: 42px;
-    font-weight: 900;
-    color: var(--cream);
-    line-height: 1.1;
-    margin-bottom: 8px;
-  }
-  .page-header h1 span { color: var(--gold); }
-  .page-header p {
-    color: var(--cream-dim);
-    font-size: 14px;
-    font-family: 'JetBrains Mono', monospace;
-    letter-spacing: .05em;
-  }
-
-  /* ── SECTION ── */
-  .topic {
-    margin-bottom: 80px;
-    padding-top: 20px;
-    border-top: 1px solid var(--border);
-  }
-  .topic:first-of-type { border-top: none; }
-
-  .topic-header {
-    display: flex;
-    align-items: baseline;
-    gap: 16px;
-    margin-bottom: 28px;
-  }
-  .topic-num {
-    font-family: 'Playfair Display', serif;
-    font-size: 64px;
-    font-weight: 900;
-    color: var(--border);
-    line-height: 1;
-    flex-shrink: 0;
-    user-select: none;
-  }
-  .topic-title {
-    font-family: 'Playfair Display', serif;
-    font-size: 28px;
-    font-weight: 700;
-    color: var(--cream);
-    line-height: 1.2;
-  }
-  .topic-tag {
-    display: inline-block;
-    background: var(--tag-bg);
-    border: 1px solid var(--border);
-    color: var(--gold);
-    font-size: 10px;
-    font-family: 'JetBrains Mono', monospace;
-    letter-spacing: .1em;
-    text-transform: uppercase;
-    padding: 3px 8px;
-    border-radius: 3px;
-    margin-bottom: 6px;
-  }
-
-  h3 {
-    font-family: 'Playfair Display', serif;
-    font-size: 18px;
-    font-weight: 600;
-    color: var(--gold);
-    margin: 28px 0 10px;
-  }
-
-  p { margin-bottom: 14px; color: var(--cream); }
-  p:last-child { margin-bottom: 0; }
-
-  ul, ol {
-    padding-left: 22px;
-    margin-bottom: 16px;
-  }
-  li { margin-bottom: 7px; color: var(--cream); }
-  li strong { color: var(--gold); }
-
-  /* Article / Ley highlight */
-  .article-ref {
-    display: block;
-    background: var(--bg3);
-    border-left: 3px solid var(--gold);
-    padding: 14px 18px;
-    margin: 16px 0;
-    border-radius: 0 var(--radius) var(--radius) 0;
-    font-style: italic;
-  }
-  .article-ref .label {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 11px;
-    color: var(--gold);
-    font-style: normal;
-    letter-spacing: .1em;
-    display: block;
-    margin-bottom: 4px;
-  }
-
-  /* Inhabilitaciones block */
-  .inh-block {
-    background: var(--bg3);
-    border: 1px solid #f0d0ce;
-    border-left: 3px solid var(--red);
-    border-radius: 0 var(--radius) var(--radius) 0;
-    padding: 14px 18px;
-    margin: 12px 0;
-  }
-  .inh-block .label {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 11px;
-    color: var(--red);
-    letter-spacing: .1em;
-    display: block;
-    margin-bottom: 8px;
-  }
-
-  /* Comparación tabla */
-  table {
-    width: 100%;
-    border-collapse: collapse;
-    margin: 16px 0;
-    font-size: 15px;
-  }
-  th {
-    background: var(--bg3);
-    color: var(--gold);
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 11px;
-    letter-spacing: .1em;
-    text-transform: uppercase;
-    padding: 10px 14px;
-    text-align: left;
-    border-bottom: 1px solid var(--border);
-  }
-  td {
-    padding: 9px 14px;
-    border-bottom: 1px solid var(--border);
-    color: var(--cream);
-    vertical-align: top;
-  }
-  tr:last-child td { border-bottom: none; }
-  tr:hover td { background: var(--bg3); }
-
-  /* Proceso steps */
-  .steps {
-    list-style: none;
-    padding: 0;
-    counter-reset: step;
-  }
-  .steps li {
-    counter-increment: step;
-    display: flex;
-    gap: 16px;
-    margin-bottom: 14px;
-    padding-bottom: 14px;
-    border-bottom: 1px solid var(--border);
-    align-items: flex-start;
-  }
-  .steps li:last-child { border-bottom: none; }
-  .steps li::before {
-    content: counter(step);
-    background: var(--gold);
-    color: #ffffff;
-    font-family: 'Playfair Display', serif;
-    font-weight: 900;
-    font-size: 13px;
-    width: 28px;
-    height: 28px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-    margin-top: 2px;
-  }
-
-  /* ── RESUMEN + TÍA ── */
-  .summary-area {
-    margin-top: 36px;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 16px;
-  }
-  .summary-box {
-    background: var(--bg3);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    padding: 20px 22px;
-  }
-  .summary-box.tecnico { border-top: 3px solid var(--blue); }
-  .summary-box.tia { border-top: 3px solid var(--gold); }
-  .summary-box h4 {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 10px;
-    letter-spacing: .15em;
-    text-transform: uppercase;
-    margin-bottom: 12px;
-  }
-  .summary-box.tecnico h4 { color: var(--blue); }
-  .summary-box.tia h4 { color: var(--gold); }
-  .summary-box p {
-    font-size: 14px;
-    line-height: 1.65;
-    color: var(--cream-dim);
-  }
-  .summary-box.tia p { font-style: italic; }
-  .tia-icon { font-size: 20px; margin-right: 6px; }
-
-  /* Clasificacion chips */
-  .chip-grid {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-    margin: 12px 0;
-  }
-  .chip {
-    background: var(--bg3);
-    border: 1px solid var(--border);
-    border-radius: 4px;
-    padding: 5px 12px;
-    font-size: 13px;
-    font-family: 'JetBrains Mono', monospace;
-    color: var(--cream-dim);
-  }
-  .chip b { color: var(--cream); }
-  .chip.pair { border-color: var(--gold-dim); }
-
-  /* divider */
-  hr { border: none; border-top: 1px solid var(--border); margin: 24px 0; }
-
-  /* ── TOP NAV ── */
-  #topnav {
-    position: fixed;
-    top: 0; left: 0; right: 0;
-    height: 52px;
-    background: rgba(255,255,255,0.95);
-    backdrop-filter: blur(10px);
-    border-bottom: 1px solid var(--border);
-    display: flex;
-    align-items: center;
-    gap: 4px;
-    padding: 0 16px 0 calc(var(--sidebar-w) + 16px);
-    z-index: 200;
-    overflow-x: auto;
-    scrollbar-width: none;
-  }
-  #topnav::-webkit-scrollbar { display: none; }
-
-  .tnav-btn {
-    flex-shrink: 0;
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    padding: 5px 12px;
-    border-radius: 20px;
-    border: 1px solid var(--border);
-    background: var(--bg3);
-    color: var(--cream-dim);
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 11px;
-    text-decoration: none;
-    transition: all .15s;
-    white-space: nowrap;
-  }
-  .tnav-btn:hover { background: var(--gold); color: #fff; border-color: var(--gold); }
-  .tnav-btn.active { background: var(--gold); color: #fff; border-color: var(--gold); }
-  .tnav-btn .tn-num { font-weight: 700; opacity: .7; }
-
-  body { padding-top: 52px; }
-  #sidebar { top: 52px; height: calc(100vh - 52px); }
-
-  /* ── MOBILE FAB ── */
-  #menu-fab {
-    display: none;
-    position: fixed;
-    bottom: 24px; right: 24px;
-    width: 54px; height: 54px;
-    border-radius: 50%;
-    background: var(--gold);
-    color: #fff;
-    border: none;
-    cursor: pointer;
-    font-size: 22px;
-    box-shadow: 0 4px 20px rgba(0,0,0,.18);
-    z-index: 300;
-    align-items: center;
-    justify-content: center;
-    transition: transform .2s;
-  }
-  #menu-fab:active { transform: scale(.93); }
-
-  /* ── OVERLAY MENU ── */
-  #menu-overlay {
-    display: none;
-    position: fixed;
-    inset: 0;
-    background: rgba(249,248,246,.97);
-    z-index: 400;
-    flex-direction: column;
-    padding: 28px 24px 40px;
-    overflow-y: auto;
-  }
-  #menu-overlay.open { display: flex; }
-
-  .overlay-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 28px;
-  }
-  .overlay-title {
-    font-family: 'Playfair Display', serif;
-    font-size: 22px;
-    font-weight: 700;
-    color: var(--cream);
-  }
-  .overlay-title span { color: var(--gold); }
-  #menu-close {
-    background: var(--bg3);
-    border: 1px solid var(--border);
-    border-radius: 50%;
-    width: 40px; height: 40px;
-    font-size: 18px;
-    cursor: pointer;
-    display: flex; align-items: center; justify-content: center;
-    color: var(--cream-dim);
-  }
-  .overlay-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 12px;
-  }
-  .overlay-card {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-    padding: 16px 18px;
-    background: var(--bg2);
-    border: 1px solid var(--border);
-    border-left: 3px solid var(--border);
-    border-radius: 10px;
-    text-decoration: none;
-    color: var(--cream);
-    transition: all .15s;
-  }
-  .overlay-card:hover { border-left-color: var(--gold); background: var(--bg3); }
-  .overlay-card .oc-num { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--gold); font-weight: 700; }
-  .overlay-card .oc-title { font-family: 'Playfair Display', serif; font-size: 14px; font-weight: 600; line-height: 1.3; }
-  .overlay-card .oc-tag { font-family: 'JetBrains Mono', monospace; font-size: 9px; color: var(--cream-dim); margin-top: 2px; }
-
-  @media (max-width: 900px) {
-    #sidebar { display: none; }
-    #topnav { padding-left: 16px; }
-    #main { padding: 20px 18px 100px; }
-    .summary-area { grid-template-columns: 1fr; }
-    .topic-num { font-size: 40px; }
-    #menu-fab { display: flex; }
-    .overlay-grid { grid-template-columns: 1fr; }
+  footer{text-align:center;color:var(--muted);font-size:.85rem;margin-top:60px;padding-top:20px;border-top:1px solid var(--line);}
+  @media(max-width:600px){
+    body{font-size:16px;}
+    header.top h1{font-size:1.5rem;}
+    .wrap{padding:0 14px 70px;}
+    table{font-size:.85rem;}
+    th,td{padding:7px 8px;}
   }
 </style>
 </head>
 <body>
 
-<!-- TOP NAV BAR -->
-<nav id="topnav">
-  <a class="tnav-btn active" href="#t1"><span class="tn-num">01</span> Los Profesionales</a>
-  <a class="tnav-btn" href="#t2"><span class="tn-num">02</span> Inhabilitaciones</a>
-  <a class="tnav-btn" href="#t3"><span class="tn-num">03</span> Actos y Hechos</a>
-  <a class="tnav-btn" href="#t4"><span class="tn-num">04</span> Teoría del Contrato</a>
-  <a class="tnav-btn" href="#t5"><span class="tn-num">05</span> Contratos Específicos</a>
-  <a class="tnav-btn" href="#t6"><span class="tn-num">06</span> Valor y Precio</a>
-  <a class="tnav-btn" href="#t7"><span class="tn-num">07</span> Locación</a>
-  <a class="tnav-btn" href="#t8"><span class="tn-num">08</span> Proceso de Locación</a>
-  <a class="tnav-btn" href="#t9"><span class="tn-num">09</span> Mutuo</a>
-  <a class="tnav-btn" href="#t10"><span class="tn-num">10</span> Comodato</a>
-  <a class="tnav-btn" href="#t11"><span class="tn-num">11</span> Fianza</a>
-  <a class="tnav-btn" href="#t12"><span class="tn-num">12</span> Hipoteca</a>
+<header class="top">
+  <h1>Tasaciones I — Resumen para el Parcial</h1>
+  <p>Material unificado de los dos apuntes · Todos los temas, ninguno salteado</p>
+</header>
+
+<div class="wrap">
+
+<!-- ÍNDICE -->
+<nav class="toc">
+  <h2>Índice</h2>
+
+  <div class="part">Parte 1 · Conceptos generales</div>
+  <ol class="lista">
+    <li><a href="#t1">Etapas operativas de una tasación</a></li>
+    <li><a href="#t2">Estructura analítica de una tasación (A–H)</a></li>
+  </ol>
+
+  <div class="part">Parte 2 · Depreciación</div>
+  <ol class="lista" start="3">
+    <li><a href="#t3">Qué es la depreciación</a></li>
+    <li><a href="#t4">Método de Ross (y Ross-Heidecke)</a></li>
+    <li><a href="#t5">Método de Línea Recta</a></li>
+    <li><a href="#t6">Causas de la depreciación</a></li>
+  </ol>
+
+  <div class="part">Parte 3 · Tasación rural / de campos</div>
+  <ol class="lista" start="7">
+    <li><a href="#t7">Factores que inciden en una tasación rural</a></li>
+    <li><a href="#t8">Tipos de suelo en Argentina (12 órdenes)</a></li>
+    <li><a href="#t9">Clasificación del suelo según uso agrícola (Clases I–VIII)</a></li>
+    <li><a href="#t10">Infraestructura y mejoras</a></li>
+    <li><a href="#t11">Energía y conectividad</a></li>
+    <li><a href="#t12">Instalaciones de manejo ganadero</a></li>
+    <li><a href="#t13">Productividad y rentabilidad</a></li>
+    <li><a href="#t14">Costo de alquiler y arrendamiento (cálculos)</a></li>
+    <li><a href="#t15">Factores de comparación (método comparativo)</a></li>
+  </ol>
+
+  <div class="part">Parte 4 · Documentación de obra y urbanismo</div>
+  <ol class="lista" start="16">
+    <li><a href="#t16">Presentación ante la Mesa General de Entradas</a></li>
+    <li><a href="#t17">Ruta del plano de obra en la Municipalidad</a></li>
+    <li><a href="#t18">Partes del plano</a></li>
+    <li><a href="#t19">Carátulas: plano de obra y de subdivisión</a></li>
+    <li><a href="#t20">Indicadores urbanísticos (FOS, FOT, densidad, altura)</a></li>
+    <li><a href="#t21">Permiso de construcción</a></li>
+  </ol>
 </nav>
 
-<!-- MOBILE FAB -->
-<button id="menu-fab" onclick="openMenu()">☰</button>
 
-<!-- OVERLAY MENU -->
-<div id="menu-overlay">
-  <div class="overlay-header">
-    <div class="overlay-title">Ir a un <span>tema</span></div>
-    <button id="menu-close" onclick="closeMenu()">✕</button>
+<!-- ===================== PARTE 1 ===================== -->
+<div class="part-title">Parte 1 · Conceptos generales</div>
+
+<section id="t1">
+  <h2 class="tema">1. Etapas operativas de una tasación</h2>
+  <p>Son los pasos ordenados que sigue el tasador, desde que recibe el encargo hasta que entrega el valor final. Combinando los dos apuntes, el proceso es:</p>
+  <ol class="lista">
+    <li><strong>Recolección de antecedentes:</strong> recopilar información sobre valores de la tierra, las construcciones y las características del mercado (forma, dimensiones, ubicación de los terrenos, tipología, etc.). Se obtienen títulos, planos y nomenclatura catastral.</li>
+    <li><strong>Inspección y estudio del inmueble:</strong> verificación física del terreno y el edificio a tasar (ubicación, forma, dimensiones, calidad del suelo, tipo de edificación, superficie, etc.).</li>
+    <li><strong>Estudio de la zona:</strong> análisis de las características del área donde está el inmueble.</li>
+    <li><strong>Investigación de mercado:</strong> obtención de antecedentes comparables de venta u oferta.</li>
+    <li><strong>Cálculo del avalúo:</strong> aplicación de todos los métodos posibles (comparación, costo o renta).</li>
+    <li><strong>Determinación del valor:</strong> balance de los resultados obtenidos según las condiciones particulares de la tasación.</li>
+    <li><strong>Informe de tasación:</strong> redacción del dictamen profesional firmado por el tasador.</li>
+  </ol>
+
+  <div class="examen">
+    <span class="lbl">Respuesta modelo de examen</span>
+    <em>"Las etapas operativas comprenden la recopilación de antecedentes, inspección del inmueble, análisis técnico, investigación de mercado, aplicación del método valuatorio, determinación del valor y confección del informe final de tasación."</em>
   </div>
-  <div class="overlay-grid">
-    <a class="overlay-card" href="#t1" onclick="closeMenu()">
-      <span class="oc-num">01</span>
-      <span class="oc-title">Los Profesionales</span>
-      <span class="oc-tag">Martillero · Corredor · Perito</span>
-    </a>
-    <a class="overlay-card" href="#t2" onclick="closeMenu()">
-      <span class="oc-num">02</span>
-      <span class="oc-title">Inhabilitaciones</span>
-      <span class="oc-tag">Ley 20.266 · Ley 10.973</span>
-    </a>
-    <a class="overlay-card" href="#t3" onclick="closeMenu()">
-      <span class="oc-num">03</span>
-      <span class="oc-title">Actos y Hechos Jurídicos</span>
-      <span class="oc-tag">Clasificación · Elementos</span>
-    </a>
-    <a class="overlay-card" href="#t4" onclick="closeMenu()">
-      <span class="oc-num">04</span>
-      <span class="oc-title">Teoría General del Contrato</span>
-      <span class="oc-tag">Arts. 957 · 958 · 959 · 961</span>
-    </a>
-    <a class="overlay-card" href="#t5" onclick="closeMenu()">
-      <span class="oc-num">05</span>
-      <span class="oc-title">Contratos Específicos</span>
-      <span class="oc-tag">Compraventa · Hipoteca · Fianza</span>
-    </a>
-    <a class="overlay-card" href="#t6" onclick="closeMenu()">
-      <span class="oc-num">06</span>
-      <span class="oc-title">Valor y Precio</span>
-      <span class="oc-tag">Principios de valuación</span>
-    </a>
-    <a class="overlay-card" href="#t7" onclick="closeMenu()">
-      <span class="oc-num">07</span>
-      <span class="oc-title">Contrato de Locación</span>
-      <span class="oc-tag">Obligaciones · Cláusulas</span>
-    </a>
-    <a class="overlay-card" href="#t8" onclick="closeMenu()">
-      <span class="oc-num">08</span>
-      <span class="oc-title">Proceso de Locación</span>
-      <span class="oc-tag">8 etapas del corretaje</span>
-    </a>
-    <a class="overlay-card" href="#t9" onclick="closeMenu()">
-      <span class="oc-num">09</span>
-      <span class="oc-title">Contrato de Mutuo</span>
-      <span class="oc-tag">Art. 1525–1532 · Préstamo de consumo</span>
-    </a>
-    <a class="overlay-card" href="#t10" onclick="closeMenu()">
-      <span class="oc-num">10</span>
-      <span class="oc-title">Contrato de Comodato</span>
-      <span class="oc-tag">Art. 1533–1541 · Préstamo de uso</span>
-    </a>
-    <a class="overlay-card" href="#t11" onclick="closeMenu()">
-      <span class="oc-num">11</span>
-      <span class="oc-title">Contrato de Fianza</span>
-      <span class="oc-tag">Art. 1574–1598 · Garantía personal</span>
-    </a>
-    <a class="overlay-card" href="#t12" onclick="closeMenu()">
-      <span class="oc-num">12</span>
-      <span class="oc-title">Contrato de Hipoteca</span>
-      <span class="oc-tag">Art. 2205–2211 · Derecho real de garantía</span>
-    </a>
+
+  <div class="tia">
+    <span class="lbl">Explicación para la tía</span>
+    <p>Tasar es ponerle precio justo a una propiedad. Pero no se hace de un vistazo: es como cuando vas a comprar fruta y primero la mirás, la tocás, ves a cuánto está en otros puestos y recién ahí decidís cuánto pagar. El tasador hace lo mismo pero en orden: junta papeles, va a ver la casa, mira cómo es el barrio, averigua a cuánto se venden las casas parecidas, hace las cuentas y al final escribe y firma un informe con el precio.</p>
   </div>
+  <div class="ej">
+    <span class="lbl">Ejemplo</span>
+    <p>Te encargan tasar una casa en Tandil. Primero pedís la escritura y el plano (antecedentes), vas a verla en persona (inspección), mirás si el barrio es tranquilo y tiene servicios (zona), averiguás a cuánto se vendieron 3 casas parecidas cerca (mercado), hacés las cuentas (avalúo), llegás a un número (valor) y entregás el informe firmado.</p>
+  </div>
+</section>
+
+
+<section id="t2">
+  <h2 class="tema">2. Estructura analítica de una tasación (A–H)</h2>
+  <p>Es el esqueleto del informe de tasación: el orden de capítulos en que se vuelca toda la información.</p>
+
+  <h3>A · Datos generales</h3>
+  <ul>
+    <li><strong>Comitente:</strong> quién encarga la tasación (individuo y domicilio).</li>
+    <li><strong>Inmueble / tipología:</strong> casa, local, galpón, depósito, edificio, industrial, etc. Y su <strong>estado de ocupación</strong> (permanente o temporario, y situación del ocupante).</li>
+    <li><strong>Dominio:</strong> estudio de títulos (titular, observaciones al título, datos de dominio y fecha de inscripción).</li>
+    <li><strong>Ubicación:</strong> calle, número, localidad, provincia, nomenclatura, etc.</li>
+    <li><strong>Zona y destino predominante:</strong> urbana, suburbana, rural, etc.</li>
+    <li><strong>Zonificación municipal y autoridad de aplicación:</strong> usos permitidos, usos complementarios, densidad poblacional por hectárea.</li>
+  </ul>
+
+  <h3>B · Detalle del terreno</h3>
+  <ul>
+    <li>Dimensiones.</li>
+    <li>Afectación (restricciones del uso del suelo).</li>
+    <li>Aprovechamiento del terreno (limitaciones de la superficie edificable).</li>
+    <li>Forma (regular, irregular, simetría, relación frente-fondo).</li>
+    <li>Orientación.</li>
+    <li>Posición del lote en la manzana.</li>
+    <li>Infraestructura y servicios.</li>
+    <li>Altimetría del lugar (antecedentes de inundaciones, frecuencia y magnitud).</li>
+    <li>Nivel del terreno con respecto a la calle.</li>
+  </ul>
+
+  <h3>C · Detalle de la construcción</h3>
+  <ul>
+    <li>Situación y dimensiones (superficies, según terreno individual o propiedad horizontal).</li>
+    <li>Tipo de edificación (materiales de pared, techo, piso, aberturas, cielorraso; ventilación e iluminación natural).</li>
+    <li>Antigüedad.</li>
+    <li>Calidad de los materiales.</li>
+    <li>Calidad constructiva.</li>
+    <li>Nivel de terminaciones.</li>
+    <li>Estado de conservación.</li>
+    <li>Composición ambiental.</li>
+    <li>Infraestructura y servicios.</li>
+  </ul>
+
+  <h3>D · Detalle general (entorno)</h3>
+  <p>Tipología, cantidad de pisos, características y calidad edilicia del área, calidad urbana, densidad poblacional, nivel socioeconómico, elementos que modifican el espacio urbano, ciclo vital del vecindario y vecinos.</p>
+
+  <h3>E · Análisis de mercado</h3>
+  <ul>
+    <li>Tipo de valor estimado (valor de mercado, valor de realización inmediata, etc.).</li>
+    <li>Estimación de mercado realizable.</li>
+  </ul>
+
+  <h3>F · Comparativos &nbsp;·&nbsp; G · Métodos de tasación &nbsp;·&nbsp; H · Evaluación</h3>
+  <p>Se cierra con los antecedentes comparables, los métodos aplicados y la evaluación final que arroja el valor.</p>
+
+  <div class="tia">
+    <span class="lbl">Explicación para la tía</span>
+    <p>Imaginate que tenés que escribir un informe sobre una casa y querés que no te falte nada. Para eso usás siempre la misma lista de cajones: en un cajón ponés quién pidió la tasación, en otro cómo es el terreno, en otro cómo es la construcción, en otro cómo es el barrio, y así. Esta estructura A–H son justamente esos cajones, siempre en el mismo orden, para no olvidarte de nada.</p>
+  </div>
+  <div class="ej">
+    <span class="lbl">Ejemplo</span>
+    <p>En el cajón "B – Terreno" anotás: lote de 10×30, forma rectangular, hace esquina, tiene todos los servicios y nunca se inundó. En el cajón "C – Construcción" anotás: casa de ladrillo de 120 m², 15 años de antigüedad, en buen estado. Cada dato va a su cajón.</p>
+  </div>
+</section>
+
+
+<!-- ===================== PARTE 2 ===================== -->
+<div class="part-title">Parte 2 · Depreciación</div>
+
+<section id="t3">
+  <h2 class="tema">3. ¿Qué es la depreciación?</h2>
+  <p>La depreciación es la <strong>pérdida de valor</strong> que sufre un inmueble por el paso del tiempo, el desgaste, el uso, el deterioro físico, la obsolescencia o la falta de mantenimiento.</p>
+  <p>Para calcularla hay dos métodos principales: <strong>Línea Recta</strong> y <strong>Ross</strong> (este último se complementa con <strong>Ross-Heidecke</strong>).</p>
+
+  <div class="examen">
+    <span class="lbl">Respuesta modelo de examen</span>
+    <em>"La depreciación es la pérdida de valor de un inmueble causada por antigüedad, uso y estado de conservación. El método de Línea Recta supone una depreciación uniforme, mientras que el método de Ross establece una depreciación progresiva, más acorde al comportamiento real de los edificios."</em>
+  </div>
+
+  <div class="tia">
+    <span class="lbl">Explicación para la tía</span>
+    <p>Es lo mismo que pasa con un auto 0 km: el día que lo sacás de la concesionaria ya vale menos, y cada año que pasa vale todavía menos por el uso. Con las casas pasa igual: con los años se van gastando los pisos, los techos, las cañerías, y por eso pierden valor. Eso que pierde se llama depreciación.</p>
+  </div>
+  <div class="ej">
+    <span class="lbl">Ejemplo</span>
+    <p>Una casa que nueva costaría $100.000.000, por tener 20 años y necesitar arreglos, hoy vale $75.000.000. Esos $25.000.000 que "perdió" son la depreciación.</p>
+  </div>
+</section>
+
+
+<section id="t4">
+  <h2 class="tema">4. Método de Ross (y complemento Ross-Heidecke)</h2>
+  <p>Ross propone una depreciación <strong>intermedia</strong> entre la Línea Recta y la fórmula de Kuentzle. Es uno de los métodos más usados en tasaciones edilicias. Características:</p>
+  <ul>
+    <li>Considera <strong>menor depreciación en los primeros años</strong>.</li>
+    <li><strong>Mayor depreciación en los últimos años</strong> de vida del bien.</li>
+  </ul>
+
+  <h3>Coeficiente K y la tabla</h3>
+  <p>Mediante una tabla se obtiene el coeficiente <strong>(K)</strong> que integra la fórmula para calcular la depreciación de cada ítem (por ejemplo, una pared que va a ser objeto de liquidación de derechos de medianería).</p>
+  <p>Ese coeficiente se obtiene <strong>cruzando en la tabla la edad porcentual de cada ítem con su estado de conservación</strong> (en la tabla figuran representados por dígitos).</p>
+
+  <h3>Vidas útiles de referencia</h3>
+  <table>
+    <tr><th>Ítem / componente</th><th>Vida útil</th></tr>
+    <tr><td>Mamposterías</td><td>90 años</td></tr>
+    <tr><td>Revoques interiores</td><td>60 años</td></tr>
+    <tr><td>Capas aisladoras horizontales</td><td>50 años</td></tr>
+    <tr><td>Capas aisladoras verticales, azotados hidrófugos y revoques exteriores</td><td>40 años</td></tr>
+  </table>
+
+  <h3>Fórmula</h3>
+  <div class="formula">
+    D = (VR − Vr) · (K)
+    <small>El coeficiente K se localiza en la tabla cruzando EDAD con ESTADO de conservación</small>
+  </div>
+  <ul>
+    <li><strong>D</strong> = Depreciación.</li>
+    <li><strong>Vd</strong> = Valor depreciable: surge de restar el valor a nuevo o de reposición (VR) menos el valor residual o de demolición (Vr).</li>
+    <li><strong>Vp</strong> = Vida probable.</li>
+    <li><strong>e</strong> = Edad o vida transcurrida del bien.</li>
+  </ul>
+
+  <h3>Complemento Ross-Heidecke</h3>
+  <p>Le suma a Ross el <strong>estado de conservación</strong> del inmueble, con esta escala:</p>
+  <ul>
+    <li>Muy bueno.</li>
+    <li>Bueno o conservación normal.</li>
+    <li>Necesita reparaciones simples.</li>
+    <li>Necesita reparaciones importantes.</li>
+    <li>Ruina o demolición.</li>
+  </ul>
+
+  <div class="tia">
+    <span class="lbl">Explicación para la tía</span>
+    <p>El método de Ross dice algo de sentido común: una casa cuando es nueva o tiene pocos años casi no pierde valor, pero cuando ya está vieja se "cae" rápido, igual que una persona o una máquina, que al principio aguanta bien y al final se desgasta de golpe. Y Ross-Heidecke le agrega una cosa más: no es lo mismo una casa vieja pero bien cuidada que una vieja y descuidada. Por eso mira también si está impecable o si se está cayendo a pedazos.</p>
+  </div>
+  <div class="ej">
+    <span class="lbl">Ejemplo 1</span>
+    <p>Dos casas tienen la misma antigüedad (30 años). Una está recién pintada y en perfecto estado; la otra tiene humedad y revoques flojos. Con Ross-Heidecke, la cuidada se deprecia menos y vale más, aunque tengan la misma edad.</p>
+  </div>
+  <div class="ej">
+    <span class="lbl">Ejemplo 2 (cómo usar K)</span>
+    <p>Una pared de mampostería (vida útil 90 años) tiene 45 años → está al 50% de su vida. Vas a la tabla, cruzás "50% de edad" con "estado bueno" y te da el coeficiente K. Ese K multiplicado por el valor depreciable te da cuánto perdió esa pared.</p>
+  </div>
+</section>
+
+
+<section id="t5">
+  <h2 class="tema">5. Método de Línea Recta</h2>
+  <p>Supone que la pérdida de valor se produce de manera <strong>uniforme y constante</strong> durante toda la vida útil del bien. Características:</p>
+  <ul>
+    <li>Depreciación constante (siempre el mismo monto por año).</li>
+    <li>Representación gráfica lineal (una recta que baja parejo).</li>
+    <li>Relaciona directamente antigüedad y pérdida de valor.</li>
+  </ul>
+  <div class="formula">
+    D = e / Vp
+    <small>D = porcentaje de pérdida de valor · e = edad · Vp = vida probable</small>
+  </div>
+
+  <div class="tia">
+    <span class="lbl">Explicación para la tía</span>
+    <p>Este método es el más fácil: dice que la casa pierde lo mismo todos los años, parejito. Es como si repartieras una torta en porciones iguales: si la casa dura 50 años, cada año pierde 1/50 de su valor, ni más ni menos. Sencillo, pero menos realista, porque en la vida real las cosas viejas se gastan más rápido al final.</p>
+  </div>
+  <div class="ej">
+    <span class="lbl">Ejemplo</span>
+    <p>Una construcción con vida útil de 50 años pierde <strong>2% por año</strong> (100% ÷ 50). Si tiene 20 años, ya se depreció un 40% (20 × 2%). Siempre el mismo 2% cada año.</p>
+  </div>
+</section>
+
+
+<section id="t6">
+  <h2 class="tema">6. Causas de la depreciación</h2>
+  <p>Se agrupan en cuatro tipos:</p>
+  <table>
+    <tr><th>Tipo de causa</th><th>Ejemplos</th></tr>
+    <tr><td><strong>Físicas</strong></td><td>Desgaste por funcionamiento · Deterioro (decrepitud).</td></tr>
+    <tr><td><strong>Funcionales</strong></td><td>Insuficiencia o ineptitud · Obsolescencia.</td></tr>
+    <tr><td><strong>Bienes tangibles</strong></td><td>Accidentes, negligencia, fuego, rayo, viento, agua, temperatura.</td></tr>
+    <tr><td><strong>Contingentes</strong></td><td>Daños: parásitos, contaminación de aguas, obstrucciones, etc. · Disminución de provisión: agua, gas, etc.</td></tr>
+  </table>
+
+  <div class="tia">
+    <span class="lbl">Explicación para la tía</span>
+    <p>Una casa puede perder valor por distintos motivos. Por uso normal (se gasta de tanto vivir en ella), porque quedó anticuada (cocina vieja, instalación que ya no se usa), por algún accidente (un incendio, una tormenta) o por problemas externos (se cortó el gas de la zona, hay plagas). Todas esas son razones distintas por las que la propiedad vale menos.</p>
+  </div>
+  <div class="ej">
+    <span class="lbl">Ejemplo</span>
+    <p><strong>Física:</strong> pisos gastados por años de uso. <strong>Funcional:</strong> una casa sin lugar para el auto en un barrio donde todos tienen cochera (quedó obsoleta). <strong>Tangible:</strong> daño por una inundación. <strong>Contingente:</strong> termitas en la madera del techo.</p>
+  </div>
+</section>
+
+
+<!-- ===================== PARTE 3 ===================== -->
+<div class="part-title">Parte 3 · Tasación rural / de campos</div>
+
+<section id="t7">
+  <h2 class="tema">7. Factores que inciden en una tasación rural</h2>
+  <ul>
+    <li><strong>Ubicación geográfica:</strong> es el factor <em>más determinante y crítico</em> de un campo.</li>
+    <li><strong>Tamaño y forma del terreno:</strong> afectan su utilidad y valor.</li>
+    <li><strong>Geometría y eficiencia:</strong>
+      <ul>
+        <li>Formas cuadradas o rectangulares: son las más buscadas (relación óptima).</li>
+        <li>Formas irregulares (triangulares, poligonales): generan "puntas" de difícil acceso al trabajo y desvalorizan el terreno.</li>
+      </ul>
+    </li>
+    <li><strong>Calidad del suelo:</strong> determina su idoneidad para la agricultura u otros usos.</li>
+    <li>Infraestructura y mejoras existentes, sistemas de riego y disponibilidad de agua, alambrados y divisiones internas, energía y conectividad, instalaciones ganaderas, productividad/rentabilidad, accesos y vías de transporte.</li>
+  </ul>
+
+  <div class="examen">
+    <span class="lbl">Respuesta modelo de examen</span>
+    <em>"La superficie expresada en hectáreas no es el único factor determinante. También se evalúan la ubicación, calidad del suelo, infraestructura, disponibilidad hídrica, mejoras, accesibilidad y capacidad productiva del establecimiento, ya que estos elementos influyen directamente en su valor de mercado."</em>
+  </div>
+
+  <div class="tia">
+    <span class="lbl">Explicación para la tía</span>
+    <p>Para ponerle precio a un campo no alcanza con saber cuántas hectáreas tiene. Es como con una quinta: no es lo mismo una de tierra buena, con agua y cerca de la ruta, que una del mismo tamaño pero con tierra mala, sin agua y a la que no se puede llegar. Dos campos iguales en tamaño pueden valer muy distinto según dónde están y qué tienen.</p>
+  </div>
+  <div class="ej">
+    <span class="lbl">Ejemplo</span>
+    <p>Un campo de 100 hectáreas cuadradas, en zona núcleo, con buena tierra y un pozo de agua vale mucho más que otro de 100 hectáreas triangular, en zona alejada, con tierra pobre y sin agua. Misma superficie, valor muy diferente.</p>
+  </div>
+</section>
+
+
+<section id="t8">
+  <h2 class="tema">8. Tipos de suelo en Argentina (12 órdenes)</h2>
+  <p>En Argentina existen <strong>12 órdenes de suelos</strong>:</p>
+  <table>
+    <tr><th>Suelo</th><th>Características</th></tr>
+    <tr><td>Alfisoles</td><td>Arcillosos.</td></tr>
+    <tr><td>Andisoles</td><td>Arenosos, en zonas templadas o frías.</td></tr>
+    <tr><td>Aridisoles</td><td>Áridos, color claro, escasa fertilidad.</td></tr>
+    <tr><td>Entisoles</td><td>Castaña/marrón, en valles fluviales; no sirve para agricultura.</td></tr>
+    <tr><td>Gelisoles</td><td>Zonas de hielo o permafrost; no se puede usar para agricultura.</td></tr>
+    <tr><td>Histosoles</td><td>Zonas pantanosas con mucha agua y materia orgánica; no recomendable para agricultura.</td></tr>
+    <tr><td>Inceptisoles</td><td>Pardo; pocos nutrientes pero pueden ser útiles para agricultura.</td></tr>
+    <tr><td><strong>Molisoles</strong></td><td><strong>Los más fértiles y valiosos</strong>; color muy oscuro, muy buen drenaje. Zona chaco-pampeana.</td></tr>
+    <tr><td>Oxisoles</td><td>Rojizos (óxido de hierro), alta porosidad, escasa fertilidad; no sirve para agricultura.</td></tr>
+    <tr><td>Spodosoles</td><td>Muy ácidos para la agricultura. Tierra del Fuego.</td></tr>
+    <tr><td>Ultisoles</td><td>Entre rojizo, oscuro y pardo; poco espesos y difícilmente saturables.</td></tr>
+    <tr><td>Vertisoles</td><td>Arcillosos, difíciles de tratar por su expansión y contracción al humedecerse.</td></tr>
+  </table>
+
+  <div class="examen">
+    <span class="lbl">Tip de examen</span>
+    <em>Si te piden nombrar 5: Molisoles (los más fértiles), Aridisoles (áridos, baja fertilidad), Alfisoles (arcillosos), Entisoles (poco desarrollados) y Vertisoles (arcillosos con expansión/contracción).</em>
+  </div>
+
+  <div class="tia">
+    <span class="lbl">Explicación para la tía</span>
+    <p>No toda la tierra es igual. Hay tierra negra y rica donde crece todo (la mejor del país, en la pampa), y hay tierra pobre, arenosa, helada o con piedras donde casi no crece nada. Estos 12 nombres raros son simplemente las distintas clases de tierra que hay en Argentina, ordenadas de la mejor a la peor para sembrar.</p>
+  </div>
+  <div class="ej">
+    <span class="lbl">Ejemplo</span>
+    <p>Un campo de soja en Pergamino tiene <strong>Molisoles</strong> (la tierra más fértil) → vale muchísimo. Un campo en Tierra del Fuego con <strong>Spodosoles</strong> (muy ácidos) casi no sirve para sembrar → vale poco para agricultura.</p>
+  </div>
+</section>
+
+
+<section id="t9">
+  <h2 class="tema">9. Clasificación del suelo según uso agrícola (Clases I–VIII)</h2>
+  <p>Esta clasificación ordena los suelos según para qué sirven, de la mejor (Clase I) a la peor (Clase VIII):</p>
+  <table>
+    <tr><th>Clase</th><th>Aptitud</th></tr>
+    <tr><td><strong>I</strong></td><td>Apto para cualquier tipo de agricultura (el mejor).</td></tr>
+    <tr><td><strong>II</strong></td><td>Limitaciones moderadas; cultivos que no soportan exceso de salinidad o humedad.</td></tr>
+    <tr><td><strong>III</strong></td><td>Suelos poco profundos, expuestos al viento y al agua; requieren prácticas de conservación.</td></tr>
+    <tr><td><strong>IV</strong></td><td>Bajo rendimiento, fuertes limitaciones para la agricultura.</td></tr>
+    <tr><td><strong>V</strong></td><td>Alto nivel de erosión; no apto para agricultura. Pastoreo y forestación.</td></tr>
+    <tr><td><strong>VI</strong></td><td>Alta pedregosidad y facilidad para inundarse; apto principalmente para pastoreo.</td></tr>
+    <tr><td><strong>VII</strong></td><td>Severas limitaciones; solo conservación de flora silvestre / uso recreativo.</td></tr>
+    <tr><td><strong>VIII</strong></td><td>Suelos desérticos; solo conservación del medio ambiente, sin aptitud agropecuaria.</td></tr>
+  </table>
+
+  <div class="tia">
+    <span class="lbl">Explicación para la tía</span>
+    <p>Pensalo como las notas del colegio del 1 al 8, pero al revés: la tierra Clase 1 es la "abanderada", sirve para sembrar de todo; y a medida que sube el número, la tierra es cada vez peor, hasta la Clase 8 que es prácticamente desierto y no sirve para nada más que cuidar la naturaleza.</p>
+  </div>
+  <div class="ej">
+    <span class="lbl">Ejemplo</span>
+    <p>Un lote <strong>Clase I</strong> en la pampa húmeda sirve para soja, maíz, trigo, lo que quieras. Un lote <strong>Clase VI</strong> lleno de piedras y propenso a inundarse solo te sirve para tener algunas vacas pastando.</p>
+  </div>
+</section>
+
+
+<section id="t10">
+  <h2 class="tema">10. Infraestructura y mejoras</h2>
+  <p>Todo lo que está construido o instalado en el campo suma valor. Valores de referencia:</p>
+  <table>
+    <tr><th>Mejora</th><th>Valor de referencia</th></tr>
+    <tr><td>Perforaciones y bombas (50 a +200 m)</td><td>USD 5.000 a +25.000</td></tr>
+    <tr><td>Sistema de riego (pivot central / goteo)</td><td>USD 1.000 a 2.500 por hectárea</td></tr>
+    <tr><td>Tanques australianos de chapa y bebederos</td><td>USD 2.000 a 5.000 · USD 35 a 50 por tonelada de capacidad estática</td></tr>
+    <tr><td>Cerco tradicional de 7 hilos</td><td>$12.000 a $22.000 el metro lineal · $14.500.000 cada 1.000 m (instalado)</td></tr>
+    <tr><td>Cerco eléctrico suspendido</td><td>$4.000 a $6.000 el metro lineal · $4.620.000 cada 1.000 m</td></tr>
+    <tr><td>Cerco premoldeado de hormigón</td><td>$70.000 a $130.000 el metro lineal</td></tr>
+    <tr><td>Tejido romboidal</td><td>$25.000 a $50.000 el metro lineal</td></tr>
+  </table>
+
+  <div class="tia">
+    <span class="lbl">Explicación para la tía</span>
+    <p>Es lo mismo que pasa con una casa: no es lo mismo una casa pelada que una con pileta, parrilla y rejas. En el campo, las "mejoras" son el pozo de agua, los alambrados, los tanques, el riego. Todo eso costó plata ponerlo, así que se le suma al precio del campo.</p>
+  </div>
+  <div class="ej">
+    <span class="lbl">Ejemplo</span>
+    <p>Dos campos vecinos iguales: uno tiene 1.000 metros de alambrado nuevo y un pozo con bomba; el otro está pelado. El primero vale más o menos USD 25.000 más, justo por esas mejoras.</p>
+  </div>
+</section>
+
+
+<section id="t11">
+  <h2 class="tema">11. Energía y conectividad</h2>
+  <table>
+    <tr><th>Instalación</th><th>Valor de referencia</th></tr>
+    <tr><td>Electrificación rural</td><td>USD 15.000 a 25.000 por kilómetro lineal</td></tr>
+    <tr><td>Energía fotovoltaica (paneles + inversores)</td><td>Desde USD 500 (sistemas chicos) hasta +USD 3.000 (instalaciones autónomas completas)</td></tr>
+    <tr><td>Conectividad (antenas / internet satelital)</td><td>USD 105 a 420</td></tr>
+  </table>
+
+  <div class="tia">
+    <span class="lbl">Explicación para la tía</span>
+    <p>Un campo que tiene luz e internet vale más que uno aislado y a oscuras, igual que un departamento con gas natural vale más que uno sin gas. Llevar la luz hasta el campo o poner paneles solares cuesta mucha plata, así que eso también se suma al valor.</p>
+  </div>
+  <div class="ej">
+    <span class="lbl">Ejemplo</span>
+    <p>Un campo alejado al que le instalaron paneles solares (USD 3.000) y una antena de internet satelital (USD 400) vale más que el mismo campo sin energía ni señal, porque ahí se puede vivir y trabajar todo el año.</p>
+  </div>
+</section>
+
+
+<section id="t12">
+  <h2 class="tema">12. Instalaciones de manejo ganadero</h2>
+  <p><strong>Corrales, mangas y cargadores:</strong> entre <strong>USD 10.000 y USD 25.000</strong>, según la capacidad de encierro.</p>
+
+  <div class="tia">
+    <span class="lbl">Explicación para la tía</span>
+    <p>Si en el campo se crían vacas, hacen falta instalaciones para juntarlas, vacunarlas y subirlas al camión: los corrales, la manga (un pasillo angosto por donde pasan de a una) y el cargador. Eso es como tener la cocina equipada en una casa: facilita el trabajo y por eso suma valor.</p>
+  </div>
+  <div class="ej">
+    <span class="lbl">Ejemplo</span>
+    <p>Un campo ganadero con corrales y manga ya armados (USD 20.000) le ahorra al comprador tener que construirlos, así que se vende más caro y más rápido.</p>
+  </div>
+</section>
+
+
+<section id="t13">
+  <h2 class="tema">13. Productividad y rentabilidad</h2>
+  <p>En la agricultura, la capacidad de generar ingresos influye directamente en el valor: hay una relación entre el rendimiento y el precio de la tierra.</p>
+  <p><strong>Regla clave:</strong> en el sector agropecuario, el valor de una hectárea suele equivaler a <strong>≈ 10 veces el valor del rendimiento bruto anual esperado por hectárea</strong>.</p>
+
+  <h3>Valores según tipo de campo</h3>
+  <table>
+    <tr><th>Tipo de campo</th><th>Rendimiento típico</th><th>Valor por hectárea</th></tr>
+    <tr><td><strong>Zona Núcleo Agrícola</strong><br>(soja, maíz, trigo)</td><td>35 a 45 quintales de soja/ha</td><td>USD 13.500 a 20.000<br>(premium: base USD 17.000)</td></tr>
+    <tr><td><strong>Agrícolas periféricos / mixtos</strong><br>(agricultura + algo de ganadería)</td><td>20 a 30 quintales de soja/ha</td><td>USD 8.000 a 12.000</td></tr>
+    <tr><td><strong>Ganaderos</strong> (cría y recría)</td><td>0,5 a 1 unidad ganadera/ha · 60 a 80 kg de carne/ha</td><td>USD 3.000 a 4.000</td></tr>
+  </table>
+  <p><em>Receptividad:</em> es la cantidad de vacas que soporta la hectárea por año (o kilos de carne producidos).</p>
+
+  <div class="tia">
+    <span class="lbl">Explicación para la tía</span>
+    <p>Un campo vale según lo que produce, igual que un negocio: un local que vende mucho vale más que uno que casi no vende. La tierra que da mucha soja vale carísima; la que solo sirve para unas vacas vale mucho menos. Y hay un truquito: un campo suele valer más o menos 10 veces lo que produce en un año.</p>
+  </div>
+  <div class="ej">
+    <span class="lbl">Ejemplo</span>
+    <p>Una hectárea en zona núcleo que produce 40 quintales de soja vale alrededor de USD 17.000. Una hectárea ganadera que solo da para 1 vaca vale USD 3.000–4.000. La diferencia está en cuánto producen.</p>
+  </div>
+</section>
+
+
+<section id="t14">
+  <h2 class="tema">14. Costo de alquiler y arrendamiento (cálculos paso a paso)</h2>
+  <p>El alquiler de un campo no se cobra en pesos fijos, sino en <strong>cantidad de producto</strong> (quintales de soja o kilos de carne), que después se convierte a plata.</p>
+
+  <h3>A · Cálculo agrícola (zona núcleo)</h3>
+  <p>El alquiler anual en zona núcleo va de <strong>11 a 13 quintales de soja por hectárea</strong>. Se calcula multiplicando los quintales pactados por el valor de mercado de la soja.</p>
+  <p>Dato: en Rosario la tonelada de soja ≈ <strong>$465.000</strong>. El alquiler ronda <strong>USD 331 a 391 por hectárea</strong>, según ubicación, calidad de suelo y mes de pago.</p>
+  <div class="formula" style="text-align:left;font-size:.98rem;">
+    1 quintal = 100 kg · 10 quintales = 1 tonelada<br>
+    1 quintal = $46.500 &nbsp;(porque $465.000 ÷ 10)<br><br>
+    Campo de 150 ha · 11 quintales/ha = 1.650 quintales<br>
+    1.650 × $46.500 = <strong>$76.725.000</strong><br>
+    $76.725.000 ÷ 1.410 (dólar) = <strong>≈ USD 54.414</strong>
+  </div>
+
+  <h3>B · Cálculo ganadero</h3>
+  <p>Se multiplica la superficie total (en ha) por un valor acordado expresado en <strong>kg de carne</strong> (novillo o ternera) por hectárea al año. El monto se obtiene multiplicando esos kg por el precio de mercado del ganado.</p>
+  <p>Dato: índice de novillo para arrendamiento ≈ <strong>$4.200 a $4.500 por kg en pie</strong> (Mercado Agroganadero de Cañuelas). Fluctúa según categoría, kilaje y calidad del animal.</p>
+  <div class="formula" style="text-align:left;font-size:.98rem;">
+    Campo de 150 ha · 65 kg/ha (acuerdo entre partes) · $4.115 (valor novillo)<br>
+    150 × 65 × $4.115 = $40.121.250 anual<br>
+    ÷ 12 meses = <strong>≈ $3.341.380 de alquiler mensual</strong>
+  </div>
+
+  <div class="tia">
+    <span class="lbl">Explicación para la tía</span>
+    <p>Cuando alguien alquila un campo, no paga "tantos pesos por mes" como un departamento. Paga en bolsas de soja o en kilos de carne, y después eso se pasa a plata según a cuánto está la soja o la vaca ese día. Se hace así porque los precios del campo cambian mucho, y de esta forma el dueño nunca pierde frente a la inflación.</p>
+  </div>
+  <div class="ej">
+    <span class="lbl">Ejemplo</span>
+    <p>Si alquilás 150 hectáreas a 11 quintales de soja cada una, le debés al dueño 1.650 quintales de soja por año. Si la soja está a $46.500 el quintal, eso son unos $76 millones (≈ USD 54.000). Si la soja sube, el alquiler sube solo.</p>
+  </div>
+</section>
+
+
+<section id="t15">
+  <h2 class="tema">15. Factores de comparación en el método comparativo (para tasar un campo)</h2>
+  <p>El método comparativo consiste en mirar campos parecidos que se vendieron, pero hay que asegurarse de que sean realmente comparables. Factores a igualar:</p>
+  <ul>
+    <li><strong>Ubicación:</strong> factor muy importante. Los comparables deben estar en áreas similares o con características geográficas parecidas.</li>
+    <li><strong>Tamaño del terreno:</strong> comparar propiedades de superficie similar para una estimación específica.</li>
+    <li><strong>Calidad del suelo:</strong> afecta la productividad y, por ende, el valor. Los comparables deben tener suelo similar.</li>
+    <li><strong>Infraestructura y mejoras:</strong> cerramientos, sistemas de riego, etc., deben sumarse al valor.</li>
+    <li><strong>Ventajas y desventajas:</strong> presencia de agua, restricciones legales, etc., deben considerarse en la comparación.</li>
+  </ul>
+
+  <div class="tia">
+    <span class="lbl">Explicación para la tía</span>
+    <p>Para saber cuánto vale un campo, mirás a cuánto se vendieron otros parecidos cerca, igual que cuando vas a vender tu casa y mirás los carteles de la cuadra. Pero ojo: tienen que ser de verdad parecidos. No podés comparar tu campo con tierra buena contra uno de tierra mala, ni uno con agua contra uno sin agua. Tienen que ser como "mellizos" para que la comparación sirva.</p>
+  </div>
+  <div class="ej">
+    <span class="lbl">Ejemplo</span>
+    <p>Querés tasar un campo de 100 ha con buena tierra y agua. Buscás ventas recientes de campos de 90–110 ha, en la misma zona, con tierra y agua similares. Si encontrás que se vendieron a USD 16.000/ha, ese es tu punto de partida. No te sirve comparar contra uno de 500 ha o uno sin agua.</p>
+  </div>
+</section>
+
+
+<!-- ===================== PARTE 4 ===================== -->
+<div class="part-title">Parte 4 · Documentación de obra y urbanismo</div>
+
+<section id="t16">
+  <h2 class="tema">16. Presentación ante la Mesa General de Entradas</h2>
+  <p>Es lo que se necesita para presentar la documentación de obra que analiza la <strong>Dirección de Obras Nuevas Particulares</strong>:</p>
+  <ul>
+    <li><strong>Cartapacio sellado</strong> (según la normativa vigente al momento de la presentación): instrumento que determine la titularidad, foliado por la Dirección de Catastro.</li>
+    <li><strong>Densidad:</strong> cantidad de habitantes por hectárea. Para calcular el máximo:
+      <div class="formula" style="font-size:.95rem;">Superficie × DNM (fijada por cada zona) ÷ 10.000 = Máx. habitantes/ha</div>
+    </li>
+    <li><strong>Altura máxima:</strong> la altura máxima permitida según la zonificación de la parcela.</li>
+  </ul>
+
+  <div class="tia">
+    <span class="lbl">Explicación para la tía</span>
+    <p>Antes de construir una casa no podés agarrar y empezar a levantar paredes: tenés que pedirle permiso a la Municipalidad y presentar los papeles en una oficina (la "mesa de entradas"). Ahí entregás un sobre con los documentos que demuestran que el terreno es tuyo y que lo que querés construir respeta las reglas del lugar (cuántas personas pueden vivir y qué altura podés hacer).</p>
+  </div>
+  <div class="ej">
+    <span class="lbl">Ejemplo</span>
+    <p>Querés construir un edificio. Presentás el cartapacio sellado que prueba que el lote es tuyo. La Municipalidad revisa que la cantidad de departamentos no supere la densidad permitida de la zona y que el edificio no pase la altura máxima.</p>
+  </div>
+</section>
+
+
+<section id="t17">
+  <h2 class="tema">17. Ruta del plano de obra dentro de la Municipalidad</h2>
+  <p>Una vez presentado, el plano recorre estas oficinas:</p>
+
+  <h3>1º · Oficina de Catastro</h3>
+  <ul>
+    <li>Ubicación exacta del terreno, con distancias desde la esquina.</li>
+    <li>Medida de la parcela.</li>
+    <li>Titular de dominio.</li>
+    <li>Asigna el número de puerta.</li>
+  </ul>
+
+  <h3>2º · Oficina de Planeamiento</h3>
+  <ul>
+    <li>Define qué se puede y qué no se puede hacer en ese lugar.</li>
+    <li>Arroja los indicadores o parámetros: <strong>densidad, altura, FOS y FOT</strong>.</li>
+  </ul>
+
+  <h3>Obras particulares</h3>
+  <ul>
+    <li>Se observan las dimensiones de los ambientes.</li>
+    <li>Se controla la ventilación e iluminación.</li>
+  </ul>
+
+  <div class="tia">
+    <span class="lbl">Explicación para la tía</span>
+    <p>El plano no se aprueba de una sola vez: va pasando de oficina en oficina, como cuando hacés un trámite y te mandan de una ventanilla a otra. Primero en Catastro confirman dónde está exactamente el terreno y le ponen número de puerta; después en Planeamiento dicen qué se puede construir ahí; y al final revisan que los cuartos tengan buena luz y ventilación.</p>
+  </div>
+  <div class="ej">
+    <span class="lbl">Ejemplo</span>
+    <p>Presentás el plano de tu casa. Catastro confirma que el lote mide 10×30 y le asigna "Calle San Martín 1234". Planeamiento te dice que podés construir hasta 2 pisos. Y obras particulares revisa que los dormitorios tengan ventana al exterior.</p>
+  </div>
+</section>
+
+
+<section id="t18">
+  <h2 class="tema">18. Partes del plano</h2>
+
+  <h3>Carátula</h3>
+  <p>Contiene: nomenclatura, partida, destino de la vivienda, tipo de plano, propietario, superficie del lote, firma del dueño y del profesional, dirección y número de puerta, y número de expediente.</p>
+
+  <h3>Cuerpo principal</h3>
+  <p>Contiene: planta del edificio, fachada (foto de frente), corte transversal, corte longitudinal, planta del techo, y plantillas de iluminación y ventilación.</p>
+  <p>Cuando el plano es <strong>de obra</strong>, además deben aparecer vigas, planos de estructura, fierros y estructuras.</p>
+
+  <h3>Otros datos del plano</h3>
+  <ul>
+    <li>Perímetro de la vivienda.</li>
+    <li>Escala (generalmente <strong>1:100</strong>).</li>
+  </ul>
+
+  <h3>Estados del plano</h3>
+  <p>Planos aprobados, registrados, empadronados y sujetos a demolición:</p>
+  <ul>
+    <li>No se puede habilitar ni subdividir un local en esa situación.</li>
+    <li>Se puede pedir un <strong>cambio de sello</strong> para que salga registrado.</li>
+  </ul>
+
+  <div class="tia">
+    <span class="lbl">Explicación para la tía</span>
+    <p>Un plano es el dibujo de la casa visto desde arriba y de costado. Tiene dos partes: la carátula, que es como la portada de un cuaderno (dice de quién es, dónde queda, quién lo firma), y el cuerpo principal, que son los dibujos en sí (cómo se ve la casa por dentro, de frente, en corte). Está hecho a escala, o sea achicado: 1 en 100 significa que 1 cm en el papel es 1 metro en la realidad.</p>
+  </div>
+  <div class="ej">
+    <span class="lbl">Ejemplo</span>
+    <p>En la carátula leés: "Propietario: Juan Pérez, Calle Mitre 500, vivienda unifamiliar". En el cuerpo principal ves el dibujo de las habitaciones desde arriba, la fachada de frente y un corte donde se ve la altura de los techos.</p>
+  </div>
+</section>
+
+
+<section id="t19">
+  <h2 class="tema">19. Carátulas: plano de obra y plano de subdivisión</h2>
+  <p>Las carátulas cambian según el tipo de plano:</p>
+  <table>
+    <tr><th>Plano de Obra</th><th>Plano de Subdivisión</th></tr>
+    <tr>
+      <td>
+        Nombre del propietario · Ubicación del inmueble · Nomenclatura catastral · Partida y matrícula · <strong>Destino de la construcción</strong> · Escala · Superficies cubiertas y descubiertas · Firma de los profesionales · Aprobación municipal.
+      </td>
+      <td>
+        Datos del propietario · Ubicación del inmueble · Nomenclatura catastral · Partida y matrícula · <strong>Medidas y superficies</strong> · <strong>División de parcelas o unidades funcionales</strong> · Escala · <strong>Firma del agrimensor</strong> · Visado y aprobación municipal.
+      </td>
+    </tr>
+  </table>
+  <p><strong>Diferencia clave:</strong> el plano de obra describe lo que se va a <em>construir</em> (lo firma el arquitecto/ingeniero); el de subdivisión describe cómo se <em>divide</em> el terreno en parcelas o unidades (lo firma el agrimensor).</p>
+
+  <div class="tia">
+    <span class="lbl">Explicación para la tía</span>
+    <p>Hay dos planos distintos. El de obra es para construir: dice cómo va a ser la casa. El de subdivisión es para dividir: por ejemplo, cuando tenés un terreno grande y lo partís en dos para venderle una mitad a alguien, o cuando un edificio se divide en departamentos. Cada uno lo firma un profesional diferente: el de obra el arquitecto, el de subdivisión el agrimensor (que es el que mide los terrenos).</p>
+  </div>
+  <div class="ej">
+    <span class="lbl">Ejemplo</span>
+    <p><strong>Plano de obra:</strong> querés levantar una casa nueva → el arquitecto dibuja y firma cómo será. <strong>Plano de subdivisión:</strong> tenés un lote de 20×30 y lo querés partir en dos de 10×30 → el agrimensor mide, dibuja la división y firma.</p>
+  </div>
+</section>
+
+
+<section id="t20">
+  <h2 class="tema">20. Indicadores urbanísticos (FOS, FOT, densidad, altura)</h2>
+  <p>Un <strong>indicador urbanístico</strong> es una unidad de información que, a través del tiempo, documenta los cambios de una condición específica en un contexto urbano. Su objetivo es representar la realidad de forma cuantitativa, sencilla y directa para hacer un análisis claro.</p>
+  <p>Según el uso del suelo, los indicadores definen la <strong>zonificación</strong>. Los cuatro principales son:</p>
+  <ul>
+    <li><strong>F.O.S.</strong> (Factor de Ocupación del Suelo): cuánto del terreno podés ocupar con la planta baja.</li>
+    <li><strong>F.O.T.</strong> (Factor de Ocupación Total): cuántos metros cuadrados totales podés construir sumando todos los pisos.</li>
+    <li><strong>Densidad:</strong> cantidad de habitantes por hectárea.</li>
+    <li><strong>Altura:</strong> altura máxima permitida.</li>
+  </ul>
+
+  <div class="tia">
+    <span class="lbl">Explicación para la tía</span>
+    <p>La Municipalidad no te deja construir lo que quieras: pone reglas. El FOS dice cuánto del terreno podés tapar con la casa (para que quede patio o jardín). El FOT dice cuántos metros en total podés construir contando todos los pisos. La densidad dice cuánta gente puede vivir ahí, y la altura, hasta qué alto podés llegar. Son como los límites de un juego: marcan hasta dónde podés.</p>
+  </div>
+  <div class="ej">
+    <span class="lbl">Ejemplo</span>
+    <p>Tenés un terreno de 200 m². Si el <strong>FOS es 0,6</strong>, podés tapar como máximo 120 m² con la planta baja (200 × 0,6) y el resto debe quedar libre. Si el <strong>FOT es 1,2</strong>, podés construir hasta 240 m² en total (200 × 1,2), por ejemplo 120 m² en planta baja + 120 m² en un primer piso.</p>
+  </div>
+</section>
+
+
+<section id="t21">
+  <h2 class="tema">21. Permiso de construcción</h2>
+  <p>Es un <strong>expediente</strong> que presenta el profesional, en forma de plano, para declarar lo que se va a construir.</p>
+  <p>El profesional, mediante una <strong>consulta previa</strong> llamada <strong>"viabilidad"</strong>, averigua cómo intervenir de forma efectiva para que el trámite esté acorde y sea más rápido. Este trámite es el <strong>paso final previo a un anteproyecto</strong>.</p>
+
+  <div class="tia">
+    <span class="lbl">Explicación para la tía</span>
+    <p>Es el permiso oficial para poder construir, como cuando pedís autorización antes de hacer algo importante. El arquitecto, antes de dibujar todo, le pregunta a la Municipalidad "¿se puede hacer esto acá?" (eso es la viabilidad), así no pierde tiempo haciendo un proyecto que después le van a rechazar. Recién cuando le dicen que sí, avanza.</p>
+  </div>
+  <div class="ej">
+    <span class="lbl">Ejemplo</span>
+    <p>Antes de diseñar un local comercial, el arquitecto hace una consulta de viabilidad y le confirman que en esa zona se permiten comercios. Con esa luz verde, presenta el permiso de construcción y arranca el proyecto, seguro de que no le van a frenar el trámite.</p>
+  </div>
+</section>
+
+
+<footer>
+  <p>Resumen unificado de <em>Resumen2-tasaciones1</em> + <em>TASACIONES_I_P2</em> · Tasaciones I</p>
+  <p>¡Mucha mierda en el parcial! 🍀</p>
+</footer>
+
 </div>
 
-<!-- SIDEBAR -->
-<nav id="sidebar">
-  <div class="sidebar-title">
-    PPRC · 1er Parcial
-    <div class="sidebar-subtitle">Guía de Estudio Oral</div>
-  </div>
-  <div class="progress-bar"><div class="progress-fill" id="prog"></div></div>
-  <a class="nav-item active" href="#t1"><span class="nav-num">01</span>Los Profesionales</a>
-  <a class="nav-item" href="#t2"><span class="nav-num">02</span>Inhabilitaciones</a>
-  <a class="nav-item" href="#t3"><span class="nav-num">03</span>Actos y Hechos Jurídicos</a>
-  <a class="nav-item" href="#t4"><span class="nav-num">04</span>Teoría General del Contrato</a>
-  <a class="nav-item" href="#t5"><span class="nav-num">05</span>Contratos Específicos</a>
-  <a class="nav-item" href="#t6"><span class="nav-num">06</span>Valor y Precio</a>
-  <a class="nav-item" href="#t7"><span class="nav-num">07</span>Contrato de Locación</a>
-  <a class="nav-item" href="#t8"><span class="nav-num">08</span>Proceso de Locación</a>
-  <a class="nav-item" href="#t9"><span class="nav-num">09</span>Contrato de Mutuo</a>
-  <a class="nav-item" href="#t10"><span class="nav-num">10</span>Contrato de Comodato</a>
-  <a class="nav-item" href="#t11"><span class="nav-num">11</span>Contrato de Fianza</a>
-  <a class="nav-item" href="#t12"><span class="nav-num">12</span>Contrato de Hipoteca</a>
-</nav>
+<a href="#" class="top-btn">↑ Arriba</a>
 
-<!-- MAIN -->
-<main id="main">
-
-  <header class="page-header">
-    <h1>Principios y Prácticas de<br><span>Remates y Corretaje</span></h1>
-    <p>1er Parcial · Material de estudio para oral · Organizado por temas</p>
-  </header>
-
-  <!-- ── TEMA 1 ── -->
-  <section class="topic" id="t1">
-    <div class="topic-header">
-      <div class="topic-num">01</div>
-      <div>
-        <div class="topic-tag">Marco profesional · Ley 20.266 / 25.028</div>
-        <div class="topic-title">Los Profesionales:<br>Martillero, Corredor y Perito</div>
-      </div>
-    </div>
-
-    <h3>Martillero</h3>
-    <p>Profesional habilitado legalmente para realizar <strong>remates y subastas</strong> públicas o privadas de bienes muebles e inmuebles. Actúa como <strong>intermediario imparcial</strong> entre vendedor y comprador. Regulado por la <strong>Ley 20.266</strong> (mod. por Ley 25.028).</p>
-    <ul>
-      <li>Dirige remates y subastas judiciales o extrajudiciales.</li>
-      <li>Garantiza <strong>transparencia y publicidad</strong> del acto de subasta.</li>
-      <li>Percibe y entrega el precio obtenido al vendedor o a quien corresponda.</li>
-      <li>Valúa bienes muebles o inmuebles que van a subastarse.</li>
-      <li>Asesora sobre condiciones de venta y adquisición.</li>
-    </ul>
-
-    <h3>Corredor</h3>
-    <p>Profesional que actúa como <strong>intermediario</strong> en transacciones de bienes inmuebles, <strong>sin estar vinculado a ninguna de las partes</strong>. No es parte del contrato: es un mediador independiente.</p>
-    <table>
-      <tr><th>Funciones</th><th>Obligaciones</th><th>Derechos</th></tr>
-      <tr>
-        <td>Mediar neutral en compraventas.<br>Informar condiciones de mercado.<br>Proponer oportunidades.<br>Certificar contratos con su firma.</td>
-        <td>Llevar libro rubricado de operaciones.<br>Verificar identidad de las partes.<br>Comprobar titularidad y estado del bien.<br>Convenir por escrito gastos y condiciones.<br>Actuar con ética y claridad.<br>Mantener secreto profesional.<br>Conservar copia de contratos.</td>
-        <td>Cobrar remuneración por los negocios en que intervenga.</td>
-      </tr>
-    </table>
-
-    <h3>Perito Auxiliar de Justicia</h3>
-    <p>Auxiliar de la justicia, especialista en una ciencia, arte, técnica u oficio, que <strong>aporta conocimientos técnicos al juez</strong> para resolver cuestiones que exceden el saber jurídico.</p>
-    <ul>
-      <li>Realiza pericias e informes técnicos a pedido de juez o tribunal.</li>
-      <li>Produce dictámenes objetivos y fundamentados.</li>
-      <li>Responde a puntos de pericia propuestos por las partes y el juez.</li>
-      <li>Asiste a audiencias para ratificar o explicar su dictamen.</li>
-    </ul>
-
-    <div class="summary-area">
-      <div class="summary-box tecnico">
-        <h4>📋 Resumen Técnico</h4>
-        <p>Los tres roles son auxiliares del mercado inmobiliario con funciones diferenciadas. El <strong>martillero</strong> conduce actos de subasta pública o privada con poder de dirección. El <strong>corredor</strong> es un mediador imparcial sin vínculo contractual con las partes, con obligaciones de registro y secreto profesional reguladas por la Ley 20.266. El <strong>perito</strong> es un auxiliar del Poder Judicial que colabora con el juez aportando saber técnico-científico en el marco de un proceso.</p>
-      </div>
-      <div class="summary-box tia">
-        <h4><span class="tia-icon">👵</span>Explicación para tu tía</h4>
-        <p>El <em>martillero</em> es el señor que dirige los remates —el que grita "¡vendido!"—. El <em>corredor</em> es el inmobiliario de toda la vida: te conecta con el que vende y no le debe favores a ninguno. Y el <em>perito</em> es el experto que le explica al juez lo que el juez no entiende de su oficio.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- ── TEMA 2 ── -->
-  <section class="topic" id="t2">
-    <div class="topic-header">
-      <div class="topic-num">02</div>
-      <div>
-        <div class="topic-tag">Ley 20.266 · Ley 10.973 · Código Civil</div>
-        <div class="topic-title">Inhabilitaciones para el Ejercicio</div>
-      </div>
-    </div>
-
-    <p>La ley establece quiénes <strong>no pueden ejercer</strong> las actividades de martillero ni corredor. Existen dos regímenes principales:</p>
-
-    <div class="inh-block">
-      <span class="label">⛔ Ley 20.266 — Inhabilitaciones</span>
-      <ul>
-        <li>Quienes no pueden ejercer el comercio.</li>
-        <li>Fallidos y concursados con conducta <strong>calificada como fraudulenta o culpable</strong>, hasta <strong>5 años</strong> después de su rehabilitación.</li>
-        <li>Los <strong>inhibidos</strong> para disponer de sus bienes.</li>
-        <li>Condenados por hurto, robo, extorsión, estafas, usura, cohecho, malversación de caudales públicos y delitos contra la fe pública, hasta <strong>10 años</strong> después de cumplida la condena.</li>
-        <li>Excluidos temporal o definitivamente del ejercicio por <strong>sanción disciplinaria</strong>.</li>
-        <li>Los comprendidos en el <strong>Art. 152 bis</strong> del Código Civil (inhabilitados judicialmente).</li>
-      </ul>
-    </div>
-
-    <div class="inh-block">
-      <span class="label">⛔ Ley 10.973 — Inhabilitaciones</span>
-      <ul>
-        <li>Condenados por hurto, robo, extorsión, estafa, usura, cohecho, malversación y delitos contra la fe pública, <strong>hasta cumplida la condena</strong>.</li>
-        <li>Los fallidos <strong>mientras dure su inhabilitación</strong>.</li>
-        <li>Excluidos temporal o definitivamente por <strong>sanción disciplinaria</strong>.</li>
-        <li>Los comprendidos en el <strong>Art. 152 bis</strong> del Código Civil.</li>
-      </ul>
-    </div>
-
-    <h3>Diferencia clave entre las leyes</h3>
-    <table>
-      <tr><th>Punto</th><th>Ley 20.266</th><th>Ley 10.973</th></tr>
-      <tr><td>Fallidos/Concursados</td><td>Hasta 5 años post-rehabilitación si conducta fraudulenta</td><td>Mientras dure la inhabilitación (sin distinción de conducta)</td></tr>
-      <tr><td>Plazos post-condena</td><td>Hasta 10 años de cumplida la condena</td><td>Hasta cumplida la condena</td></tr>
-      <tr><td>Inhabilitados (Art. 152 bis CC)</td><td>Sí incluye</td><td>Sí incluye</td></tr>
-    </table>
-
-    <div class="summary-area">
-      <div class="summary-box tecnico">
-        <h4>📋 Resumen Técnico</h4>
-        <p>Las inhabilitaciones son restricciones al ejercicio de la actividad de martillero/corredor establecidas por ley. La Ley 20.266 es más explícita en los plazos: 5 años para fallidos con conducta reprochable y 10 años para ciertos delitos post-condena. La Ley 10.973 aplica la inhabilitación durante la condena, sin plazos adicionales. Ambas incluyen la sanción disciplinaria y el Art. 152 bis CC (incapacidad de hecho relativa).</p>
-      </div>
-      <div class="summary-box tia">
-        <h4><span class="tia-icon">👵</span>Explicación para tu tía</h4>
-        <p>Son las personas a las que la ley les dice "vos no podés trabajar de esto". Si alguien robó, estafó o fundió una empresa de mala fe, no puede ser inmobiliario ni martillero. Hay plazos: uno no puede rehabilitarse de un día para el otro.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- ── TEMA 3 ── -->
-  <section class="topic" id="t3">
-    <div class="topic-header">
-      <div class="topic-num">03</div>
-      <div>
-        <div class="topic-tag">Derecho Civil · Código Civil y Comercial</div>
-        <div class="topic-title">Actos Jurídicos y Hechos Jurídicos</div>
-      </div>
-    </div>
-
-    <h3>Hecho Jurídico</h3>
-    <p>Es todo hecho —natural o humano— que <strong>produce consecuencias y efectos en el ámbito del derecho</strong>.</p>
-
-    <h3>Clasificación de los Hechos Jurídicos</h3>
-    <ul>
-      <li><strong>Naturales:</strong> independientes de la voluntad humana (nacimiento, muerte, fenómenos naturales).</li>
-      <li><strong>Humanos:</strong> provienen de conducta humana.
-        <ul>
-          <li><strong>Voluntarios:</strong> realizados con <em>discernimiento</em>, <em>intención</em> y <em>libertad</em>. Se dividen en <strong>lícitos</strong> (ajustados al derecho) e <strong>ilícitos</strong> (contrarios a la ley).</li>
-          <li><strong>Involuntarios:</strong> sin control del sujeto (accidentes, inconsciencia, fuerza mayor).</li>
-        </ul>
-      </li>
-    </ul>
-
-    <h3>Los tres pilares del acto voluntario</h3>
-    <div class="chip-grid">
-      <div class="chip"><b>Discernimiento</b> · capacidad de distinguir el bien del mal y entender las consecuencias</div>
-      <div class="chip"><b>Intención</b> · voluntad dirigida a producir efectos jurídicos</div>
-      <div class="chip"><b>Libertad</b> · actuar sin coacción</div>
-    </div>
-
-    <hr>
-
-    <h3>Acto Jurídico</h3>
-    <article class="article-ref">
-      <span class="label">CCCN — Definición</span>
-      Es el acto voluntario <strong>lícito</strong> que tiene por fin inmediato la <strong>adquisición, modificación o extinción</strong> de relaciones o situaciones jurídicas.
-    </article>
-
-    <h3>Elementos Esenciales del Acto Jurídico</h3>
-    <table>
-      <tr><th>Elemento</th><th>Descripción</th></tr>
-      <tr><td><strong>Sujeto</strong></td><td>Persona/s que intervienen en la celebración del acto.</td></tr>
-      <tr><td><strong>Capacidad</strong></td><td>Las partes deben tener capacidad de ejercicio y de derecho.</td></tr>
-      <tr><td><strong>Objeto</strong></td><td>La cosa o el hecho sobre el cual recae la obligación.</td></tr>
-      <tr><td><strong>Forma</strong></td><td>Medio por el cual la persona exterioriza su voluntad.</td></tr>
-      <tr><td><strong>Causa</strong></td><td>El fin inmediato autorizado por el ordenamiento que determinó la voluntad.</td></tr>
-    </table>
-
-    <h3>Actos Jurídicos de Familia</h3>
-    <p>Son declaraciones de voluntad (individuales o conjuntas) que <strong>crean, modifican o extinguen derechos y obligaciones de índole familiar</strong> (matrimonio, reconocimiento de hijo, divorcio). Se clasifican por:</p>
-    <div class="chip-grid">
-      <div class="chip pair"><b>Unilaterales</b> vs <b>Bilaterales</b></div>
-      <div class="chip pair"><b>Solemnes</b> vs <b>No solemnes</b></div>
-      <div class="chip pair"><b>Emplazamiento</b> vs <b>Desplazamiento</b> vs <b>Ejercicio del estado</b></div>
-    </div>
-
-    <div class="summary-area">
-      <div class="summary-box tecnico">
-        <h4>📋 Resumen Técnico</h4>
-        <p>El <strong>hecho jurídico</strong> es el género: cualquier acontecimiento con relevancia jurídica. El <strong>acto jurídico</strong> es la especie: requiere voluntad lícita y finalidad jurídica directa. Para que un acto sea voluntario deben concurrir <strong>discernimiento + intención + libertad</strong>. Sin alguno de estos, el acto puede ser involuntario o viciado. Los elementos esenciales del acto son: sujeto, capacidad, objeto, forma y causa.</p>
-      </div>
-      <div class="summary-box tia">
-        <h4><span class="tia-icon">👵</span>Explicación para tu tía</h4>
-        <p>Un <em>hecho jurídico</em> es cualquier cosa que le importa al derecho: que te caigas, que nazca un bebé, que muera alguien. Un <em>acto jurídico</em> ya es algo que hacés a propósito para generar derechos y obligaciones, como firmar un contrato o casarte. Para que valga, tiene que ser voluntario (sabés lo que hacés), libre (nadie te obligó) y lícito (no va contra la ley).</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- ── TEMA 4 ── -->
-  <section class="topic" id="t4">
-    <div class="topic-header">
-      <div class="topic-num">04</div>
-      <div>
-        <div class="topic-tag">CCCN Arts. 957 · 958 · 959 · 961</div>
-        <div class="topic-title">Teoría General del Contrato</div>
-      </div>
-    </div>
-
-    <article class="article-ref">
-      <span class="label">Art. 957 — Contrato</span>
-      Es el acto jurídico mediante el cual <strong>dos o más partes manifiestan su consentimiento</strong> para crear, regular, modificar, transferir o extinguir <strong>relaciones jurídicas patrimoniales</strong>.
-    </article>
-
-    <article class="article-ref">
-      <span class="label">Art. 958 — Libertad de Contratación</span>
-      Las partes son libres para celebrar un contrato y determinar su contenido, dentro de los <strong>límites impuestos por la ley o el orden público</strong>. Las normas legales son de aplicación supletoria a la voluntad de las partes, salvo que la norma sea expresamente imperativa.
-    </article>
-
-    <article class="article-ref">
-      <span class="label">Art. 959 — Efecto Vinculante</span>
-      Todo contrato válidamente celebrado es <strong>obligatorio para las partes</strong>. Su contenido sólo puede modificarse o extinguirse por acuerdo de partes o en los supuestos que la ley prevé.
-    </article>
-
-    <article class="article-ref">
-      <span class="label">Art. 961 — Buena Fe</span>
-      Los contratos deben celebrarse, interpretarse y ejecutarse de <strong>buena fe</strong>. Obligan no sólo a lo expresado formalmente, sino a todas las consecuencias que puedan considerarse comprendidas en ellos.
-    </article>
-
-    <h3>Elementos Esenciales del Contrato</h3>
-    <table>
-      <tr><th>Elemento</th><th>Descripción</th></tr>
-      <tr><td><strong>Consentimiento</strong></td><td>Voluntad de las partes.</td></tr>
-      <tr><td><strong>Objeto</strong></td><td>La prestación o contraprestación.</td></tr>
-      <tr><td><strong>Causa</strong></td><td>El fin por el cual se celebra.</td></tr>
-      <tr><td><strong>Sujeto</strong></td><td>Quienes realizan el contrato.</td></tr>
-      <tr><td><strong>Forma</strong></td><td>La forma de su celebración.</td></tr>
-    </table>
-
-    <h3>Clasificación de los Contratos</h3>
-    <table>
-      <tr><th>Par</th><th>Opción A</th><th>Opción B</th></tr>
-      <tr>
-        <td><strong>Partes obligadas</strong></td>
-        <td><b>Unilateral:</b> solo una parte se obliga</td>
-        <td><b>Bilateral:</b> ambas partes se obligan recíprocamente</td>
-      </tr>
-      <tr>
-        <td><strong>Onerosidad</strong></td>
-        <td><b>Oneroso:</b> cada ventaja tiene una contraprestación</td>
-        <td><b>Gratuito:</b> ventaja sin contraprestación a cargo</td>
-      </tr>
-      <tr>
-        <td><strong>Certeza</strong></td>
-        <td><b>Conmutativo:</b> ventajas ciertas para todos</td>
-        <td><b>Aleatorio:</b> ventajas o pérdidas dependen de hecho incierto</td>
-      </tr>
-      <tr>
-        <td><strong>Regulación legal</strong></td>
-        <td><b>Nominado:</b> regulado especialmente por ley</td>
-        <td><b>Innominado:</b> no regulado específicamente</td>
-      </tr>
-      <tr>
-        <td><strong>Forma</strong></td>
-        <td><b>Formal:</b> requiere forma legal específica</td>
-        <td><b>No formal:</b> sin requisitos formales</td>
-      </tr>
-    </table>
-
-    <div class="summary-area">
-      <div class="summary-box tecnico">
-        <h4>📋 Resumen Técnico</h4>
-        <p>El contrato es un acto jurídico bilateral patrimonial. Sus cuatro artículos pilares son: <strong>Art. 957</strong> (definición), <strong>Art. 958</strong> (autonomía de la voluntad con límites de orden público), <strong>Art. 959</strong> (fuerza vinculante —pacta sunt servanda—) y <strong>Art. 961</strong> (buena fe objetiva como estándar de conducta). La clasificación se estructura en pares dicotómicos: unilateral/bilateral, oneroso/gratuito, conmutativo/aleatorio, formal/no formal, nominado/innominado.</p>
-      </div>
-      <div class="summary-box tia">
-        <h4><span class="tia-icon">👵</span>Explicación para tu tía</h4>
-        <p>Un contrato es un acuerdo entre dos o más personas donde cada uno sabe qué tiene que hacer y qué va a recibir. Una vez firmado, los dos tienen que cumplirlo —la ley los obliga—. Y todo tiene que hacerse de buena fe: no se vale esconder la letra chica para engañar al otro.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- ── TEMA 5 ── -->
-  <section class="topic" id="t5">
-    <div class="topic-header">
-      <div class="topic-num">05</div>
-      <div>
-        <div class="topic-tag">CCCN Arts. 1123 · 1187</div>
-        <div class="topic-title">Contratos Específicos:<br>Compraventa y Locación</div>
-      </div>
-    </div>
-
-    <article class="article-ref">
-      <span class="label">Art. 1123 — Compraventa</span>
-      Hay compraventa si una de las partes se obliga a <strong>transferir la propiedad</strong> de una cosa y la otra a <strong>pagar un precio en dinero</strong>.
-    </article>
-
-    <h3>Elementos de la Compraventa</h3>
-    <ul>
-      <li><strong>Vendedor:</strong> transfiere la propiedad de la cosa.</li>
-      <li><strong>Comprador:</strong> paga el precio en dinero.</li>
-      <li><strong>Cosa:</strong> objeto del contrato — debe ser determinada o determinable.</li>
-      <li><strong>Precio:</strong> siempre en dinero. Si fuera en otra cosa, sería permuta.</li>
-    </ul>
-
-    <article class="article-ref">
-      <span class="label">Art. 1187 — Locación</span>
-      Hay locación si una parte se obliga a otorgar a otra el <strong>uso y goce temporario</strong> de una cosa, a cambio del pago de un precio en dinero.
-    </article>
-
-    <h3>Diferencia clave: Compraventa vs. Locación</h3>
-    <table>
-      <tr><th>Aspecto</th><th>Compraventa</th><th>Locación</th></tr>
-      <tr><td>Transferencia</td><td>Transfiere la <strong>propiedad</strong> definitivamente</td><td>Cede el <strong>uso y goce</strong> de forma temporal</td></tr>
-      <tr><td>Duración</td><td>Acto único — transmite el dominio</td><td>Contrato de tracto sucesivo con plazo</td></tr>
-      <tr><td>Al finalizar</td><td>El comprador queda como dueño</td><td>El locatario restituye la cosa al locador</td></tr>
-    </table>
-
-    <div class="summary-area">
-      <div class="summary-box tecnico">
-        <h4>📋 Resumen Técnico</h4>
-        <p>La <strong>compraventa</strong> transfiere el dominio de una cosa a cambio de un precio en dinero: es un contrato traslativo de propiedad. La <strong>locación</strong> cede solo el uso y goce temporal: el locador conserva la propiedad. Son los dos contratos más frecuentes en el ejercicio inmobiliario. Para la compraventa de inmuebles se requiere escritura pública (Art. 1017 CCCN).</p>
-      </div>
-      <div class="summary-box tia">
-        <h4><span class="tia-icon">👵</span>Explicación para tu tía</h4>
-        <p>La <em>compraventa</em> es cuando comprás algo y pasa a ser tuyo para siempre. La <em>locación</em> es el alquiler: usás algo ajeno por un tiempo y al terminar lo devolvés. En uno te quedás con la cosa; en el otro, no.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- ── TEMA 11 ── -->
-  <section class="topic" id="t11">
-    <div class="topic-header">
-      <div class="topic-num">11</div>
-      <div>
-        <div class="topic-tag">CCCN Arts. 1574–1598 · Garantía Personal</div>
-        <div class="topic-title">Contrato de Fianza</div>
-      </div>
-    </div>
-
-    <article class="article-ref">
-      <span class="label">Art. 1574 — Definición</span>
-      Hay contrato de fianza cuando una persona se obliga <strong>accesoriamente</strong> por otra a satisfacer una prestación para el caso de <strong>incumplimiento</strong>.
-    </article>
-
-    <h3>Partes del Contrato</h3>
-    <ul>
-      <li><strong>Acreedor:</strong> a quien se le debe la prestación principal.</li>
-      <li><strong>Deudor:</strong> quien tiene la obligación principal.</li>
-      <li><strong>Fiador:</strong> tercero que se obliga frente al acreedor a cumplir si el deudor incumple.</li>
-    </ul>
-    <p>El contrato se celebra entre <strong>acreedor y fiador</strong> — no requiere participación ni consentimiento del deudor.</p>
-
-    <h3>Carácter Accesorio y Subsidiario</h3>
-    <ul>
-      <li><strong>Accesorio:</strong> la fianza depende de una obligación principal válida. Si la obligación principal es nula, la fianza también lo es.</li>
-      <li><strong>Subsidiario:</strong> la obligación del fiador no es exigible desde el inicio; se activa solo si el deudor principal incumple.</li>
-    </ul>
-
-    <h3>Beneficios del Fiador</h3>
-    <table>
-      <tr><th>Beneficio</th><th>Artículo</th><th>Descripción</th></tr>
-      <tr>
-        <td><strong>Excusión</strong></td>
-        <td>Art. 1583</td>
-        <td>El fiador puede exigir que el acreedor primero agote los bienes del deudor principal. Solo responde por el saldo no cubierto.</td>
-      </tr>
-      <tr>
-        <td><strong>División</strong></td>
-        <td>Art. 1589</td>
-        <td>Si hay más de un fiador, cada uno responde únicamente por su parte proporcional — la deuda se divide en partes iguales entre todos.</td>
-      </tr>
-    </table>
-
-    <h3>Fianza Simple vs. Fianza Solidaria</h3>
-    <table>
-      <tr><th></th><th>Fianza Simple</th><th>Fianza Solidaria</th></tr>
-      <tr><td><strong>Beneficios</strong></td><td>Puede invocar excusión y división</td><td>Renuncia expresamente a ambos</td></tr>
-      <tr><td><strong>Efecto para el acreedor</strong></td><td>Debe ir primero contra el deudor</td><td>Puede reclamar la totalidad directamente al fiador</td></tr>
-      <tr><td><strong>Uso práctico</strong></td><td>Poco común</td><td>La más frecuente en alquileres y préstamos bancarios</td></tr>
-      <tr><td><strong>Activación</strong></td><td>Cuando el fiador se obliga como "fiador"</td><td>Cuando el fiador se obliga como "principal pagador" o renuncia expresamente</td></tr>
-    </table>
-
-    <div class="summary-area">
-      <div class="summary-box tecnico">
-        <h4>📋 Resumen Técnico</h4>
-        <p>La fianza es un contrato de <strong>garantía personal</strong>: el fiador responde con todo su patrimonio, no con un bien determinado. Es accesoria (depende de la obligación principal) y subsidiaria (se activa solo ante incumplimiento). La fianza simple protege al fiador con los beneficios de excusión y división. La fianza solidaria — la más usada en locaciones — implica la renuncia a ambos beneficios: el acreedor puede ir directamente contra el fiador por el total de la deuda.</p>
-      </div>
-      <div class="summary-box tia">
-        <h4><span class="tia-icon">👵</span>Explicación para tu tía</h4>
-        <p>La fianza es el "garante" del alquiler. En la <em>fianza simple</em>, el garante puede decir "primero cobrále al inquilino". En la <em>fianza solidaria</em> — que es la que se firma casi siempre — el garante no puede decir eso: si el inquilino no paga, el dueño lo llama a él directamente y tiene que pagar todo. Por eso es tan difícil conseguir garante propietario.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- ── TEMA 12 ── -->
-  <section class="topic" id="t12">
-    <div class="topic-header">
-      <div class="topic-num">12</div>
-      <div>
-        <div class="topic-tag">CCCN Arts. 2184–2211 · Derecho Real de Garantía</div>
-        <div class="topic-title">Contrato de Hipoteca</div>
-      </div>
-    </div>
-
-    <article class="article-ref">
-      <span class="label">Art. 2205 — Definición</span>
-      La hipoteca es el <strong>derecho real de garantía</strong> que recae sobre uno o más inmuebles individualizados que continúan en poder del constituyente, y que otorga al acreedor, ante el incumplimiento del deudor, las facultades de <strong>persecución y preferencia</strong> para cobrar sobre su producido el crédito garantizado.
-    </article>
-
-    <h3>Partes del Contrato</h3>
-    <ul>
-      <li><strong>Acreedor hipotecario:</strong> quien tiene el derecho de hipoteca (generalmente un banco o entidad financiera).</li>
-      <li><strong>Deudor hipotecario:</strong> quien tiene la obligación principal y constituye la hipoteca sobre su inmueble como garantía.</li>
-    </ul>
-
-    <h3>Objeto</h3>
-    <p>El objeto de la hipoteca es siempre un <strong>inmueble</strong> (terreno, casa, departamento). A diferencia de la <strong>prenda</strong>, que se constituye sobre bienes muebles.</p>
-
-    <h3>Características Esenciales</h3>
-    <ul>
-      <li><strong>Derecho real de garantía:</strong> el acreedor puede perseguir el inmueble sin importar quién sea su dueño actual, y ejecutarlo para cobrar su crédito.</li>
-      <li><strong>Accesoria:</strong> depende de una obligación principal (ej. un mutuo o préstamo). Si la deuda se extingue, la hipoteca también se extingue.</li>
-      <li><strong>Formal:</strong> debe constituirse por <strong>escritura pública</strong> y luego inscribirse en el <strong>Registro de la Propiedad Inmueble</strong>. Sin inscripción, no es oponible a terceros.</li>
-      <li><strong>Sin desposesión:</strong> el deudor hipotecario conserva la posesión y el uso del inmueble gravado. No se lo entrega al acreedor.</li>
-      <li><strong>Indivisible:</strong> la garantía hipotecaria afecta a la totalidad del inmueble y a la totalidad de la deuda. Cada parte del inmueble responde por la deuda completa.</li>
-      <li><strong>Duración de la inscripción (Art. 2210):</strong> los efectos del registro se conservan por <strong>35 años</strong>. Si antes no se renueva, caduca.</li>
-    </ul>
-
-    <h3>¿Para qué sirve?</h3>
-    <p>Otorga al acreedor una garantía sólida de cobro. Si el deudor incumple, el acreedor puede iniciar un <strong>juicio de ejecución hipotecaria</strong> para subastar judicialmente el inmueble y cobrar su deuda con prioridad sobre otros acreedores.</p>
-
-    <h3>Hipoteca vs. Fianza — Cuadro comparativo</h3>
-    <table>
-      <tr><th>Aspecto</th><th>Hipoteca</th><th>Fianza</th></tr>
-      <tr><td>Naturaleza</td><td>Derecho <strong>real</strong> de garantía</td><td>Obligación <strong>personal</strong> accesoria</td></tr>
-      <tr><td>Recae sobre</td><td>Un inmueble determinado</td><td>El patrimonio del fiador</td></tr>
-      <tr><td>Posesión</td><td>El deudor conserva el inmueble</td><td>El fiador responde con sus bienes</td></tr>
-      <tr><td>Forma</td><td>Escritura pública + inscripción registral</td><td>Sin formalidad específica</td></tr>
-      <tr><td>Vigencia</td><td>35 años (renovable)</td><td>Hasta que se extingue la obligación principal</td></tr>
-      <tr><td>Ejecución</td><td>Subasta judicial del inmueble</td><td>Cobro al fiador por vía judicial</td></tr>
-    </table>
-
-    <div class="summary-area">
-      <div class="summary-box tecnico">
-        <h4>📋 Resumen Técnico</h4>
-        <p>La hipoteca es una garantía <strong>real</strong> (sobre cosa) a diferencia de la fianza que es <strong>personal</strong> (sobre patrimonio). Sus caracteres esenciales son: accesoria, formal (escritura pública + registro), sin desposesión e indivisible. La inscripción registral tiene una vigencia de 35 años. Ante incumplimiento, el acreedor ejerce la acción de <strong>ejecución hipotecaria</strong> con derecho de persecución y preferencia sobre otros acreedores.</p>
-      </div>
-      <div class="summary-box tia">
-        <h4><span class="tia-icon">👵</span>Explicación para tu tía</h4>
-        <p>La hipoteca es cuando ponés tu casa como garantía de un préstamo. Seguís viviendo en ella — nadie te la saca mientras pagués. Pero si dejás de pagar, el banco puede pedir que la rematen por la Justicia para cobrar lo que se le debe. Y tiene prioridad sobre los demás acreedores que puedas tener.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- ── TEMA 6 ── -->
-  <section class="topic" id="t6">
-    <div class="topic-header">
-      <div class="topic-num">06</div>
-      <div>
-        <div class="topic-tag">Valuación Inmobiliaria · Principios de Mercado</div>
-        <div class="topic-title">Valor y Precio</div>
-      </div>
-    </div>
-
-    <table>
-      <tr><th></th><th>Valor</th><th>Precio</th></tr>
-      <tr><td><strong>Definición</strong></td><td>Característica de las cosas que permite asignarles una cuantía. <strong>Subjetivo.</strong></td><td>Lo que efectivamente se paga por un bien. Determinado por oferta y demanda. <strong>Objetivo.</strong></td></tr>
-      <tr><td><strong>Medida</strong></td><td>No necesariamente en dinero</td><td>Siempre en dinero</td></tr>
-    </table>
-
-    <h3>Factores que influyen en el Valor y Precio</h3>
-    <ul>
-      <li><strong>Principio de reemplazo o sustitución:</strong> el valor se ve influido por el costo de adquirir una propiedad de características similares.</li>
-      <li><strong>Principio del más alto y mejor uso:</strong> la propiedad alcanza su valor máximo en su mejor aprovechamiento posible.</li>
-      <li><strong>Oferta y demanda:</strong> factor más importante que afecta a un inmueble.</li>
-      <li><strong>Equilibrio:</strong> en mercado equilibrado hay más propiedades en venta que compradores.</li>
-      <li><strong>Cambio:</strong> los cambios físicos y económicos impactan directamente en el mercado.</li>
-      <li><strong>Conformidad, progresión y regresión:</strong>
-        <ul>
-          <li><em>Conformidad:</em> el inmueble es similar a los de su entorno.</li>
-          <li><em>Progresión:</em> inmueble de menor valor rodeado de mejores → sube.</li>
-          <li><em>Regresión:</em> inmueble de mayor valor rodeado de peores → baja.</li>
-        </ul>
-      </li>
-      <li><strong>Crecimiento, equilibrio, declinación y reciclado:</strong> ciclo de vida del mercado inmobiliario.</li>
-      <li><strong>Mejoras:</strong> en general aumentan el valor; el impacto depende de cómo incide la mejora en la propiedad.</li>
-    </ul>
-
-    <h3>Factores que determinan el Valor</h3>
-    <div class="chip-grid">
-      <div class="chip">📍 Ubicación</div>
-      <div class="chip">🏛️ Zonificación</div>
-      <div class="chip">🏠 Características del inmueble</div>
-      <div class="chip">📈 Oferta y demanda</div>
-      <div class="chip">💵 Situación económica</div>
-      <div class="chip">🧾 Impuestos y tasas</div>
-    </div>
-
-    <div class="summary-area">
-      <div class="summary-box tecnico">
-        <h4>📋 Resumen Técnico</h4>
-        <p>El <strong>valor</strong> es subjetivo e intangible; el <strong>precio</strong> es su expresión objetiva y monetaria resultante del mercado. Los principios valuatorios clave son: sustitución, mayor y mejor uso, y oferta/demanda. El principio de progresión/regresión explica el efecto del entorno sobre el valor individual del inmueble. La ubicación sigue siendo el factor determinante primario en valuación inmobiliaria.</p>
-      </div>
-      <div class="summary-box tia">
-        <h4><span class="tia-icon">👵</span>Explicación para tu tía</h4>
-        <p>El <em>valor</em> es lo que vos creés que vale algo: "para mí, este departamento vale una fortuna porque crecí ahí". El <em>precio</em> es lo que el mercado dice, lo que realmente se termina pagando. Y si tu casa está en un barrio lindo que se está poniendo mejor, el barrio sube tu propiedad aunque no hagas nada. Al revés también pasa.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- ── TEMA 7 ── -->
-  <section class="topic" id="t7">
-    <div class="topic-header">
-      <div class="topic-num">07</div>
-      <div>
-        <div class="topic-tag">CCCN Art. 1187 · Régimen de Locaciones Urbanas</div>
-        <div class="topic-title">Contrato de Locación</div>
-      </div>
-    </div>
-
-    <p>Es el contrato por el cual <strong>una parte (locador) se obliga a otorgar a otra (locatario) el uso y goce temporario</strong> de una cosa, a cambio de un precio en dinero.</p>
-
-    <h3>Características del Contrato de Locación</h3>
-    <div class="chip-grid">
-      <div class="chip pair"><b>Bilateral</b> · genera obligaciones para ambas partes</div>
-      <div class="chip pair"><b>Oneroso</b> · cada ventaja tiene contraprestación</div>
-      <div class="chip pair"><b>Conmutativo</b> · las ventajas son ciertas para ambas partes</div>
-    </div>
-
-    <h3>Elementos Esenciales</h3>
-    <table>
-      <tr><th>Elemento</th><th>Descripción</th></tr>
-      <tr><td><strong>Sujeto</strong></td><td>Locador y locatario</td></tr>
-      <tr><td><strong>Objeto</strong></td><td>La cosa dada en uso y goce</td></tr>
-      <tr><td><strong>Precio</strong></td><td>El canon locativo en dinero</td></tr>
-      <tr><td><strong>Plazo</strong></td><td>Duración del contrato (mín. 3 años para vivienda, salvo excepciones)</td></tr>
-    </table>
-
-    <h3>Obligaciones del Locador</h3>
-    <ul>
-      <li><strong>Entregar la cosa</strong> una vez concretado el contrato.</li>
-      <li><strong>Conservar la cosa</strong>: realizar las reparaciones necesarias.</li>
-      <li><strong>Cargas y contribuciones</strong>: abonar expensas extraordinarias, ARBA, etc.</li>
-      <li><strong>Sello de contrato</strong>: suele asumirlo o distribuirse entre partes.</li>
-    </ul>
-
-    <h3>Obligaciones del Locatario</h3>
-    <ul>
-      <li><strong>Pagar</strong> puntualmente el precio convenido.</li>
-      <li><strong>No cambiar el destino</strong> de la locación.</li>
-      <li><strong>Restituir la cosa</strong> al finalizar, en el estado recibido (salvo deterioro normal).</li>
-      <li><strong>Conservar la cosa</strong>: reparaciones menores y mantenimiento ordinario.</li>
-      <li>Hacerse cargo de <strong>cargas y contribuciones</strong> que le correspondan.</li>
-    </ul>
-
-    <h3>Cláusulas más importantes del contrato</h3>
-    <table>
-      <tr><th>Cláusula</th><th>Contenido</th></tr>
-      <tr><td>Objeto</td><td>La cosa o prestación objeto del contrato.</td></tr>
-      <tr><td>Destino</td><td>Uso que se dará al inmueble (vivienda, comercio, etc.).</td></tr>
-      <tr><td>Plazo</td><td>Duración del contrato.</td></tr>
-      <tr><td>Precio</td><td>Monto del alquiler o canon locativo.</td></tr>
-      <tr><td>Período y lugar de pago</td><td>Frecuencia y modalidad de pago.</td></tr>
-      <tr><td>Prohibiciones y obligaciones</td><td>Ej.: prohibición de subarrendar sin autorización.</td></tr>
-      <tr><td>Expensas e impuestos</td><td>Qué cargas paga cada parte.</td></tr>
-      <tr><td>Incumplimiento</td><td>Intereses por mora, resolución del contrato.</td></tr>
-      <tr><td>Garantía y fianza</td><td>Tipo de garantía: propietaria, seguro de caución, recibo de sueldo.</td></tr>
-      <tr><td>Depósito</td><td>Monto y condiciones de devolución.</td></tr>
-      <tr><td>Resolución anticipada</td><td>Condiciones: preaviso, indemnización.</td></tr>
-      <tr><td>Restitución</td><td>Estado de conservación y entrega de llaves.</td></tr>
-    </table>
-
-    <div class="summary-area">
-      <div class="summary-box tecnico">
-        <h4>📋 Resumen Técnico</h4>
-        <p>La locación es un contrato bilateral, oneroso y conmutativo. Sus elementos esenciales son sujeto, objeto, precio y plazo. El locador tiene obligación de entrega y conservación del bien; el locatario, de pago, destino y restitución. Las cláusulas de garantía, resolución anticipada e incumplimiento son críticas en la práctica profesional. El plazo mínimo legal para vivienda es de 3 años (CCCN).</p>
-      </div>
-      <div class="summary-box tia">
-        <h4><span class="tia-icon">👵</span>Explicación para tu tía</h4>
-        <p>El contrato de alquiler es el acuerdo donde el dueño te presta su casa a cambio de que vos pagues todos los meses. El dueño tiene que entregártela en buen estado y arreglar lo que se rompe por antigüedad. Vos tenés que pagar en tiempo, no usarla para otra cosa y devolvérsela como te la dieron. Todo eso queda escrito en el contrato para que ninguno se haga el distraído.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- ── TEMA 8 ── -->
-  <section class="topic" id="t8">
-    <div class="topic-header">
-      <div class="topic-num">08</div>
-      <div>
-        <div class="topic-tag">Corretaje Inmobiliario · Práctica Profesional</div>
-        <div class="topic-title">Proceso de Locación</div>
-      </div>
-    </div>
-
-    <p>El proceso de corretaje inmobiliario es una <strong>secuencia de fases profesionales y metódicas</strong> que garantizan la correcta celebración de un contrato de locación, desde el primer contacto hasta la gestión continua del acuerdo.</p>
-
-    <ol class="steps">
-      <li>
-        <div>
-          <strong>Captación y mandato de exclusividad</strong><br>
-          El corredor capta la propiedad para su comercialización. Puede firmarse un contrato de exclusividad que otorga al corredor la facultad exclusiva de intermediar.
-        </div>
-      </li>
-      <li>
-        <div>
-          <strong>Valuación inmobiliaria y plan de marketing</strong><br>
-          Se determina el valor locativo según mercado, ubicación y características (generalmente método comparativo). Se define la estrategia de publicidad y medios de difusión.
-        </div>
-      </li>
-      <li>
-        <div>
-          <strong>Proceso de oferta y demanda</strong><br>
-          Publicación de la propiedad, recepción de interesados, visitas al inmueble y recopilación de propuestas con análisis de condiciones ofrecidas.
-        </div>
-      </li>
-      <li>
-        <div>
-          <strong>Análisis de viabilidad y solvencia del postulante</strong><br>
-          Evaluación de antecedentes, ingresos y garantías; comprobación de la capacidad de pago del potencial locatario.
-        </div>
-      </li>
-      <li>
-        <div>
-          <strong>Negociación y acuerdo preliminar</strong><br>
-          Ajuste de condiciones (precio, plazo, destino) y firma de una <strong>reserva de locación</strong>.
-        </div>
-      </li>
-      <li>
-        <div>
-          <strong>Formalización del contrato de locación</strong><br>
-          Redacción y firma del contrato definitivo.
-        </div>
-      </li>
-      <li>
-        <div>
-          <strong>Cumplimiento de obligaciones posteriores y de registro</strong><br>
-          Pago de sellado o timbrado; inscripción en organismos correspondientes; entrega de llaves y posesión al locatario.
-        </div>
-      </li>
-      <li>
-        <div>
-          <strong>Administración y gestión post-firma</strong><br>
-          Cobro mensual de alquileres, gestión de expensas e impuestos, supervisión del cumplimiento e intervención en conflictos o incumplimientos.
-        </div>
-      </li>
-    </ol>
-
-    <div class="summary-area">
-      <div class="summary-box tecnico">
-        <h4>📋 Resumen Técnico</h4>
-        <p>El proceso de locación es integral: abarca aspectos legales (contrato, registro), financieros (valuación, solvencia) y de gestión de riesgos (análisis de postulante, garantías). El corredor no solo facilita la transacción: construye relaciones de confianza, actúa con solvencia técnica y transparencia, y supervisa el cumplimiento contractual de forma continua. El mandato de exclusividad y la reserva de locación son hitos clave en el proceso.</p>
-      </div>
-      <div class="summary-box tia">
-        <h4><span class="tia-icon">👵</span>Explicación para tu tía</h4>
-        <p>Cuando un inmobiliario busca inquilino para una casa, no es solo poner un cartel. Primero consigue la propiedad, la tasa a un valor justo, la publica, recibe interesados, verifica que el candidato pueda pagar, negocia, firma el contrato y después sigue cobrando el alquiler y resolviendo problemas. Es un trabajo de principio a fin, no solo de juntar gente.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- ── TEMA 9 ── -->
-  <section class="topic" id="t9">
-    <div class="topic-header">
-      <div class="topic-num">09</div>
-      <div>
-        <div class="topic-tag">CCCN Arts. 1525–1532 · Préstamo de Consumo</div>
-        <div class="topic-title">Contrato de Mutuo</div>
-      </div>
-    </div>
-
-    <article class="article-ref">
-      <span class="label">Art. 1525 — Definición</span>
-      Hay contrato de mutuo cuando el <strong>mutuante</strong> se compromete a entregar al <strong>mutuario</strong> en propiedad, una determinada cantidad de <strong>cosas fungibles</strong>, y éste se obliga a devolver igual cantidad de cosas de la misma calidad y especie.
-    </article>
-
-    <h3>Partes del Contrato</h3>
-    <div class="chip-grid">
-      <div class="chip"><b>Mutuante</b> · quien entrega la cosa (el prestamista)</div>
-      <div class="chip"><b>Mutuario</b> · quien recibe la cosa (el prestatario)</div>
-    </div>
-
-    <h3>Objeto del Contrato</h3>
-    <p>El mutuo recae sobre <strong>cosas fungibles</strong>: aquellas que pueden ser reemplazadas por otras de la misma especie, calidad y cantidad. El ejemplo más común es el <strong>dinero</strong>, pero también pueden ser granos, combustible, etc.</p>
-
-    <h3>Características esenciales</h3>
-    <ul>
-      <li><strong>Transfiere la propiedad:</strong> a diferencia del comodato, el mutuante transfiere la propiedad al mutuario. Si la cosa se pierde, la pérdida la sufre el mutuario.</li>
-      <li><strong>Obligación de restitución:</strong> el mutuario no devuelve la misma cosa recibida, sino <em>igual cantidad de cosas de la misma calidad y especie</em>.</li>
-      <li><strong>Oneroso o gratuito (Art. 1527):</strong> es oneroso por defecto — salvo pacto en contrario. Si el mutuo es en dinero, el mutuario debe pagar <strong>intereses compensatorios</strong> en la misma moneda prestada.</li>
-    </ul>
-
-    <h3>Importancia práctica</h3>
-    <p>El mutuo es la base legal de la mayoría de los préstamos bancarios, hipotecarios y personales en Argentina. Es el contrato subyacente cuando un banco otorga un crédito.</p>
-
-    <div class="summary-area">
-      <div class="summary-box tecnico">
-        <h4>📋 Resumen Técnico</h4>
-        <p>El mutuo es un préstamo de consumo sobre cosas fungibles que transfiere la propiedad al mutuario. Es oneroso por defecto (Art. 1527): genera intereses compensatorios en la misma especie. La restitución no es de la misma cosa, sino de igual cantidad, calidad y especie. Es el contrato que subyace a todo préstamo bancario e hipotecario.</p>
-      </div>
-      <div class="summary-box tia">
-        <h4><span class="tia-icon">👵</span>Explicación para tu tía</h4>
-        <p>El mutuo es el préstamo de dinero: te presto $100.000 y vos me devolvés $100.000 (más intereses). No me devolvés el mismo billete que te di — me devolvés el equivalente. Es lo que firma un banco cuando te da un crédito.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- ── TEMA 10 ── -->
-  <section class="topic" id="t10">
-    <div class="topic-header">
-      <div class="topic-num">10</div>
-      <div>
-        <div class="topic-tag">CCCN Arts. 1533–1541 · Préstamo de Uso</div>
-        <div class="topic-title">Contrato de Comodato</div>
-      </div>
-    </div>
-
-    <article class="article-ref">
-      <span class="label">Art. 1533 — Definición</span>
-      Hay comodato si una parte se obliga a entregar a otra una cosa <strong>no fungible</strong>, mueble o inmueble, para que se sirva <strong>gratuitamente</strong> de ella y restituya la <strong>misma cosa</strong> recibida.
-    </article>
-
-    <h3>Partes del Contrato</h3>
-    <div class="chip-grid">
-      <div class="chip"><b>Comodante</b> · quien entrega la cosa</div>
-      <div class="chip"><b>Comodatario</b> · quien recibe la cosa para su uso</div>
-    </div>
-
-    <h3>Obligaciones del Comodatario (Art. 1536)</h3>
-    <ul>
-      <li>Usar la cosa acorde al <strong>destino convenido</strong>.</li>
-      <li>Pagar los <strong>gastos ordinarios</strong> de conservación.</li>
-      <li>Conservar la cosa con <strong>prudencia y diligencia</strong>.</li>
-      <li>Restituir la <strong>misma cosa</strong> recibida, con sus frutos y accesorios, en el lugar y tiempo convenidos.</li>
-    </ul>
-
-    <h3>Características esenciales</h3>
-    <ul>
-      <li><strong>Gratuidad:</strong> característica esencial. Si hubiera pago, se trataría de una locación (alquiler), no de un comodato.</li>
-      <li><strong>Cosas no fungibles:</strong> el comodatario debe devolver la misma cosa que recibió, no una equivalente.</li>
-      <li><strong>Sin transferencia de propiedad:</strong> el comodante conserva la propiedad; el comodatario solo adquiere el derecho de uso.</li>
-      <li><strong>Excepción:</strong> puede recaer sobre cosas consumibles si se prestan con intención de restituirse idénticamente (ej: una botella de vino antiguo prestada para exhibición, no para beber).</li>
-    </ul>
-
-    <h3>Mutuo vs. Comodato — Cuadro comparativo</h3>
-    <table>
-      <tr><th>Característica</th><th>Comodato (préstamo de uso)</th><th>Mutuo (préstamo de consumo)</th></tr>
-      <tr><td><strong>Objeto</strong></td><td>Cosas no fungibles (muebles o inmuebles)</td><td>Cosas fungibles (principalmente dinero)</td></tr>
-      <tr><td><strong>Transferencia</strong></td><td>Solo se transfiere el derecho de uso</td><td>Se transfiere la propiedad de la cosa</td></tr>
-      <tr><td><strong>Restitución</strong></td><td>La misma cosa recibida</td><td>Igual cantidad, calidad y especie</td></tr>
-      <tr><td><strong>Onerosidad</strong></td><td>Gratuito por naturaleza</td><td>Oneroso por defecto (con intereses)</td></tr>
-      <tr><td><strong>Finalidad</strong></td><td>Usar la cosa durante un tiempo</td><td>Consumir o disponer de la cosa</td></tr>
-    </table>
-
-    <div class="summary-area">
-      <div class="summary-box tecnico">
-        <h4>📋 Resumen Técnico</h4>
-        <p>El comodato es un préstamo de uso, gratuito y sobre cosas no fungibles. El comodante conserva la propiedad: solo transfiere el uso. El comodatario está obligado a devolver la misma cosa recibida. La gratuidad es esencial: si existe contraprestación económica, el contrato se convierte en locación. Se diferencia del mutuo en objeto (no fungible vs. fungible), propiedad (uso vs. dominio) y onerosidad (gratuito vs. oneroso).</p>
-      </div>
-      <div class="summary-box tia">
-        <h4><span class="tia-icon">👵</span>Explicación para tu tía</h4>
-        <p>El comodato es cuando un amigo te presta su auto sin cobrarte nada. Tenés que devolverle <em>ese mismo auto</em>, no uno parecido. Y como no pagás nada, si cobrarás sería un alquiler. Es gratuito por definición — si hay plata de por medio, ya es otra cosa.</p>
-      </div>
-    </div>
-  </section>
-
-</main>
-
-<script>
-  // Progress bar
-  const prog = document.getElementById('prog');
-  window.addEventListener('scroll', () => {
-    const scrolled = window.scrollY;
-    const total = document.body.scrollHeight - window.innerHeight;
-    prog.style.width = (scrolled / total * 100) + '%';
-  });
-
-  // Active nav link (sidebar + topnav)
-  const navLinks = document.querySelectorAll('.nav-item');
-  const tnavBtns = document.querySelectorAll('.tnav-btn');
-  const sections = document.querySelectorAll('.topic');
-
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        const id = entry.target.id;
-        navLinks.forEach(l => l.classList.remove('active'));
-        tnavBtns.forEach(l => l.classList.remove('active'));
-        const sideActive = document.querySelector(`.nav-item[href="#${id}"]`);
-        const topActive  = document.querySelector(`.tnav-btn[href="#${id}"]`);
-        if (sideActive) sideActive.classList.add('active');
-        if (topActive) {
-          topActive.classList.add('active');
-          topActive.scrollIntoView({ inline: 'center', block: 'nearest' });
-        }
-      }
-    });
-  }, { rootMargin: '-30% 0px -60% 0px' });
-
-  sections.forEach(s => observer.observe(s));
-
-  // Mobile overlay
-  function openMenu()  { document.getElementById('menu-overlay').classList.add('open'); }
-  function closeMenu() { document.getElementById('menu-overlay').classList.remove('open'); }
-</script>
 </body>
 </html>
