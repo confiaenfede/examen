@@ -1,953 +1,222 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Martillero y Corredor Público — Resumen por parciales</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tasaciones · Primer parcial</title>
 <style>
-  :root{
-    --navy:#1c2b3a; --paper:#fafaf7; --ink:#23303d;
-    --amber:#f3a847; --amber-soft:#fdf3e1;
-    --green:#3d6b5c; --green-soft:#eaf2ee;
-    --line:#dfe3e0; --muted:#5d6b78;
-  }
-  *{box-sizing:border-box;}
-  html{scroll-behavior:smooth;}
-  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
-    background:var(--paper);color:var(--ink);line-height:1.65;font-size:17px;}
-  header.top{background:var(--navy);color:#fff;padding:32px 22px 22px;text-align:center;}
-  header.top h1{margin:0 0 6px;font-size:1.8rem;letter-spacing:.3px;}
-  header.top p{margin:4px 0 0;color:#c5d0da;font-size:1rem;}
-
-  .tabs{position:sticky;top:0;z-index:40;background:var(--navy);display:flex;justify-content:center;gap:10px;
-    padding:0 12px 16px;border-bottom:1px solid rgba(255,255,255,.12);}
-  .tab-btn{flex:1;max-width:280px;cursor:pointer;border:none;font-size:1rem;font-weight:700;
-    padding:12px 10px;border-radius:12px 12px 0 0;background:rgba(255,255,255,.10);color:#c5d0da;
-    transition:all .15s;border:1px solid transparent;border-bottom:none;}
-  .tab-btn small{display:block;font-weight:500;font-size:.74rem;opacity:.8;margin-top:2px;}
-  .tab-btn.active{background:var(--paper);color:var(--navy);}
-  .tab-btn:not(.active):hover{background:rgba(255,255,255,.18);color:#fff;}
-
-  .panel{display:none;}
-  .panel.active{display:block;}
-  .wrap{max-width:880px;margin:0 auto;padding:0 20px 90px;}
-
-  .toc{background:#fff;border:1px solid var(--line);border-radius:14px;padding:22px 26px;margin:30px 0;
-    box-shadow:0 2px 10px rgba(28,43,58,.05);}
-  .toc h2{margin:0 0 14px;font-size:1.15rem;color:var(--navy);}
-  .toc .part{font-weight:700;color:var(--green);margin:14px 0 6px;font-size:.9rem;text-transform:uppercase;letter-spacing:.5px;}
-  .toc ol{margin:0;padding-left:22px;}
-  .toc li{margin:5px 0;}
-  .toc a{color:var(--ink);text-decoration:none;border-bottom:1px dotted #b9c2cb;}
-  .toc a:hover{color:var(--amber);}
-  .toc .auto a{color:var(--navy);font-weight:600;}
-
-  section{margin:44px 0;scroll-margin-top:90px;}
-  .part-title{font-size:.85rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--green);
-    border-top:2px solid var(--green);padding-top:10px;margin:56px 0 0;}
-  h2.tema{font-size:1.4rem;color:var(--navy);margin:10px 0 14px;padding-bottom:8px;border-bottom:2px solid var(--amber);}
-  h3{font-size:1.1rem;color:var(--green);margin:22px 0 8px;}
-  h4{font-size:1rem;color:var(--navy);margin:16px 0 6px;}
-  p{margin:10px 0;}
-  ul,ol.lista{margin:8px 0;padding-left:24px;}
-  li{margin:5px 0;}
-  strong{color:var(--navy);}
-  .art{display:inline-block;background:var(--navy);color:#fff;font-size:.72rem;font-weight:700;
-    padding:1px 7px;border-radius:5px;vertical-align:middle;letter-spacing:.3px;white-space:nowrap;}
-  .ley{display:inline-block;background:var(--green);color:#fff;font-size:.72rem;font-weight:700;
-    padding:1px 7px;border-radius:5px;vertical-align:middle;letter-spacing:.3px;white-space:nowrap;}
-  .nuevo{display:inline-block;background:var(--amber);color:#4a2e00;font-size:.66rem;font-weight:800;
-    padding:1px 7px;border-radius:5px;vertical-align:middle;letter-spacing:.5px;margin-left:6px;}
-
-  table{width:100%;border-collapse:collapse;margin:16px 0;font-size:.94rem;background:#fff;border-radius:10px;
-    overflow:hidden;box-shadow:0 1px 6px rgba(28,43,58,.06);}
-  th{background:var(--navy);color:#fff;text-align:left;padding:9px 12px;font-weight:600;}
-  td{padding:9px 12px;border-top:1px solid var(--line);vertical-align:top;}
-  tr:nth-child(even) td{background:#f6f7f5;}
-
-  .tia{background:var(--amber-soft);border-left:5px solid var(--amber);border-radius:0 12px 12px 0;padding:16px 20px;margin:22px 0 0;}
-  .tia .lbl{font-weight:700;color:#9a6510;font-size:.82rem;letter-spacing:.5px;text-transform:uppercase;display:block;margin-bottom:6px;}
-  .tia p{margin:6px 0;}
-  .ej{background:var(--green-soft);border-left:5px solid var(--green);border-radius:0 12px 12px 0;padding:14px 20px;margin:14px 0 0;}
-  .ej .lbl{font-weight:700;color:var(--green);font-size:.82rem;letter-spacing:.5px;text-transform:uppercase;display:block;margin-bottom:6px;}
-  .ej p{margin:6px 0;}
-  .examen{background:#fff;border:1px dashed var(--navy);border-radius:12px;padding:14px 20px;margin:18px 0 0;}
-  .examen .lbl{font-weight:700;color:var(--navy);font-size:.82rem;letter-spacing:.5px;text-transform:uppercase;display:block;margin-bottom:4px;}
-  .examen em{color:var(--ink);}
-  .nota{background:#eef1f4;border:1px solid var(--line);border-radius:12px;padding:14px 20px;margin:26px 0;color:var(--muted);font-size:.92rem;}
-
-  .qbox{background:#fff;border:1px solid var(--line);border-radius:12px;padding:16px 20px;margin:16px 0;box-shadow:0 1px 6px rgba(28,43,58,.05);}
-  .qbox .q{font-weight:700;color:var(--navy);margin-bottom:6px;}
-  .qbox .a{color:var(--ink);}
-  .qbox .a::before{content:"➜ ";color:var(--green);font-weight:700;}
-
-  .top-btn{position:fixed;bottom:22px;right:22px;background:var(--navy);color:#fff;text-decoration:none;
-    padding:11px 15px;border-radius:30px;font-size:.85rem;box-shadow:0 3px 12px rgba(0,0,0,.25);z-index:50;}
-  footer{text-align:center;color:var(--muted);font-size:.85rem;margin-top:60px;padding-top:20px;border-top:1px solid var(--line);}
-  @media(max-width:600px){
-    body{font-size:16px;} header.top h1{font-size:1.4rem;} .wrap{padding:0 14px 80px;}
-    table{font-size:.85rem;} th,td{padding:7px 8px;} .tab-btn{font-size:.9rem;}
-  }
+:root{--bg:#eef2f6;--card:#f8fafc;--ink:#2f3b4a;--mute:#66768a;--line:#d5dde6;--blue:#4a78a8;--sky:#dbe8f4;--gray:#e6eaef;--key:#e3edf7}
+@media (prefers-color-scheme:dark){:root{--bg:#1f2731;--card:#28323e;--ink:#dbe3ec;--mute:#93a3b5;--line:#3a4655;--blue:#8db4dc;--sky:#31465b;--gray:#333e4b;--key:#2f4258}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.65 Georgia,"Times New Roman",serif}
+header{padding:2.2rem 1.2rem 1rem;max-width:860px;margin:auto}
+h1{margin:0;font-size:1.9rem;color:var(--blue)}
+header p{margin:.3rem 0 0;color:var(--mute);font-family:system-ui,sans-serif;font-size:.95rem}
+nav{max-width:860px;margin:0 auto;padding:.4rem 1.2rem;display:flex;flex-wrap:wrap;gap:.4rem;font-family:system-ui,sans-serif}
+nav a{background:var(--sky);color:var(--ink);text-decoration:none;padding:.3rem .8rem;border-radius:99px;font-size:.85rem}
+nav a:hover{background:var(--blue);color:#fff}
+main{max-width:860px;margin:auto;padding:0 1.2rem 3rem}
+h2{margin:2.2rem 0 .8rem;padding-bottom:.3rem;border-bottom:2px solid var(--blue);color:var(--blue);font-size:1.35rem}
+.q{background:var(--card);border:1px solid var(--line);border-radius:10px;margin:.7rem 0}
+.q summary{cursor:pointer;padding:.75rem 1rem;font-weight:bold;list-style:none;display:flex;gap:.7rem;align-items:baseline}
+.q summary::-webkit-details-marker{display:none}
+.q summary::before{content:"▸";color:var(--blue)}
+.q[open] summary::before{content:"▾"}
+.n{background:var(--blue);color:#fff;font:.78rem system-ui;padding:.05rem .5rem;border-radius:99px}
+.b{padding:0 1.1rem 1rem 1.1rem}
+.b p{margin:.5rem 0}
+.b ul{margin:.4rem 0;padding-left:1.3rem}
+.f{background:var(--key);border-left:4px solid var(--blue);padding:.6rem .9rem;border-radius:6px;margin:.7rem 0;font-family:system-ui,sans-serif;font-size:.95rem}
+.note{background:var(--gray);padding:.55rem .9rem;border-radius:6px;font-size:.9rem;color:var(--mute);margin:.7rem 0}
+table{border-collapse:collapse;width:100%;font-family:system-ui,sans-serif;font-size:.9rem;margin:.6rem 0}
+th,td{border:1px solid var(--line);padding:.4rem .6rem;text-align:left;vertical-align:top}
+th{background:var(--sky)}
+.tools{font-family:system-ui,sans-serif;font-size:.85rem;margin:.6rem 0}
+button{background:var(--sky);color:var(--ink);border:1px solid var(--line);padding:.3rem .8rem;border-radius:6px;cursor:pointer}
 </style>
 </head>
 <body>
-
-<header class="top">
-  <h1>Martillero y Corredor Público</h1>
-  <p>Resumen completo dividido por parciales</p>
+<header>
+<h1>Tasaciones · Primer parcial</h1>
+<p>Guía de estudio con las 32 preguntas. Tocá cada pregunta para ver la respuesta.</p>
 </header>
-
-<div class="tabs">
-  <button class="tab-btn active" onclick="showTab(1)" id="btn1">Parcial 1<small>Tasaciones · Actos · Contratos · Locación · Préstamos</small></button>
-  <button class="tab-btn" onclick="showTab(2)" id="btn2">Parcial 2<small>Compraventa · Usucapión · Vicios · Registral</small></button>
-</div>
-
-
-<!-- ==================== PARCIAL 1 ==================== -->
-<div class="panel active" id="panel1">
-<div class="wrap">
-
-<nav class="toc">
-  <h2>Índice — Parcial 1</h2>
-  <div class="part">Unidad 1 · Tasaciones y conceptos de valor</div>
-  <ol class="lista">
-    <li><a href="#p1-1">Aranceles y honorarios (PROVIALAT / Ley 19.413)</a></li>
-    <li><a href="#p1-2">Valor y precio: distinción y tipos de valor</a></li>
-    <li><a href="#p1-3">Factores determinantes del valor</a></li>
-  </ol>
-  <div class="part">Unidad 2 · Hechos y actos jurídicos</div>
-  <ol class="lista" start="4">
-    <li><a href="#p1-4">Hecho jurídico (Art. 257)</a></li>
-    <li><a href="#p1-5">Acto jurídico (Art. 259)</a></li>
-  </ol>
-  <div class="part">Unidad 3 · Teoría general de los contratos</div>
-  <ol class="lista" start="6">
-    <li><a href="#p1-6">Definición de contrato (Art. 957)</a></li>
-    <li><a href="#p1-7">Características y principios ordenadores</a></li>
-    <li><a href="#p1-8">Clasificación de los contratos</a></li>
-    <li><a href="#p1-9">Formas de los contratos</a></li>
-    <li><a href="#p1-10">Elementos esenciales</a></li>
-  </ol>
-  <div class="part">Unidad 4 · Contrato de locación</div>
-  <ol class="lista" start="11">
-    <li><a href="#p1-11">Locación: definición y partes (Art. 1187)</a></li>
-    <li><a href="#p1-12">Impacto del DNU 70/2023</a></li>
-    <li><a href="#p1-13">Obligaciones de las partes (Art. 1200–1210)</a></li>
-    <li><a href="#p1-14">Forma y oponibilidad (Art. 1188)</a></li>
-  </ol>
-  <div class="part">Unidad 5 · Préstamo y servicios</div>
-  <ol class="lista" start="15">
-    <li><a href="#p1-15">Contrato de mutuo (Art. 1525–1532)</a></li>
-    <li><a href="#p1-16">Contrato de comodato (Art. 1533–1541) + comparativa</a></li>
-    <li><a href="#p1-17">Contrato de obra y servicio (Art. 1251)</a></li>
-  </ol>
+<nav>
+<a href="#a">Conceptos</a><a href="#b">Etapas</a><a href="#c">Comparación</a><a href="#d">Costo</a><a href="#e">Rentas</a><a href="#f">Residual</a><a href="#g">Terrenos</a><a href="#h">Alquiler ⇄ venta</a>
 </nav>
-
-<div class="part-title">Unidad 1 · Tasaciones y conceptos de valor</div>
-
-<section id="p1-1">
-  <h2 class="tema">1. Aranceles y honorarios (PROVIALAT / Ley 19.413)</h2>
-  <ul>
-    <li><strong>Venta:</strong> en el <span class="art">Art. 54</span> de la ley de provincia están detallados todos los aranceles.</li>
-    <li><strong>Alquiler:</strong> el arancel es del <strong>4%</strong>.</li>
-  </ul>
-  <div class="tia">
-    <span class="lbl">Explicación para la tía</span>
-    <p>Cuando un martillero o corredor hace su trabajo (vender o alquilar una propiedad), cobra una comisión. Pero no la inventa: hay una ley que dice cuánto puede cobrar, como cuando un remís tiene tarifa fija. Para las ventas, los porcentajes están en una lista de la ley; para los alquileres, cobra el 4%.</p>
-  </div>
-  <div class="ej">
-    <span class="lbl">Ejemplo</span>
-    <p>Si el corredor alquila un departamento, cobra el 4% de honorarios sobre lo que corresponda del contrato. Para una venta, mira el Art. 54 para saber el porcentaje exacto que le toca.</p>
-  </div>
-</section>
-
-<section id="p1-2">
-  <h2 class="tema">2. Valor y precio: distinción y tipos de valor</h2>
-  <p>Es clave no confundir <strong>precio</strong> (objetivo) con <strong>valor</strong> (subjetivo).</p>
-  <table>
-    <tr><th>Concepto</th><th>Definición</th></tr>
-    <tr><td><strong>Precio</strong></td><td>Cifra exacta; el monto de dinero que se pacta de forma <strong>objetiva</strong> en una transacción.</td></tr>
-    <tr><td><strong>Valor</strong></td><td>La utilidad y el beneficio que una propiedad genera para una persona determinada. Concepto <strong>subjetivo</strong>.</td></tr>
-    <tr><td><strong>Valor de mercado</strong></td><td>La cifra más probable que se obtendría en una oferta abierta entre compradores y vendedores actuando con libertad.</td></tr>
-    <tr><td><strong>Valor de tasación</strong></td><td>La opinión formal y fundada dada por un profesional matriculado tras analizar el inmueble.</td></tr>
-    <tr><td><strong>Valor de uso</strong></td><td>El valor según el beneficio directo o explotación que genera para su propietario específico.</td></tr>
-    <tr><td><strong>Valor inversor</strong></td><td>Se enfoca estrictamente en el rendimiento económico y la rentabilidad financiera futura que la propiedad puede generar.</td></tr>
-  </table>
-  <div class="examen">
-    <span class="lbl">Respuesta modelo de examen</span>
-    <em>"El precio es una cifra objetiva y exacta pactada en la operación; el valor es subjetivo y representa la utilidad que el bien tiene para una persona. El valor de mercado es la cifra más probable en una oferta libre entre partes."</em>
-  </div>
-  <div class="tia">
-    <span class="lbl">Explicación para la tía</span>
-    <p>El precio es lo que figura en el ticket: un número fijo. El valor es cuánto "vale" esa cosa para vos, que puede ser distinto. Una casa donde criaste a tus hijos tiene un valor enorme para vos aunque su precio de venta sea el mismo que el de la casa de al lado. Después hay varios "tipos de valor" según para qué se lo mire: para vender, para alquilarlo y ganar plata, etc.</p>
-  </div>
-  <div class="ej">
-    <span class="lbl">Ejemplo</span>
-    <p>Una casa se vende (precio) en USD 100.000. Para un inversor que la va a alquilar, su <em>valor inversor</em> depende de la renta futura. Para la familia que vivió 40 años ahí, su <em>valor</em> de uso es muchísimo mayor, aunque el precio siga siendo USD 100.000.</p>
-  </div>
-</section>
-
-<section id="p1-3">
-  <h2 class="tema">3. Factores determinantes del valor</h2>
-  <ul>
-    <li><strong>Ubicación:</strong> zonificación, entorno, accesos.</li>
-    <li><strong>Características físicas:</strong> metros cuadrados, estado edilicio, luminosidad.</li>
-    <li><strong>Condiciones del mercado:</strong> oferta, demanda y contexto macroeconómico.</li>
-    <li><strong>Factor legal:</strong> títulos, planos, afectaciones y restricciones.</li>
-  </ul>
-  <div class="tia">
-    <span class="lbl">Explicación para la tía</span>
-    <p>Cuatro cosas hacen que una propiedad valga más o menos: dónde está (un buen barrio vale más), cómo es (grande, luminosa, bien mantenida), cómo está el mercado en ese momento (si hay mucha o poca gente comprando) y si los papeles están en orden. Si falla alguna, el valor baja.</p>
-  </div>
-  <div class="ej">
-    <span class="lbl">Ejemplo</span>
-    <p>Dos departamentos iguales: uno en una avenida con subte cerca y papeles impecables; el otro en una zona alejada y con una restricción legal en el título. El primero vale bastante más por ubicación y factor legal.</p>
-  </div>
-</section>
-
-<div class="part-title">Unidad 2 · Hechos y actos jurídicos</div>
-
-<section id="p1-4">
-  <h2 class="tema">4. Hecho jurídico <span class="art">Art. 257 CCCN</span></h2>
-  <p>Es el acontecimiento que, conforme al ordenamiento jurídico, produce el <strong>nacimiento, modificación o extinción</strong> de relaciones o situaciones jurídicas.</p>
-  <p><strong>Clave:</strong> NO requiere la voluntad de la persona para producir efectos jurídicos.</p>
-  <p>Ejemplos típicos: un accidente de tránsito, la muerte, o el mero transcurso del tiempo.</p>
-  <div class="tia">
-    <span class="lbl">Explicación para la tía</span>
-    <p>Un hecho jurídico es algo que pasa y que la ley le da consecuencias, aunque nadie lo haya querido a propósito. La lluvia que inunda, un choque, o que alguien fallezca: nadie lo eligió, pero igual cambian cosas legales (herencias, seguros, responsabilidades).</p>
-  </div>
-  <div class="ej">
-    <span class="lbl">Ejemplo</span>
-    <p>Cuando una persona muere, automáticamente se abre la sucesión y sus bienes pasan a los herederos. Nadie "decidió" ese efecto: lo produce el hecho de la muerte.</p>
-  </div>
-</section>
-
-<section id="p1-5">
-  <h2 class="tema">5. Acto jurídico <span class="art">Art. 259 CCCN</span></h2>
-  <p>Es el <strong>acto voluntario lícito</strong> realizado con <strong>discernimiento, intención y libertad</strong>, que tiene por <strong>fin inmediato</strong> la adquisición, modificación o extinción de relaciones o situaciones jurídicas.</p>
-  <div class="examen">
-    <span class="lbl">Tip de examen</span>
-    <em>La diferencia con el hecho jurídico es la <strong>voluntad</strong>: el acto jurídico se hace a propósito, con la intención de generar un efecto legal. Los contratos son actos jurídicos.</em>
-  </div>
-  <div class="tia">
-    <span class="lbl">Explicación para la tía</span>
-    <p>El acto jurídico es lo contrario del hecho: acá la persona sí quiere el resultado y lo hace a propósito, sabiendo lo que hace (discernimiento), queriéndolo (intención) y sin que la obliguen (libertad). Firmar un contrato, vender, hacer un testamento: todos son actos que hacés queriendo.</p>
-  </div>
-  <div class="ej">
-    <span class="lbl">Ejemplo</span>
-    <p>Cuando firmás la venta de tu casa, hacés un acto jurídico: querés transferir la propiedad, entendés lo que firmás y lo hacés libremente. El fin inmediato es cambiar la titularidad del inmueble.</p>
-  </div>
-</section>
-
-<div class="part-title">Unidad 3 · Teoría general de los contratos</div>
-
-<section id="p1-6">
-  <h2 class="tema">6. Definición de contrato <span class="art">Art. 957 CCCN</span></h2>
-  <p>"Contrato es el <strong>acto jurídico</strong> mediante el cual dos o más partes manifiestan su <strong>consentimiento</strong> para crear, regular, modificar, transferir o extinguir <strong>relaciones jurídicas patrimoniales</strong>."</p>
-  <p>La clave es el <strong>consentimiento expresado</strong> por las partes. Forma parte del libro de derechos comerciales y civiles.</p>
-  <div class="tia">
-    <span class="lbl">Explicación para la tía</span>
-    <p>Un contrato es un acuerdo entre dos o más personas donde se ponen de acuerdo (eso es el "consentimiento") para arreglar algo que tiene que ver con plata o bienes: comprar, alquilar, prestar. Lo importante es que las dos partes digan que sí, de común acuerdo.</p>
-  </div>
-  <div class="ej">
-    <span class="lbl">Ejemplo</span>
-    <p>Vos y el dueño de un local se ponen de acuerdo: él te da el uso del local y vos le pagás un alquiler. Ese acuerdo de voluntades es un contrato de locación.</p>
-  </div>
-</section>
-
-<section id="p1-7">
-  <h2 class="tema">7. Características y principios ordenadores</h2>
-  <h3>Libertad de contratación <span class="art">Art. 958</span></h3>
-  <p>Las partes son libres para celebrar un contrato y determinar su contenido, dentro de los límites impuestos por la ley, el orden público, la moral y las buenas costumbres.</p>
-  <h3>Efecto vinculante / obligatoriedad <span class="art">Art. 959</span></h3>
-  <p>"Los pactos deben cumplirse." Todo contrato válidamente celebrado es <strong>obligatorio</strong> para las partes. Su contenido sólo puede modificarse o extinguirse por mutuo acuerdo o en los casos en que la ley lo prevé.</p>
-  <h3>Buena fe <span class="art">Art. 961</span></h3>
-  <p>Los contratos deben celebrarse, interpretarse y ejecutarse de buena fe. Obligan no sólo a lo expresamente pactado, sino a todas las consecuencias que razonablemente habría asumido un contratante cuidadoso y previsor.</p>
-  <div class="tia">
-    <span class="lbl">Explicación para la tía</span>
-    <p>Tres reglas de oro de todo contrato: 1) sos libre de arreglar lo que quieras, siempre que no sea contra la ley; 2) una vez que diste la palabra y firmaste, hay que cumplir sí o sí ("lo pactado se cumple"); y 3) hay que portarse honestamente, sin trampas ni letra chica tramposa, antes, durante y después.</p>
-  </div>
-  <div class="ej">
-    <span class="lbl">Ejemplo</span>
-    <p>Firmás alquilar por 2 años. Aunque después te arrepientas, el contrato te obliga (efecto vinculante). Y si el dueño te ocultó a propósito que el techo se llovía, faltó a la buena fe.</p>
-  </div>
-</section>
-
-<section id="p1-8">
-  <h2 class="tema">8. Clasificación de los contratos</h2>
-  <table>
-    <tr><th>Tipo</th><th>Definición</th></tr>
-    <tr><td><strong>Bilateral</strong> <span class="art">Art. 966</span></td><td>Las partes se obligan recíprocamente la una hacia la otra.</td></tr>
-    <tr><td><strong>Oneroso</strong> <span class="art">Art. 967</span></td><td>Las ventajas que procura a una parte le son concedidas por una prestación que ella hizo o se obliga a hacer.</td></tr>
-    <tr><td><strong>Conmutativo</strong></td><td>Las ventajas para todos los contratantes son ciertas y conocidas desde el inicio.</td></tr>
-    <tr><td><strong>Aleatorio</strong></td><td>Las ventajas o pérdidas para uno o todos dependen de un <strong>acontecimiento incierto</strong>.</td></tr>
-    <tr><td><strong>Nominados</strong> <span class="art">Art. 970</span></td><td>Tienen regulación especial y expresa en la ley (ej: compraventa, locación).</td></tr>
-    <tr><td><strong>Innominados</strong></td><td>No tienen regulación legal específica; se rigen por la libertad contractual, la voluntad de las partes y las normas generales.</td></tr>
-  </table>
-  <div class="tia">
-    <span class="lbl">Explicación para la tía</span>
-    <p>Los contratos se agrupan en familias. "Bilateral": los dos se comprometen a algo. "Oneroso": hay plata de por medio (no es de onda). "Conmutativo": las dos partes saben desde el arranque qué van a dar y recibir. "Aleatorio": hay una parte que depende de la suerte. "Nominado": tiene nombre y reglas propias en la ley; "innominado": no, se arregla libremente.</p>
-  </div>
-  <div class="ej">
-    <span class="lbl">Ejemplo</span>
-    <p>Una compraventa es bilateral, onerosa, conmutativa y nominada. Un seguro es aleatorio: pagás la cuota, pero cobrás solo si pasa el siniestro (acontecimiento incierto).</p>
-  </div>
-</section>
-
-<section id="p1-9">
-  <h2 class="tema">9. Formas de los contratos</h2>
-  <h3>Regla general <span class="art">Art. 1015</span></h3>
-  <p><strong>Libertad de formas:</strong> si la ley no designa una forma determinada, las partes usan la que juzguen conveniente.</p>
-  <h3>Contratos formales</h3>
-  <p>La ley exige una forma determinada para su <strong>validez</strong> o para su <strong>prueba</strong>. Ej: la compraventa de inmuebles exige <strong>escritura pública</strong> <span class="art">Art. 1017</span>.</p>
-  <p>Si la formalidad es requerida <em>ad probationem</em> (como medio de prueba) y no se cumple, el contrato <strong>no se anula</strong>: las partes quedan obligadas a cumplir con la solemnidad exigida.</p>
-  <div class="tia">
-    <span class="lbl">Explicación para la tía</span>
-    <p>Por regla, un contrato se puede hacer como quieras: de palabra, en una servilleta, por escrito. Pero para las cosas importantes (como vender una casa) la ley exige una forma especial: escritura pública ante escribano. Y hay formas que se piden solo para poder probar el acuerdo, no para que valga.</p>
-  </div>
-  <div class="ej">
-    <span class="lbl">Ejemplo</span>
-    <p>Comprar un kilo de pan no necesita papeles (libertad de forma). Comprar un departamento sí necesita escritura pública ante escribano, o no queda perfeccionada la transferencia del dominio.</p>
-  </div>
-</section>
-
-<section id="p1-10">
-  <h2 class="tema">10. Elementos esenciales del contrato</h2>
-  <p>Para que un contrato sea válido requiere obligatoriamente <strong>tres elementos</strong>:</p>
-  <h3>1. Consentimiento</h3>
-  <p>Manifestación de la voluntad de las partes. Se forma con dos actos unilaterales: la <strong>oferta</strong> y la <strong>aceptación</strong>. Debe darse con discernimiento, intención y libertad. Los <strong>vicios del consentimiento</strong> (error, dolo y violencia) provocan la anulación del contrato.</p>
-  <h3>2. Objeto <span class="art">Art. 1003–1004</span></h3>
-  <p>El bien, hecho o abstención sobre el que recae la obligación. Debe ser <strong>lícito, posible, determinado o determinable y susceptible de valoración económica</strong>.</p>
-  <h3>3. Causa <span class="art">Art. 281 y 1012</span></h3>
-  <p>Es el fin inmediato autorizado por el ordenamiento jurídico que guió a las partes.</p>
-  <ul>
-    <li><strong>Causa fin (objetiva):</strong> la finalidad abstracta e inmediata del contrato, común a todos los acuerdos de ese tipo.</li>
-    <li><strong>Causa motivo (subjetiva):</strong> los motivos individuales de cada contratante. Tienen relevancia jurídica sólo si se expresan o son esenciales. Debe ser lícita.</li>
-  </ul>
-  <div class="tia">
-    <span class="lbl">Explicación para la tía</span>
-    <p>Un contrato necesita tres patas para pararse: que las partes estén de acuerdo de verdad (consentimiento, sin engaños ni presiones), que haya algo concreto y legal de por medio (el objeto) y que haya una razón válida para hacerlo (la causa). Si falta una pata, el contrato se cae.</p>
-  </div>
-  <div class="ej">
-    <span class="lbl">Ejemplo</span>
-    <p>En una compraventa: el consentimiento es el "sí" de comprador y vendedor; el objeto es la casa (bien lícito y determinado); la causa fin es transferir la propiedad a cambio de un precio. Si te engañaron sobre qué casa comprabas (error), el consentimiento tiene un vicio y el contrato puede anularse.</p>
-  </div>
-</section>
-
-<div class="part-title">Unidad 4 · Contrato de locación</div>
-
-<section id="p1-11">
-  <h2 class="tema">11. Locación: definición y partes <span class="art">Art. 1187 CCCN</span></h2>
-  <p>Hay contrato de locación si una parte (<strong>locador</strong>) se obliga a otorgar a otra (<strong>locatario</strong>) el <strong>uso y goce temporario</strong> de una cosa (mueble o inmueble) a cambio del pago de un precio en dinero. Se aplican de forma subsidiaria las reglas de la compraventa.</p>
-  <h3>Las partes</h3>
-  <ul>
-    <li><strong>Locador:</strong> el que otorga el uso y goce de la cosa. Habitualmente es el propietario (debe figurar en la escritura pública para acreditar su derecho).</li>
-    <li><strong>Locatario (inquilino):</strong> quien recibe la cosa y se obliga a pagar el precio en dinero.</li>
-  </ul>
-  <div class="tia">
-    <span class="lbl">Explicación para la tía</span>
-    <p>La locación es el alquiler de toda la vida: uno presta el uso de algo (una casa, un local) por un tiempo, y el otro le paga por usarlo. El que presta es el locador (casi siempre el dueño) y el que paga y usa es el inquilino.</p>
-  </div>
-  <div class="ej">
-    <span class="lbl">Ejemplo</span>
-    <p>El dueño de un departamento (locador) te lo da para vivir dos años; vos (locatario) le pagás una cuota mensual. Ese es el contrato de locación.</p>
-  </div>
-</section>
-
-<section id="p1-12">
-  <h2 class="tema">12. Impacto del DNU 70/2023 en la locación</h2>
-  <p>El <strong>DNU 70/2023 derogó la Ley de Alquileres anterior</strong>, devolviendo a las partes amplia libertad para pactar:</p>
-  <h3>Plazos</h3>
-  <p>Se pactan libremente. Si no se especifica plazo, la ley supletoria fija un <strong>mínimo de 2 años para vivienda</strong> y <strong>3 años para otros destinos</strong> (comercial). El <strong>máximo legal</strong> es de <strong>20 años para vivienda</strong> y <strong>50 años para otros destinos</strong>.</p>
-  <h3>Ajustes y moneda</h3>
-  <p>Libertad absoluta para acordar la <strong>moneda de pago</strong> (pesos, USD, etc.) y el <strong>índice de actualización</strong> (ICL, IPC, etc.).</p>
-  <div class="examen">
-    <span class="lbl">Tip de examen (¡ojo, tema caliente!)</span>
-    <em>Recordá los cuatro números: mínimos 2 años (vivienda) / 3 años (comercial); máximos 20 años (vivienda) / 50 años (otros). Y libertad total de moneda e índice.</em>
-  </div>
-  <div class="tia">
-    <span class="lbl">Explicación para la tía</span>
-    <p>Antes había una ley que ponía reglas fijas para los alquileres. En 2023 un decreto la sacó, y ahora dueño e inquilino pueden arreglar casi todo entre ellos: cuánto dura, en qué moneda se paga y cómo se ajusta. Solo si no dicen nada, la ley pone plazos mínimos por las dudas.</p>
-  </div>
-  <div class="ej">
-    <span class="lbl">Ejemplo</span>
-    <p>Hoy podés firmar un alquiler en dólares con ajuste cada 3 meses por IPC, si ambos están de acuerdo. Si en el contrato se olvidan de poner el plazo y es una vivienda, la ley entiende que es de 2 años.</p>
-  </div>
-</section>
-
-<section id="p1-13">
-  <h2 class="tema">13. Obligaciones de las partes <span class="art">Art. 1200–1210 CCCN</span></h2>
-  <h3>Del locador (dueño)</h3>
-  <ul>
-    <li>Entregar el inmueble apto para el uso convenido (a falta de acuerdo, en buen estado).</li>
-    <li>Conservar la cosa en buen estado y hacer las reparaciones necesarias por el deterioro. Si ante la urgencia no las hace, el inquilino puede hacerlas y descontarlas del alquiler.</li>
-    <li>Pagar las cargas, impuestos y contribuciones que gravan la cosa (impuesto inmobiliario estructural) y las <strong>expensas extraordinarias</strong>.</li>
-  </ul>
-  <h3>Del locatario (inquilino)</h3>
-  <ul>
-    <li>Pagar el canon de alquiler en el plazo y moneda acordados.</li>
-    <li>Usar la cosa conforme al destino pactado (no darle uso comercial a un inmueble residencial).</li>
-    <li>Reparar los daños causados por su culpa o la de sus dependientes.</li>
-    <li>Pagar los servicios y cargas del uso (gas, luz, agua y <strong>expensas ordinarias</strong>).</li>
-    <li>Restituir el inmueble al finalizar en las mismas condiciones en que lo recibió, salvo el desgaste natural por el uso normal.</li>
-  </ul>
-  <div class="examen">
-    <span class="lbl">Tip de examen</span>
-    <em>La trampa clásica: expensas <strong>ordinarias</strong> las paga el inquilino; expensas <strong>extraordinarias</strong> y el impuesto inmobiliario estructural los paga el dueño.</em>
-  </div>
-  <div class="tia">
-    <span class="lbl">Explicación para la tía</span>
-    <p>Cada uno tiene sus tareas. El dueño entrega la casa en condiciones y se hace cargo de los arreglos grandes y de los impuestos de la propiedad. El inquilino paga el alquiler y los gastos del día a día (luz, gas, agua, las expensas comunes), cuida la casa y, cuando se va, la devuelve como la recibió, salvo el desgaste normal de vivir.</p>
-  </div>
-  <div class="ej">
-    <span class="lbl">Ejemplo</span>
-    <p>Si se rompe la caldera por vejez, la arregla el dueño (reparación necesaria). Si el inquilino rompe un vidrio, lo paga él. La expensa común mensual la paga el inquilino; una obra nueva en el edificio (extraordinaria), el dueño.</p>
-  </div>
-</section>
-
-<section id="p1-14">
-  <h2 class="tema">14. Forma y oponibilidad <span class="art">Art. 1188 CCCN</span></h2>
-  <p>La locación de inmuebles debe hacerse <strong>por escrito</strong>. Esta forma es exigida <em>ad probationem</em> y para su <strong>oponibilidad a terceros</strong>. Permite al inquilino (usualmente la parte más débil) verificar detalladamente sus derechos y obligaciones.</p>
-  <div class="tia">
-    <span class="lbl">Explicación para la tía</span>
-    <p>El alquiler tiene que estar por escrito. No es un capricho: sirve para poder demostrarlo y para que valga frente a otros (por ejemplo, si el dueño vende, el nuevo dueño tiene que respetar tu contrato escrito). Y le da al inquilino, que suele ser el más débil, un papel donde ver qué le corresponde.</p>
-  </div>
-  <div class="ej">
-    <span class="lbl">Ejemplo</span>
-    <p>Tenés tu alquiler firmado por escrito. El dueño vende el departamento; el comprador debe respetarte el contrato porque es oponible a terceros. Si fuera solo de palabra, sería mucho más difícil hacerlo valer.</p>
-  </div>
-</section>
-
-<div class="part-title">Unidad 5 · Préstamo y servicios</div>
-
-<section id="p1-15">
-  <h2 class="tema">15. Contrato de mutuo <span class="art">Art. 1525–1532 CCCN</span></h2>
-  <p><strong>Es un préstamo de consumo.</strong> Hay mutuo cuando el mutuante se compromete a entregar al mutuario en <strong>propiedad</strong> una determinada cantidad de <strong>cosas fungibles</strong> (intercambiables, como el dinero), y este se obliga a devolver igual cantidad de cosas de la misma calidad y especie.</p>
-  <h3>Características clave</h3>
-  <ul>
-    <li><strong>Transfiere la propiedad</strong> de la cosa. Por eso, si la cosa se pierde después de entregada, el riesgo lo asume el <strong>mutuario</strong>.</li>
-    <li>Es <strong>oneroso salvo pacto en contrario</strong> (devenga intereses en la misma moneda prestada).</li>
-  </ul>
-  <div class="tia">
-    <span class="lbl">Explicación para la tía</span>
-    <p>El mutuo es el préstamo de cosas que se gastan o se consumen, como la plata. Si te presto $1.000, no espero que me devuelvas ese mismo billete, sino otros $1.000 iguales. La plata pasa a ser tuya mientras tanto, y por eso, si la perdés, el problema es tuyo. Y normalmente se paga con intereses.</p>
-  </div>
-  <div class="ej">
-    <span class="lbl">Ejemplo</span>
-    <p>Un préstamo del banco es un mutuo: te dan la plata (pasa a ser tuya), la usás, y devolvés la misma cantidad más intereses. También prestarle azúcar a la vecina y que te devuelva otra taza de azúcar.</p>
-  </div>
-</section>
-
-<section id="p1-16">
-  <h2 class="tema">16. Contrato de comodato <span class="art">Art. 1533–1541 CCCN</span></h2>
-  <p><strong>Es un préstamo de uso.</strong> Hay comodato si una parte (<strong>comodante</strong>) entrega <strong>gratuitamente</strong> a la otra (<strong>comodatario</strong>) una cosa <strong>no fungible</strong> (un bien específico no sustituible), para que se sirva de ella y devuelva <strong>exactamente la misma cosa</strong> recibida.</p>
-  <h3>Características clave</h3>
-  <ul>
-    <li>La <strong>gratuidad es su esencia</strong>. Si hubiera un pago, se transformaría en locación.</li>
-    <li>El comodante <strong>conserva la propiedad</strong>; el comodatario sólo adquiere el derecho de uso.</li>
-    <li>Obligación de pagar los <strong>gastos ordinarios</strong> de conservación de la cosa <span class="art">Art. 1536</span>.</li>
-  </ul>
-  <h3>⚖️ Comparativa: Mutuo vs. Comodato</h3>
-  <table>
-    <tr><th>Característica</th><th>Comodato (uso)</th><th>Mutuo (consumo)</th></tr>
-    <tr><td>Objeto</td><td>Cosas NO fungibles (bienes específicos)</td><td>Cosas fungibles (ej. dinero)</td></tr>
-    <tr><td>Propiedad</td><td>El comodante la conserva</td><td>Se transfiere al mutuario</td></tr>
-    <tr><td>Restitución</td><td>Se devuelve exactamente la misma cosa</td><td>Igual cantidad, calidad y especie</td></tr>
-    <tr><td>Onerosidad</td><td>Esencialmente gratuito</td><td>Presumiblemente oneroso (intereses)</td></tr>
-    <tr><td>Finalidad</td><td>Usar la cosa por un tiempo</td><td>Consumir y disponer de la cosa</td></tr>
-  </table>
-  <div class="tia">
-    <span class="lbl">Explicación para la tía</span>
-    <p>El comodato es prestar algo para que lo usen y te lo devuelvan igualito, sin cobrar nada. Si le prestás el auto a tu sobrino sin cobrarle, eso es comodato: sigue siendo tu auto y él te devuelve ese mismo auto. La diferencia con el mutuo: en el comodato devolvés la misma cosa; en el mutuo devolvés otra igual. Y el comodato es gratis; si cobrás, ya es alquiler.</p>
-  </div>
-  <div class="ej">
-    <span class="lbl">Ejemplo</span>
-    <p>Prestar tu casa de la costa a un familiar para que pase el verano sin cobrarle es comodato (te la devuelve, sigue siendo tuya). Si le cobraras, se convertiría en locación.</p>
-  </div>
-</section>
-
-<section id="p1-17">
-  <h2 class="tema">17. Contrato de obra y servicio <span class="art">Art. 1251 CCCN</span></h2>
-  <p>Hay contrato de obra o de servicios cuando una persona (<strong>contratista o prestador</strong>), actuando <strong>independientemente</strong>, se obliga a favor de otra (<strong>comitente</strong>) a realizar una <strong>obra material o intelectual</strong> o a <strong>proveer un servicio</strong> mediante una retribución (precio).</p>
-  <div class="tia">
-    <span class="lbl">Explicación para la tía</span>
-    <p>Es cuando contratás a alguien por su cuenta para que te haga algo o te preste un servicio, a cambio de plata. No es un empleado tuyo: trabaja de forma independiente. El que encarga es el comitente; el que hace el trabajo, el contratista.</p>
-  </div>
-  <div class="ej">
-    <span class="lbl">Ejemplo</span>
-    <p>Contratás a un albañil para que te construya una pared (obra material) o a un contador para que te haga la declaración de impuestos (obra intelectual/servicio). Vos sos el comitente; ellos, los contratistas.</p>
-  </div>
-</section>
-
-</div>
-</div>
-
-
-<!-- ==================== PARCIAL 2 ==================== -->
-<div class="panel" id="panel2">
-<div class="wrap">
-
-<nav class="toc">
-  <h2>Índice — Parcial 2</h2>
-  <div class="part">Unidad 5 · Compraventa (Parte II)</div>
-  <ol class="lista">
-    <li><a href="#p2-1">Compraventa: concepto, características y partes (Art. 1123)</a></li>
-    <li><a href="#p2-2">Derechos y obligaciones de las partes</a></li>
-    <li><a href="#p2-3">Título y modo suficiente. Documentación (Art. 1017 y 1924)</a></li>
-    <li><a href="#p2-4">Proceso práctico y administrativo (los 7 pasos)</a></li>
-    <li><a href="#p2-5">Crédito hipotecario<span class="nuevo">nuevo</span></a></li>
-  </ol>
-  <div class="part">Unidad 6 · Prescripción adquisitiva</div>
-  <ol class="lista" start="6">
-    <li><a href="#p2-6">Usucapión: concepto, tipos y elementos (Art. 1897)</a></li>
-    <li><a href="#p2-7">Requisitos y tipos de prueba</a></li>
-    <li><a href="#p2-8">El proceso judicial</a></li>
-    <li><a href="#p2-9">Diferencias con la Ley 24.374 (regularización dominial)<span class="nuevo">nuevo</span></a></li>
-  </ol>
-  <div class="part">Unidad 7 · Vicios redhibitorios</div>
-  <ol class="lista" start="10">
-    <li><a href="#p2-10">Vicios redhibitorios: concepto, requisitos, plazos, caducidad</a></li>
-    <li><a href="#p2-11">Ley 14.432 — vivienda única (PBA)<span class="nuevo">nuevo</span></a></li>
-  </ol>
-  <div class="part">Unidad 8 · Publicidad registral</div>
-  <ol class="lista" start="12">
-    <li><a href="#p2-12">Registro de la Propiedad Inmueble: conceptos y diferencias</a></li>
-    <li><a href="#p2-13">Los informes en particular y cómo solicitarlos</a></li>
-  </ol>
-  <div class="part auto">Autoevaluación</div>
-  <ol class="lista" start="14">
-    <li><a href="#p2-auto">Banco de preguntas (usucapión)</a></li>
-  </ol>
-</nav>
-
-<div class="part-title">Unidad 5 · Compraventa (Parte II)</div>
-
-<section id="p2-1">
-  <h2 class="tema">1. Compraventa: concepto, características y partes <span class="art">Art. 1123 CCCN</span></h2>
-  <p>Hay compraventa cuando una parte (<strong>vendedor</strong>) se obliga a transferir la propiedad de una cosa a la otra (<strong>comprador</strong>), y este se obliga a recibirla y a pagar un <strong>precio en dinero</strong>.</p>
-  <h3>Características</h3>
-  <p>Es <strong>bilateral</strong> (ambos se obligan), <strong>oneroso</strong> (hay precio), <strong>conmutativo</strong> (las ventajas son ciertas desde el inicio), <strong>nominado</strong> (regulado en la ley) y, cuando es de inmuebles, <strong>formal</strong> (exige escritura pública).</p>
-  <h3>Elementos esenciales particulares</h3>
-  <ul>
-    <li><strong>Cosa (objeto):</strong> bien material, que esté en el comercio (venta no prohibida) y sea determinada o determinable. Puede ser cosa presente o futura (ej: pozo).</li>
-    <li><strong>Precio:</strong> debe ser en dinero, determinado o determinable y <strong>serio</strong> (no ficticio ni simulado).</li>
-    <li><strong>Consentimiento:</strong> acuerdo de voluntades libre de vicios (sin error, dolo o violencia).</li>
-  </ul>
-  <div class="tia">
-    <span class="lbl">Explicación para la tía</span>
-    <p>La compraventa es el clásico "yo te doy la cosa, vos me das la plata". El vendedor entrega la propiedad y el comprador paga un precio en dinero. Para que valga, tiene que haber una cosa concreta y permitida, un precio real (no de mentira) y las dos partes de acuerdo sin engaños.</p>
-  </div>
-  <div class="ej">
-    <span class="lbl">Ejemplo</span>
-    <p>Vendés tu departamento en USD 90.000. La cosa es el depto (determinado, en el comercio), el precio es serio y en dinero, y ambos consienten libremente. Es una compraventa válida.</p>
-  </div>
-</section>
-
-<section id="p2-2">
-  <h2 class="tema">2. Derechos y obligaciones de las partes</h2>
-  <h3>Vendedor</h3>
-  <ul>
-    <li>Transferir la propiedad y entregar el inmueble en las condiciones pactadas.</li>
-    <li>Pagar los gastos de entrega (salvo pacto en contrario, ej: estado parcelario).</li>
-    <li>Garantizar el <strong>saneamiento</strong>: responder por <strong>evicción</strong> (reclamos de terceros sobre el derecho) y por <strong>vicios redhibitorios</strong> (defectos ocultos graves).</li>
-  </ul>
-  <h3>Comprador</h3>
-  <ul>
-    <li>Pagar el precio convenido en tiempo y lugar.</li>
-    <li>Recibir la cosa.</li>
-    <li>Hacerse cargo de los gastos de recepción: honorarios de escribanía (rondan el <strong>2%</strong> de la escritura), aportes, copias, etc.</li>
-  </ul>
-  <div class="tia">
-    <span class="lbl">Explicación para la tía</span>
-    <p>El vendedor tiene que entregar la propiedad limpia de problemas y responder si aparece un defecto oculto grave o si alguien reclama que la casa era suyo. El comprador tiene que pagar, recibir y cubrir los gastos del escribano (más o menos el 2% de la escritura).</p>
-  </div>
-  <div class="ej">
-    <span class="lbl">Ejemplo</span>
-    <p>Comprás una casa y meses después aparece un problema estructural oculto que no se veía: el vendedor debe responder por ese vicio. Vos, como comprador, pagaste el precio y los honorarios del escribano al escriturar.</p>
-  </div>
-</section>
-
-<section id="p2-3">
-  <h2 class="tema">3. Título y modo suficiente. Documentación <span class="art">Art. 1017 y 1924 CCCN</span></h2>
-  <p>Para transmitir legalmente el <strong>derecho real de dominio</strong> sobre un inmueble deben coexistir obligatoriamente dos elementos:</p>
-  <ul>
-    <li><strong>Título suficiente:</strong> el acto jurídico que justifica la transmisión (la causa legal). El <span class="art">Art. 1017</span> exige <strong>escritura pública</strong> ante escribano.</li>
-    <li><strong>Modo suficiente (tradición posesoria):</strong> el acto material de <strong>entrega y recepción</strong> del inmueble <span class="art">Art. 1924</span>.</li>
-  </ul>
-  <h3>Inscripción registral</h3>
-  <p>En Argentina, la inscripción en el Registro de la Propiedad Inmueble <strong>no es constitutiva</strong> de derecho, sino puramente <strong>declarativa</strong>: sirve para darle publicidad frente a terceros y hacerlo oponible.</p>
-  <h3>Documentación que pide el escribano</h3>
-  <p>Título/escritura antecedente, DNI de las partes, boletas de impuestos (ARBA, municipal), liquidación de expensas y reglamento de copropiedad (si es PH) y el <strong>estado parcelario</strong> vigente hecho por agrimensor.</p>
-  <div class="examen">
-    <span class="lbl">Tip de examen</span>
-    <em>Título + Modo = te hacen dueño. La inscripción NO te hace dueño (es declarativa): solo publicita el derecho frente a terceros.</em>
-  </div>
-  <div class="tia">
-    <span class="lbl">Explicación para la tía</span>
-    <p>Para ser dueño de verdad de una casa hacen falta dos cosas: el papel (la escritura, que explica por qué la casa es tuya) y la entrega real (que te den las llaves y la posesión). Después se anota en el Registro, pero eso no te hace dueño: solo sirve para avisarle al mundo que la casa es tuya, así nadie puede hacerse el desentendido.</p>
-  </div>
-  <div class="ej">
-    <span class="lbl">Ejemplo</span>
-    <p>Firmás la escritura (título) y el vendedor te entrega las llaves y la posesión (modo): ya sos dueño. Al inscribir en el Registro, cualquiera que consulte verá que la casa es tuya y no podrá alegar que no lo sabía.</p>
-  </div>
-</section>
-
-<section id="p2-4">
-  <h2 class="tema">4. Proceso práctico y administrativo (los 7 pasos)</h2>
-
-  <h3>1 · Tasación e inspección</h3>
-  <p>El corredor matriculado evalúa el inmueble (m², estado edilicio, luminosidad, zonificación) y hace un estudio de mercado para fijar el <strong>valor de mercado estimado</strong>.</p>
-
-  <h3>2 · Autorización de venta</h3>
-  <p>Contrato donde el propietario delega formalmente al corredor la facultad de comercializar. Puntos críticos:</p>
-  <ul>
-    <li><strong>Identificación del inmueble:</strong> dirección, nomenclatura catastral, partida y matrícula.</li>
-    <li><strong>Precio y cláusula "ad referendum":</strong> se fija el precio en USD, autorizando a tomar reservas inferiores sujetas a la aceptación final del vendedor.</li>
-    <li><strong>Plazo y exclusividad:</strong> vigencia normal de 90 a 120 días. Si el propietario incumple la exclusividad vendiendo por su cuenta, debe pagar la comisión (ej: 3%).</li>
-    <li><strong>Gastos y revocación:</strong> el marketing corre por cuenta de la inmobiliaria, pero si el dueño revoca sin causa antes del plazo, debe indemnizar o pagar los gastos.</li>
-    <li><strong>Honorarios:</strong> comisión por la concreción (ej: 3% del valor), pagadera en el boleto o escritura.</li>
-    <li><strong>Prórroga y jurisdicción:</strong> tribunales a los que se someten frente a litigios.</li>
-  </ul>
-
-  <h3>3 · Comercialización y publicación</h3>
-  <p>Preparación del material profesional (fotos, planos) y difusión en portales para captar clientes.</p>
-
-  <h3>4 · Instrumento de reserva (recibo de seña)</h3>
-  <p>Documento <strong>precontractual</strong>: una oferta formal de compra con una suma de dinero en custodia de la inmobiliaria, para retirar la propiedad del mercado mientras se negocian las condiciones.</p>
-  <ul>
-    <li><strong>Contenido:</strong> datos de las partes, propiedad, monto de la reserva, precio ofertado, cronograma de pago y plazo de vigencia.</li>
-    <li><strong>Cláusulas de arrepentimiento:</strong> penalidades de la seña una vez aceptada por el dueño.</li>
-    <li><strong>Condiciones suspensivas:</strong> la vigencia queda sujeta a un hecho (ej: "sujeto a que los informes de dominio salgan limpios"). Si no se cumple, se devuelve el dinero sin indemnización.</li>
-  </ul>
-
-  <h3>5 · Refuerzo de seña</h3>
-  <p>Notificada la aceptación del vendedor, el comprador entrega dinero extra (suele completar un <strong>5%</strong> del total); la inmobiliaria retiene los fondos y el comprador designa la escribanía.</p>
-
-  <h3>6 · Confección del boleto de compraventa</h3>
-  <p>Contrato privado formal y <strong>vinculante</strong>. <strong>No transmite el dominio</strong> (no te hace dueño), pero es una <strong>promesa obligatoria de hacer</strong>: otorgar la escritura en un plazo fijado.</p>
-  <ul>
-    <li><strong>Monto técnico:</strong> el comprador entrega un porcentaje alto (mínimo el <strong>25%</strong>, frecuentemente hasta el <strong>80%</strong>). Los honorarios inmobiliarios suelen cobrarse acá.</li>
-    <li><strong>Incumplimiento:</strong> si una parte se baja, la cumplidora puede exigir judicialmente el cumplimiento o resolverlo reclamando daños y perjuicios.</li>
-    <li><strong>Fecha cierta:</strong> se logra sellando el contrato (ARBA o certificación de firmas). Ojo: si se sella, hay obligación fiscal de escriturar por el monto declarado.</li>
-  </ul>
-
-  <h3>7 · Escritura traslativa de dominio</h3>
-  <p>Paso final: el comprador abona el saldo y el vendedor entrega la posesión (llaves). El escribano pide toda la documentación (ver tema 3).</p>
-
-  <div class="tia">
-    <span class="lbl">Explicación para la tía</span>
-    <p>Vender una propiedad con inmobiliaria es como una escalera de pasos. Primero le ponen precio (tasación) y el dueño autoriza a venderla. Después la publican, y cuando aparece un interesado, este deja una seña para "apartarla" (reserva) y luego un refuerzo. Más adelante firman el boleto, que es un compromiso fuerte de escriturar (pero todavía no te hace dueño), y al final se firma la escritura ante el escribano: ahí sí te dan las llaves y quedás dueño.</p>
-  </div>
-  <div class="ej">
-    <span class="lbl">Ejemplo</span>
-    <p>Interesado en una casa: deja una reserva de dinero, el dueño acepta, refuerza hasta el 5%, firman el boleto entregando el 30% y comprometiéndose a escriturar en 60 días, y en la escritura paga el saldo restante y recibe las llaves.</p>
-  </div>
-</section>
-
-<section id="p2-5">
-  <h2 class="tema">5. Crédito hipotecario <span class="art">Hipoteca: Art. 2205 y ss. CCCN</span></h2>
-  <p><strong>Concepto:</strong> es un préstamo de dinero (un <strong>mutuo</strong>) que un banco o entidad otorga al comprador, <strong>garantizado con un derecho real de hipoteca</strong> sobre un inmueble. El inmueble queda en poder y uso del deudor, pero afectado como garantía del pago.</p>
-  <p>La <strong>hipoteca</strong> es un <strong>derecho real de garantía</strong> que recae sobre una cosa registrable (el inmueble) que <strong>continúa en poder del constituyente</strong>.</p>
-  <h3>Particularidades</h3>
-  <ul>
-    <li><strong>El deudor conserva la propiedad, uso y goce</strong> del inmueble mientras paga.</li>
-    <li>Es <strong>accesoria</strong> del crédito: si se paga la deuda, la hipoteca se extingue y se cancela.</li>
-    <li><strong>Especialidad:</strong> debe indicar un monto determinado y un bien determinado.</li>
-    <li>Se constituye por <strong>escritura pública</strong> y se <strong>inscribe en el Registro</strong> para ser oponible a terceros y fijar su <strong>rango/prioridad</strong> según la fecha.</li>
-    <li>Si el deudor no paga, el acreedor puede <strong>ejecutar</strong> (rematar) el inmueble y cobrarse con <strong>preferencia</strong> sobre otros acreedores.</li>
-    <li>En la práctica, banco y escribano coordinan: la compraventa y la constitución de la hipoteca se firman en el <strong>mismo acto</strong>, y el banco desembolsa el dinero ahí.</li>
-  </ul>
-  <div class="tia">
-    <span class="lbl">Explicación para la tía</span>
-    <p>Es el préstamo que te da el banco para comprar la casa, pero poniendo la misma casa como garantía. Vos vivís en ella y sos el dueño, pero si dejás de pagar las cuotas, el banco tiene derecho a quedarse con la casa y venderla para cobrarse. Por eso se firma ante escribano y se anota en el Registro, para que todos sepan que esa casa está "prendida" al banco hasta que termines de pagar.</p>
-  </div>
-  <div class="ej">
-    <span class="lbl">Ejemplo</span>
-    <p>Comprás una casa de USD 100.000: ponés USD 40.000 tuyos y el banco te presta USD 60.000. El mismo día, ante el escribano, firmás la compraventa y la hipoteca a favor del banco. Seguís siendo dueño y viviendo ahí; cuando terminás de pagar, se cancela la hipoteca.</p>
-  </div>
-</section>
-
-<div class="part-title">Unidad 6 · Prescripción adquisitiva</div>
-
-<section id="p2-6">
-  <h2 class="tema">6. Usucapión: concepto, tipos y elementos <span class="art">Art. 1897 CCCN</span></h2>
-  <p>Es el modo por el cual el <strong>poseedor</strong> de una cosa adquiere un <strong>derecho real</strong> sobre ella mediante la <strong>posesión continua e ininterrumpida</strong> durante el tiempo fijado por la ley.</p>
-  <h3>Elementos constitutivos de la posesión</h3>
-  <ul>
-    <li><strong>Corpus:</strong> elemento material; el control y la relación física directa sobre el inmueble.</li>
-    <li><strong>Animus domini:</strong> elemento subjetivo; comportarse y tener la intención de ser el dueño legítimo, sin reconocer en otro un derecho superior.</li>
-  </ul>
-  <h3>Tipos</h3>
-  <table>
-    <tr><th>Tipo</th><th>Plazo</th><th>Requiere</th></tr>
-    <tr><td><strong>Breve</strong></td><td>10 años</td><td><strong>Justo título y buena fe.</strong> Sanea un título con defectos de forma o de fondo (ej: comprar de buena fe a quien no era el verdadero dueño).</td></tr>
-    <tr><td><strong>Larga</strong></td><td>20 años</td><td>Se aplica ante la <strong>ausencia</strong> de justo título o buena fe. Consolida el dominio tras el abandono del titular.</td></tr>
-  </table>
-  <div class="examen">
-    <span class="lbl">Tip de examen (posesión vs. tenencia)</span>
-    <em>El inquilino tiene el <strong>corpus</strong> (usa la cosa) pero NO el <strong>animus domini</strong> (reconoce que el dueño es otro). Por eso es <strong>tenedor</strong>, no poseedor, y jamás usucape.</em>
-  </div>
-  <div class="tia">
-    <span class="lbl">Explicación para la tía</span>
-    <p>La usucapión es cuando alguien que ocupa y cuida un terreno como si fuera propio, durante muchos años, termina volviéndose dueño legalmente. Hacen falta dos cosas: tenerlo físicamente (corpus) y comportarse como el verdadero dueño, no como un inquilino (animus domini). Si tenías un papel con defectos y buena fe, alcanzan 10 años; si no tenías nada, 20 años.</p>
-  </div>
-  <div class="ej">
-    <span class="lbl">Ejemplo</span>
-    <p>Una familia vive 25 años en un lote abandonado, lo cerca, construye, paga impuestos y se comporta como dueña. Tiene corpus y animus domini: puede usucapir por la larga (20 años). Un inquilino, en cambio, nunca podría, porque reconoce a otro como dueño.</p>
-  </div>
-</section>
-
-<section id="p2-7">
-  <h2 class="tema">7. Requisitos y tipos de prueba</h2>
-  <h3>Requisitos de la posesión</h3>
-  <table>
-    <tr><th>Requisito</th><th>Qué significa</th></tr>
-    <tr><td><strong>Pública</strong></td><td>Visible y conocida por terceros y el público local.</td></tr>
-    <tr><td><strong>Pacífica</strong></td><td>No obtenida por la fuerza o violencia latente.</td></tr>
-    <tr><td><strong>Continua</strong></td><td>Que se mantenga en el tiempo sin baches en el ejercicio de la posesión.</td></tr>
-    <tr><td><strong>Ininterrumpida</strong></td><td>Que no haya sido interrumpida por actos judiciales del titular (demanda de desalojo o acción reivindicatoria).</td></tr>
-  </table>
-  <h3>Actos posesorios (¿cómo se demuestra el animus domini?)</h3>
-  <ul>
-    <li>Mejoras y edificaciones (construcción de viviendas, muros perimetrales).</li>
-    <li>Pago regular de impuestos y tasas (ARBA, municipal).</li>
-  </ul>
-  <h3>Tipos de prueba</h3>
-  <ul>
-    <li><strong>Testimonial:</strong> declaración de linderos y vecinos que constaten la permanencia.</li>
-    <li><strong>Informativa:</strong> oficios a empresas de servicios públicos (luz, gas) para acreditar la fecha de alta.</li>
-    <li><strong>Documental:</strong> recibos de tasas, partidas de nacimiento de hijos criados en el lugar, facturas de materiales de construcción.</li>
-  </ul>
-  <div class="tia">
-    <span class="lbl">Explicación para la tía</span>
-    <p>Para que esa ocupación "cuente", tiene que ser a la vista de todos, sin haber echado a nadie por la fuerza, mantenida en el tiempo y sin que el dueño la haya frenado con un juicio. Y para probarlo ante el juez ayudan las cosas concretas: vecinos que declaren, las boletas de luz y gas, los impuestos pagados y las facturas de los materiales con que construiste.</p>
-  </div>
-  <div class="ej">
-    <span class="lbl">Ejemplo</span>
-    <p>En el juicio traés a tres vecinos que confirman que vivís ahí hace 20 años, mostrás 20 años de boletas de ARBA y la factura del alta de la luz a tu nombre. Esa combinación de pruebas acredita la posesión.</p>
-  </div>
-</section>
-
-<section id="p2-8">
-  <h2 class="tema">8. El proceso judicial</h2>
-  <p>No se es dueño automáticamente por cumplir el plazo: se requiere obligatoriamente un <strong>juicio</strong> ante tribunales civiles y comerciales, demandando formalmente al <strong>titular registral</strong> que figura en el informe de dominio.</p>
-  <h3>Requisito del proceso</h3>
-  <p><strong>Plano de mensura para usucapir</strong>, confeccionado por agrimensor.</p>
-  <h3>Efecto de la sentencia</h3>
-  <p>La sentencia judicial firme tiene carácter <strong>constitutivo</strong> del nuevo título del usucapiente. Se ordena la <strong>inscripción definitiva</strong> en el Registro para que sea oponible a terceros y el bien se incorpore al mercado.</p>
-  <div class="examen">
-    <span class="lbl">Tip de examen</span>
-    <em>Cumplir el plazo NO te hace dueño solo: hace falta la sentencia judicial (que es constitutiva del título) y luego la inscripción registral.</em>
-  </div>
-  <div class="tia">
-    <span class="lbl">Explicación para la tía</span>
-    <p>Aunque hayas ocupado el terreno los años necesarios, no sos dueño de un día para el otro: hay que hacer un juicio, demandar al que figura como dueño en los papeles, presentar un plano hecho por un agrimensor y probar todo. Recién cuando el juez lo dice en una sentencia y se anota en el Registro, quedás dueño.</p>
-  </div>
-  <div class="ej">
-    <span class="lbl">Ejemplo</span>
-    <p>Tras 20 años ocupando, iniciás el juicio: presentás el plano de mensura, traés vecinos y mostrás boletas. El juez dicta sentencia a tu favor y se inscribe: ahí sos dueño legal.</p>
-  </div>
-</section>
-
-<section id="p2-9">
-  <h2 class="tema">9. Diferencias con la Ley 24.374 <span class="ley">Ley 24.374</span> <span class="nuevo">nuevo</span></h2>
-  <p>La <strong>Ley 24.374 (regularización dominial, conocida como "Ley Pierri")</strong> es un régimen que permite a los poseedores de un inmueble destinado a <strong>vivienda única, familiar y de ocupación permanente</strong> regularizar su título por una <strong>vía administrativa / notarial</strong>, en lugar del juicio de usucapión.</p>
-  <p>Está pensada para poseedores de buena fe con posesión pública, pacífica y continua desde una <strong>fecha determinada por la ley</strong> (originalmente anterior al 1/1/1989, luego actualizada por normas posteriores). El interesado firma un <strong>acta de regularización ante escribano</strong>, que se inscribe; transcurrido cierto plazo (10 años) sin oposición del titular registral, se consolida el dominio pleno.</p>
-  <h3>Diferencias clave con la usucapión</h3>
-  <table>
-    <tr><th>Aspecto</th><th>Usucapión (CCCN)</th><th>Ley 24.374</th></tr>
-    <tr><td>Vía</td><td><strong>Judicial</strong> (juicio)</td><td><strong>Administrativa / notarial</strong></td></tr>
-    <tr><td>Destino del inmueble</td><td>Cualquier inmueble</td><td>Solo vivienda única, familiar y permanente</td></tr>
-    <tr><td>Costo y tiempo</td><td>Mayor (proceso judicial)</td><td>Menor (trámite más ágil y económico)</td></tr>
-    <tr><td>Quién resuelve</td><td>El juez (sentencia)</td><td>Acta notarial + inscripción registral</td></tr>
-    <tr><td>Pensada para</td><td>Cualquier poseedor con animus domini</td><td>Sectores de escasos recursos / vivienda familiar</td></tr>
-  </table>
-  <div class="examen">
-    <span class="lbl">Tip de examen</span>
-    <em>La gran diferencia es la <strong>vía</strong>: usucapión = judicial; Ley 24.374 = administrativa/notarial, y solo para vivienda única y permanente.</em>
-  </div>
-  <div class="tia">
-    <span class="lbl">Explicación para la tía</span>
-    <p>Las dos sirven para que quien ocupó un terreno años se vuelva dueño, pero por caminos distintos. La usucapión es el camino "por la Justicia": hay que hacer un juicio. La Ley 24.374 es un atajo administrativo, pensado para familias humildes que viven en su única casa: en vez de un juicio largo, hacen un trámite ante escribano y, pasado un tiempo sin que nadie se oponga, quedan dueños.</p>
-  </div>
-  <div class="ej">
-    <span class="lbl">Ejemplo</span>
-    <p>Una familia vive hace décadas en su única casa de un barrio popular, sin escritura. En vez de pagar un juicio de usucapión, se acoge a la Ley 24.374: firma el acta ante escribano, se inscribe, y con el tiempo obtiene el título de su vivienda.</p>
-  </div>
-</section>
-
-<div class="part-title">Unidad 7 · Vicios redhibitorios</div>
-
-<section id="p2-10">
-  <h2 class="tema">10. Vicios redhibitorios: concepto, requisitos, plazos, caducidad <span class="art">Art. 1033 y 1051 CCCN</span></h2>
-  <p>Forman parte de la <strong>obligación de saneamiento</strong> <span class="art">Art. 1039</span>. Quien transmite un bien a título oneroso debe garantizar que no tenga defectos que impidan su disfrute o disminuyan drásticamente su valor.</p>
-  <h3>Vicios ocultos — 3 requisitos <span class="art">Art. 1053</span></h3>
-  <ul>
-    <li><strong>No ser aparente:</strong> que no fuera cognoscible mediante revisión ordinaria.</li>
-    <li><strong>Existir al tiempo de la adquisición:</strong> el vicio o su causa debe estar presente antes o al momento de la entrega.</li>
-    <li><strong>Haber sido ignorado:</strong> que el comprador no lo conociera.</li>
-  </ul>
-  <h3>Vicios redhibitorios <span class="art">Art. 1051</span></h3>
-  <p>Son vicios ocultos de <strong>máxima gravedad estructural</strong> que hacen la cosa <strong>impropia para su destino</strong>, o disminuyen tanto su utilidad que, de haberlo sabido, el comprador no la habría adquirido o habría pagado mucho menos.</p>
-  <h3>Plazos, caducidad y prescripción</h3>
-  <table>
-    <tr><th>Bien</th><th>Plazo de caducidad (para que se manifieste el vicio)</th></tr>
-    <tr><td>Inmuebles</td><td>3 años</td></tr>
-    <tr><td>Muebles</td><td>6 meses</td></tr>
-  </table>
-  <p><strong>Carga de la denuncia</strong> <span class="art">Art. 1054</span>: el comprador debe avisar fehacientemente dentro de los <strong>60 días</strong> desde que el vicio se manifestó. Si no, la responsabilidad del vendedor se extingue (salvo mala fe comprobada).</p>
-  <h3>Herramientas del adquirente <span class="art">Art. 1039 y 1056</span></h3>
-  <ul>
-    <li>Si el vicio es <strong>subsanable:</strong> reclamar la reparación al enajenante.</li>
-    <li>Si la cosa es <strong>fungible:</strong> reclamar un bien equivalente en buen estado.</li>
-    <li><strong>Resolución del contrato:</strong> devolver la cosa defectuosa y recuperar el precio pagado.</li>
-  </ul>
-  <div class="tia">
-    <span class="lbl">Explicación para la tía</span>
-    <p>Cuando comprás algo, el que te lo vende te tiene que garantizar que no tenga fallas escondidas. Si aparece un defecto que no se veía, que ya existía y que vos no conocías, podés reclamar. Si el defecto es tan grave que la cosa no sirve para lo que la compraste, se llama redhibitorio y hasta podés devolverla y que te devuelvan la plata. Eso sí: tenés que avisar dentro de los 60 días de descubrirlo.</p>
-  </div>
-  <div class="ej">
-    <span class="lbl">Ejemplo</span>
-    <p>Comprás una casa y a los 6 meses descubrís una falla estructural grave en los cimientos que estaba tapada y ya existía. Avisás dentro de los 60 días: podés exigir la reparación o, si es redhibitorio, resolver el contrato y recuperar lo pagado. Para inmuebles tenés hasta 3 años para que el vicio aparezca.</p>
-  </div>
-</section>
-
-<section id="p2-11">
-  <h2 class="tema">11. Ley 14.432 — vivienda única (PBA) <span class="ley">Ley 14.432</span> <span class="nuevo">nuevo</span></h2>
-  <p><strong>Concepto:</strong> ley de la <strong>Provincia de Buenos Aires</strong> que declara <strong>inembargable e inejecutable, de pleno derecho</strong>, a la <strong>vivienda única y de ocupación permanente</strong> ubicada en territorio bonaerense. Protege el techo familiar frente a deudas.</p>
-  <h3>Requisitos</h3>
-  <ul>
-    <li>Inmueble ubicado en la <strong>Provincia de Buenos Aires</strong>.</li>
-    <li>Que sea <strong>vivienda única</strong>.</li>
-    <li>De <strong>ocupación permanente</strong>.</li>
-  </ul>
-  <h3>Inembargabilidad y alcance</h3>
-  <p>La vivienda <strong>no puede ser embargada ni rematada</strong> por deudas. La gran diferencia con el régimen del CCCN <span class="art">Art. 244–256</span> (afectación a la vivienda) es que aquel exige <strong>inscripción registral voluntaria</strong>, mientras que la Ley 14.432 opera <strong>de pleno derecho</strong> (automáticamente) sobre la vivienda única en PBA.</p>
-  <p><strong>Excepciones</strong> (deudas que SÍ pueden ejecutarla): créditos por <strong>construcción, mejora o adquisición</strong> del propio inmueble (incluida la hipoteca voluntaria), <strong>expensas, impuestos y tasas</strong> del inmueble, y obligaciones <strong>alimentarias</strong>.</p>
-  <h3>Renuncia</h3>
-  <p>El titular puede <strong>renunciar expresamente</strong> al beneficio; por ejemplo, para constituir una hipoteca y acceder a un crédito (sin renuncia, el banco no podría ejecutar la garantía). La renuncia debe ser expresa.</p>
-  <div class="examen">
-    <span class="lbl">Tip de examen</span>
-    <em>Diferencia clave: el régimen del CCCN se <strong>inscribe</strong> (voluntario); la Ley 14.432 protege <strong>de pleno derecho</strong> (automático) a la vivienda única en PBA. Y se puede <strong>renunciar</strong> expresamente.</em>
-  </div>
-  <div class="tia">
-    <span class="lbl">Explicación para la tía</span>
-    <p>Es un escudo para la casa familiar en la Provincia de Buenos Aires: si es tu única vivienda y vivís ahí, la ley la protege sola, sin que tengas que anotar nada, para que no te la puedan rematar por deudas. Pero hay deudas que igual pueden con ella (las de la propia casa, impuestos, expensas y la cuota de alimentos). Y si querés, podés "sacarte el escudo" a propósito (renunciar), por ejemplo para que el banco te dé un crédito con la casa de garantía.</p>
-  </div>
-  <div class="ej">
-    <span class="lbl">Ejemplo</span>
-    <p>Tenés tu única casa en Morón y una deuda de tarjeta se te va de las manos: no pueden rematártela, porque la Ley 14.432 la protege automáticamente. Pero si querés un crédito hipotecario, tenés que renunciar al beneficio para que el banco pueda tomar la casa como garantía.</p>
-  </div>
-</section>
-
-<div class="part-title">Unidad 8 · Publicidad registral</div>
-
-<section id="p2-12">
-  <h2 class="tema">12. Registro de la Propiedad Inmueble: conceptos y diferencias</h2>
-  <p>Organismo (en PBA, dependiente del Ministerio de Economía provincial) donde se inscriben todos los <strong>títulos de dominio, derechos reales</strong> (hipotecas, usufructos), <strong>medidas cautelares</strong> (embargos, inhibiciones) e incapacidades. Su función es brindar <strong>certeza y seguridad jurídica</strong>.</p>
-  <ul>
-    <li><strong>Oponibilidad a terceros (efecto declarativo):</strong> al inscribir un acto (ej: compraventa) se vuelve de conocimiento público y oponible frente a todos (<em>erga omnes</em>). Nadie puede alegar desconocimiento.</li>
-    <li><strong>Protección de terceros de buena fe:</strong> cualquier interesado puede conocer con certeza quién es el dueño, si tiene deudas o gravámenes antes de comprar.</li>
-    <li><strong>Reserva de prioridad:</strong> al expedirse un <strong>certificado</strong> registral, se bloquea la situación jurídica del inmueble por un plazo, para que el escribano redacte la escritura sin variaciones que afecten al comprador.</li>
-  </ul>
-  <div class="examen">
-    <span class="lbl">Tip de examen (la diferencia que más toman)</span>
-    <em>Informe de dominio = solo informa, NO reserva prioridad, lo pide cualquiera. Certificado de dominio = SÍ reserva prioridad, lo pide solo el escribano. ¡No confundirlos!</em>
-  </div>
-  <div class="tia">
-    <span class="lbl">Explicación para la tía</span>
-    <p>El Registro es como el "gran cuaderno oficial" donde se anota todo sobre cada propiedad: quién es el dueño, si tiene hipoteca, si está embargada. Sirve para que, antes de comprar, cualquiera pueda averiguar la verdad de la casa y no lo estafen. Anotar algo ahí lo hace válido frente a todo el mundo.</p>
-  </div>
-  <div class="ej">
-    <span class="lbl">Ejemplo</span>
-    <p>Antes de comprar, el escribano pide un certificado al Registro y descubre que la casa tiene un embargo. Gracias a la publicidad registral, te enterás a tiempo y no comprás un problema. Ese certificado además "congela" la situación mientras se escritura.</p>
-  </div>
-</section>
-
-<section id="p2-13">
-  <h2 class="tema">13. Los informes en particular y cómo solicitarlos</h2>
-
-  <h3>1 · Informe de dominio</h3>
-  <p>Constancia puramente <strong>publicitaria</strong> que detalla la situación jurídica actual de un inmueble a una fecha. <strong>No genera reserva de prioridad.</strong></p>
-  <ul>
-    <li><strong>¿Quién lo solicita?</strong> Titulares, abogados, contadores, martilleros/corredores matriculados, etc.</li>
-    <li><strong>Modalidades:</strong> simple (≈ 11 días hábiles) o urgente (3 días hábiles).</li>
-    <li><strong>Datos:</strong> partido, matrícula/folio real, unidad funcional, nomenclatura catastral, designación del lote y titulares con sus porcentajes.</li>
-  </ul>
-
-  <h3>2 · Certificado de dominio</h3>
-  <p>Solicitado <strong>exclusivamente por escribanos</strong> antes de autorizar un acto. A diferencia del informe, <strong>SÍ genera reserva de prioridad</strong> y bloquea la matrícula durante su vigencia.</p>
-
-  <h3>3 · Consulta sobre frecuencia</h3>
-  <p>Permite conocer la <strong>cantidad de certificados, informes o copias</strong> solicitados sobre un mismo inmueble en períodos anteriores. Sirve para detectar operaciones simultáneas o sospechosas.</p>
-
-  <h3>4 · Informe de anotaciones personales (inhibiciones)</h3>
-  <p>Publicita si sobre una persona (física o jurídica) existen <strong>inhibiciones</strong> que le impidan disponer de sus bienes. Se aporta: nombre completo, fecha de nacimiento y DNI.</p>
-
-  <h3>5 · Índice de titularidad</h3>
-  <p>Verifica si una persona tiene <strong>propiedades registradas a su nombre</strong> (y cuántas) en la jurisdicción. Muy usado para evaluar solvencia patrimonial o para créditos hipotecarios.</p>
-
-  <div class="tia">
-    <span class="lbl">Explicación para la tía</span>
-    <p>El Registro entrega distintos "papelitos" según lo que necesites averiguar. El informe de dominio te cuenta cómo está una propiedad hoy (lo puede pedir cualquiera). El certificado es parecido pero lo pide solo el escribano cuando va a hacer una escritura, y además "reserva" la propiedad. Otros papeles sirven para ver si una persona tiene deudas que le impidan vender, cuántas propiedades tiene, o si hubo movimientos raros sobre una casa.</p>
-  </div>
-  <div class="ej">
-    <span class="lbl">Ejemplo</span>
-    <p>Antes de comprar, pedís un <em>informe de dominio</em> para ver que la casa esté limpia. El día de la escritura, el escribano pide el <em>certificado de dominio</em>, que además bloquea la propiedad. Y con el <em>índice de titularidad</em> el banco chequea cuántas propiedades tenés antes de darte el crédito.</p>
-  </div>
-</section>
-
-<div class="part-title">Autoevaluación</div>
-
-<section id="p2-auto">
-  <h2 class="tema">14. Banco de preguntas (usucapión)</h2>
-  <p>Practicá respondiéndolas con lo desarrollado arriba; te dejo la pista de dónde está cada respuesta.</p>
-
-  <div class="qbox">
-    <p class="q">1. Diferencia entre posesión y tenencia (corpus y animus) en la usucapión.</p>
-    <p class="a">El poseedor tiene <strong>corpus</strong> (control físico) + <strong>animus domini</strong> (intención de ser dueño). El tenedor (ej: inquilino) tiene corpus pero reconoce que el dueño es otro, así que le falta el animus. Solo el poseedor con animus domini puede usucapir. (Ver tema 6.)</p>
-  </div>
-  <div class="qbox">
-    <p class="q">2. Usucapión breve: ¿qué es el "justo título"? ¿Es nulo o válido en forma pero defectuoso en el fondo?</p>
-    <p class="a">La breve (10 años) exige <strong>justo título y buena fe</strong>. El justo título es <strong>válido en su forma pero defectuoso en el fondo</strong> (ej: comprar de buena fe a quien no era el verdadero dueño). No es un título nulo, sino uno que se sanea con el tiempo. (Ver tema 6.)</p>
-  </div>
-  <div class="qbox">
-    <p class="q">3. Si posee sin justo título y sin conocimiento del dueño, ¿plazo mínimo para la usucapión larga?</p>
-    <p class="a"><strong>20 años</strong> de posesión continua e ininterrumpida. (Ver tema 6.)</p>
-  </div>
-  <div class="qbox">
-    <p class="q">4. Cualidades que la ley exige a la posesión para usucapir.</p>
-    <p class="a">Debe ser <strong>pública</strong>, <strong>pacífica</strong>, <strong>continua</strong> e <strong>ininterrumpida</strong>. (Ver tema 7.)</p>
-  </div>
-  <div class="qbox">
-    <p class="q">5. ¿El solo cumplimiento del plazo hace propietario? Rol de la sentencia y de la inscripción.</p>
-    <p class="a">No. Hace falta un <strong>juicio</strong> contra el titular registral; la <strong>sentencia firme es constitutiva</strong> del nuevo título, y luego se ordena la <strong>inscripción registral</strong> para hacerlo oponible a terceros. (Ver tema 8.)</p>
-  </div>
-
-  <div class="examen" style="margin-top:24px;">
-    <span class="lbl">💡 Consejo de estudio</span>
-    <em>Para este parcial, foco en: <strong>informe vs. certificado</strong> de dominio (reserva de prioridad), <strong>usucapión vs. Ley 24.374</strong> (judicial vs. administrativa), y la <strong>Ley 14.432</strong> (protección de pleno derecho + renuncia).</em>
-  </div>
-
-  <div class="nota">
-    <strong>Nota de la cátedra:</strong> la Unidad 9 (Propiedad Horizontal) <strong>NO entra en este parcial</strong>. Sí entra como contenido si vas a Final.
-  </div>
-</section>
-
-</div>
-</div>
-
-<a href="#" class="top-btn">↑ Arriba</a>
-
-<script>
-  function showTab(n){
-    document.getElementById('panel1').classList.toggle('active', n===1);
-    document.getElementById('panel2').classList.toggle('active', n===2);
-    document.getElementById('btn1').classList.toggle('active', n===1);
-    document.getElementById('btn2').classList.toggle('active', n===2);
-    window.scrollTo({top:0, behavior:'auto'});
-  }
-</script>
-
+<main>
+<div class="tools"><button onclick="t(true)">Abrir todo</button> <button onclick="t(false)">Cerrar todo</button></div>
+
+<h2 id="a">1. Conceptos básicos</h2>
+
+<details class="q"><summary><span class="n">1</span>Tasación como ciencia</summary><div class="b">
+<p>Disciplina <b>técnica y científica</b> que determina el <b>valor económico objetivo</b> de un bien con métodos estandarizados, análisis de mercado y normativa legal.</p>
+<p>Combina conocimiento técnico, estudio riguroso y experiencia práctica del perito para llegar a un precio justo y fundamentado.</p></div></details>
+
+<details class="q"><summary><span class="n">2</span>Autorización de venta</summary><div class="b">
+<p>Contrato <b>por escrito</b> que formaliza la relación entre propietario e inmobiliaria para comercializar un inmueble. Está regulado como <b>contrato de corretaje</b> por el Código Civil y Comercial (CCCN).</p>
+<ul><li>El propietario entrega el inmueble al corredor para comercializarlo.</li><li>Se compromete a permitir el ingreso a la propiedad y a pagar los <b>honorarios</b> si se vende.</li></ul></div></details>
+
+<details class="q"><summary><span class="n">3</span>Reserva</summary><div class="b">
+<p>Primer paso de la negociación de compraventa. Es un contrato que <b>compromete al comprador</b> a concretar su intención de compra y ayuda a iniciar la negociación entre las partes.</p></div></details>
+
+<details class="q"><summary><span class="n">4</span>Seña (y diferencia con la reserva)</summary><div class="b">
+<p>La <b>seña</b> es un compromiso formal; si se incumple hay penalidad económica: el comprador <b>pierde el dinero</b> o el vendedor <b>devuelve el doble</b>. Se hace cuando ambas partes ya acordaron todas las condiciones.</p>
+<table><tr><th></th><th>Reserva</th><th>Seña</th></tr>
+<tr><td>Naturaleza</td><td>Intención de compra preliminar (ad referéndum)</td><td>Compromiso formal, con penalidad</td></tr>
+<tr><td>Monto aprox.</td><td>≈ 5 %</td><td>10 % a 15 % del precio</td></tr></table></div></details>
+
+<details class="q"><summary><span class="n">5</span>Precio</summary><div class="b">
+<p>Cantidad <b>pedida, ofrecida o pagada</b> por un bien o servicio. Es un <b>hecho histórico</b> (público o reservado).</p>
+<p>Por las capacidades financieras, motivaciones o intereses especiales de comprador y vendedor, el precio puede o no tener relación con el valor que otros le asignen; aun así suele indicar el valor relativo que las partes dan al bien.</p></div></details>
+
+<details class="q"><summary><span class="n">6</span>Gasto</summary><div class="b">
+<p>Desembolso o costo necesario para llevar adelante una operación y obtener un resultado económico.</p>
+<ul><li><b>De funcionamiento:</b> impuestos, tasas, servicios, seguros, limpieza, gastos laborales y administrativos.</li><li><b>De mantenimiento:</b> reparaciones, reposiciones, pintura, revoques, modernizaciones y modificaciones normales.</li></ul>
+<p>En una reserva deben indicarse los gastos de la compra (sellos, honorarios) para que el día de la escrituración no queden saldos pendientes.</p></div></details>
+
+<details class="q"><summary><span class="n">7</span>Mercado</summary><div class="b">
+<p>Sistema (a veces un sitio) donde se <b>intercambian bienes y servicios</b> entre compradores y vendedores mediante mecanismos de precios, sin restricciones indebidas. Cada parte responde a <b>oferta y demanda</b> según sus capacidades, conocimientos y necesidades. Puede ser local, regional, nacional o internacional.</p></div></details>
+
+<details class="q"><summary><span class="n">8</span>Valor</summary><div class="b">
+<p>Concepto económico: el <b>precio más probable</b> al que llegarán compradores y vendedores de un bien disponible.</p>
+<div class="f">El valor <b>no es un hecho</b>, es una <b>estimación</b> del precio probable en un tiempo dado (fecha efectiva de tasación), según una definición específica de valor. El precio, en cambio, sí es un hecho.</div></div></details>
+
+<details class="q"><summary><span class="n">9</span>Valor económico vs. valor propiamente dicho</summary><div class="b">
+<table><tr><th>Valor propiamente dicho</th><th>Valor económico</th></tr>
+<tr><td>Importancia, utilidad o significación que una persona o sociedad atribuye a algo, aunque no se exprese en dinero (moral, cultural, afectivo, histórico…).</td><td>Estimación <b>monetaria</b> de un bien, derecho o servicio según utilidad, escasez, demanda, oferta y condiciones de mercado.</td></tr>
+<tr><td>Expresa <i>qué importancia</i> tiene.</td><td>Expresa <i>cuánto dinero</i> se estaría dispuesto a pagar.</td></tr></table></div></details>
+
+<h2 id="b">2. Etapas de una tasación</h2>
+
+<details class="q"><summary><span class="n">10</span>Etapas operativas</summary><div class="b">
+<ul>
+<li><b>a) Recopilación de información:</b> valores de tierra y construcciones, compraventas efectivas (fecha y monto), forma y ubicación de terrenos, tipología, superficie y estado de edificios, costo de materiales y mano de obra, oferta y demanda.</li>
+<li><b>b) Estudio del bien:</b> ubicación, forma, dimensiones, calidad del suelo, tipo de edificación, superficie, conservación, vida útil futura, calidad, funcionalidad, adaptabilidad.</li>
+<li><b>c) Estudio de la zona:</b> infraestructura y servicios, carácter del área (residencial, comercial, mixta), tipología y calidad edilicia, densidad poblacional, nivel socioeconómico, vecinos.</li>
+<li><b>d) Cálculo del avalúo</b> por todos los métodos posibles.</li>
+<li><b>e) Balance de resultados</b> según las condiciones particulares de la tasación.</li></ul></div></details>
+
+<h2 id="c">3. Método de comparación de mercado</h2>
+
+<details class="q"><summary><span class="n">11 · 12</span>Fundamento (técnica por comparación)</summary><div class="b">
+<p>El valor de la <b>propiedad sujeto</b> (la que se tasa) está relacionado directamente con los precios de venta u oferta de <b>propiedades comparables</b>.</p>
+<div class="f"><b>Principio de sustitución:</b> un comprador bien informado no pagará por una propiedad más que el precio de una comparable.</div></div></details>
+
+<details class="q"><summary><span class="n">13</span>Operatoria</summary><div class="b">
+<p>Se localizan propiedades (razonablemente <b>no menos de tres</b>) vendidas u ofrecidas, similares a la sujeto. Se detectan las diferencias y se ajusta cada una:</p>
+<div class="f"><b>Precio de venta del comparable ± Ajustes = Valor indicado de la sujeto</b></div>
+<ul><li><b>Suma</b> el valor de características que tiene la sujeto y no el comparable.</li><li><b>Resta</b> el valor de características que tiene el comparable y no la sujeto.</li></ul></div></details>
+
+<details class="q"><summary><span class="n">14</span>Características de los comparables y ajustes</summary><div class="b">
+<p><b>Requisitos:</b></p>
+<ul><li>Razonablemente <b>similar</b> a la sujeto.</li><li>Venta u oferta <b>relativamente reciente</b>.</li><li>Si es venta: <b>negociación libre</b> (mercado abierto, tiempo razonable, conocimiento de causa, sin coerción).</li><li>Si es oferta: de <b>fuente responsable</b>, sin interés de parte.</li></ul>
+<p><b>Factores de ajuste:</b></p>
+<ol><li><b>Fecha</b> de venta u oferta (si el mercado cambió hasta la fecha del avalúo).</li><li><b>Ubicación</b> (proximidad a usos del suelo, restricciones, frente a calle principal).</li><li><b>Características físicas:</b> terreno (dimensiones, forma, proporción), calidad constructiva, antigüedad, conservación, superficie edificada, cantidad y tipo de ambientes, calidad funcional, instalaciones accesorias, mejoras externas.</li><li><b>Términos y condiciones de venta</b> (crédito o financiamiento anormal).</li></ol>
+<div class="note">La precisión depende de usar ajustes confiables. El ajuste <b>no es simplemente el costo</b> de construir una mejora: hay mejoras que el comprador medio no paga, o que incluso restan valor (desproporción, mal gusto, excentricidad). El <b>análisis de parejas coincidentes</b> (dos propiedades iguales salvo una variable) puede no ser confiable.</div></div></details>
+
+<details class="q"><summary><span class="n">15</span>¿Qué método usamos cuando salimos a tasar?</summary><div class="b">
+<p><b>Comparación de mercado.</b> Según Chandías, en lotes urbanos se determina el valor venal comparando con ventas reales de la vecindad, afectadas por coeficientes y reducidas a un <b>lote patrón</b> sin influencia de esquina.</p>
+<p><b>Forma simple:</b> 4 o 5 ventas próximas (idealmente misma cuadra), contemporáneas al avalúo, reducidas al lote patrón con tablas de frente y fondo, y comparación directa.</p>
+<p><b>Forma completa (científica), en 7 etapas:</b></p>
+<ol><li>Información amplia de ventas en la zona, de fuentes responsables.</li>
+<li>Selección y saneamiento (descartar operaciones extraordinarias o sospechosas); ordenar y clasificar.</li>
+<li>Precio <b>neto de la tierra</b> de cada operación (descontando las mejoras).</li>
+<li>Reducción al <b>lote patrón</b> con tablas de frente y fondo.</li>
+<li>Corrección por <b>ubicación</b>.</li>
+<li>Corrección por <b>fecha</b> de las operaciones.</li>
+<li>Corrección final por <b>factores particulares</b>.</li></ol>
+<div class="note">Los coeficientes son empíricos o estimados por el tasador: ahí se pone a prueba su criterio y conocimiento.</div></div></details>
+
+<h2 id="d">4. Método de costo</h2>
+
+<details class="q"><summary><span class="n">16</span>¿Qué es el método de costo?</summary><div class="b">
+<p>Valora un bien según el <b>costo de reproducirlo</b>, considerando materiales, mano de obra, depreciación y obsolescencia. Es aplicable a edificios construidos, en construcción o en proyecto.</p>
+<div class="f"><b>Fundamento:</b> en condiciones normales, nadie paga por un lote con edificio más de lo que costaría construir una mejora idéntica (considerando antigüedad y conservación) en un terreno baldío.</div></div></details>
+
+<details class="q"><summary><span class="n">17</span>¿Cómo se calcula?</summary><div class="b">
+<ol><li>Calcular el <b>costo de reposición o reproducción</b> de la mejora (superficie cubierta × valor del m² nuevo a precios actuales según categoría: económico, medio, lujo; referencia: Cámara Argentina de la Construcción).</li>
+<li><b>Restar la depreciación</b> (desgaste físico, obsolescencia funcional, antigüedad; línea recta o tablas de vida útil).</li>
+<li><b>Sumar el valor del terreno</b> (por comparación con lotes similares de la zona).</li></ol>
+<div class="f"><b>Valor = Costo de reposición − Depreciación + Valor del terreno</b></div></div></details>
+
+<details class="q"><summary><span class="n">18</span>¿Cuándo se usa?</summary><div class="b">
+<ul><li>Cuando no es factible comparar ni capitalizar rentas: edificios <b>institucionales o singulares</b> (escuelas, museos, bibliotecas, fábricas, galpones especiales).</li>
+<li>Propiedades a estrenar o en construcción.</li>
+<li>Tasaciones contables y <b>de seguros</b>: para algunos fines es el <b>único método posible</b>.</li></ul>
+<div class="note">Pregunta sin respuesta en el material: «¿Cómo obtengo el valor de seguro?». Con lo visto: se usa el método de costo (valor de reconstrucción/reposición del edificio).</div></div></details>
+
+<h2 id="e">5. Capitalización de rentas</h2>
+
+<details class="q"><summary><span class="n">19</span>¿Qué es?</summary><div class="b">
+<p>Convierte la <b>renta en valor presente</b> capitalizándola a una tasa de interés equitativa. Es un método universalmente aceptado como básico, pero con reservas: leyes que regulan las locaciones, inestabilidad económica y monetaria, dificultad para fijar una tasa equitativa, y falta de elementos de comparación en inmuebles que no producen renta.</p>
+<p><b>Renta bruta:</b> suma de todos los ingresos de la explotación.</p>
+<div class="f">Renta líquida = Renta bruta − (Gastos de operación + Amortización)<br>Valor presente = Renta líquida ÷ Tasa</div></div></details>
+
+<details class="q"><summary><span class="n">20</span>Gastos de operación, amortización y tasa</summary><div class="b">
+<ul><li><b>Gastos de operación:</b> necesarios para el funcionamiento y mantenimiento en buen servicio.
+<ul><li><i>De funcionamiento:</i> impuestos, tasas de servicios y municipales, seguros, mantenimiento de instalaciones, gastos laborales y administrativos (propiedad horizontal).</li><li><i>De mantenimiento:</i> reposición de artefactos e instalaciones, refacciones, modernizaciones normales. Si falta mantenimiento y hay reparaciones costosas, se <b>castiga</b> el valor total.</li></ul></li>
+<li><b>Amortización:</b> aparta partidas anuales (teóricamente en un fondo) para restituir el capital al final de la vida del bien. También llamados <i>gastos de perpetuidad</i>.</li>
+<li><b>Tasa de capitalización:</b> es el problema más delicado del método; depende del estado, procesos, variabilidad y riesgos de la economía.</li></ul>
+<div class="note">El título de la pregunta 20 (promedios en dólares y pesos) no tiene respuesta en el material; el desarrollo trata gastos, amortización y tasa. Los valores actuales de tasas hay que consultarlos al día.</div></div></details>
+
+<details class="q"><summary><span class="n">21</span>¿En qué inmuebles se usa?</summary><div class="b">
+<p>En inmuebles que generan <b>ingresos periódicos</b>: locales comerciales, oficinas, galpones y depósitos, edificios de departamentos para alquiler, cocheras, hoteles y apart-hoteles, centros comerciales, inmuebles industriales, campos arrendados.</p>
+<p>Es adecuado cuando el valor está relacionado con la renta que produce o puede producir.</p></div></details>
+
+<h2 id="f">6. Método residual</h2>
+
+<details class="q"><summary><span class="n">22</span>¿Qué es?</summary><div class="b">
+<p>Determina el <b>valor del terreno</b> a partir del valor del proyecto terminado, restando costos necesarios y la utilidad esperada del desarrollador. El resultado es el <b>valor máximo que se puede pagar</b> por el terreno.</p>
+<p>Muy usado en Buenos Aires para baldíos o propiedades a demoler con potencial de edificar (según Código Urbanístico).</p></div></details>
+
+<details class="q"><summary><span class="n">23</span>Fórmula y cuándo usarlo</summary><div class="b">
+<div class="f"><b>Valor del terreno = Valor de venta total − (Costos de construcción + Gastos indirectos + Ganancia del desarrollador)</b></div>
+<p>Se usa cuando <b>no hay suficientes comparables</b> de terrenos y se puede determinar qué proyecto es viable en ese inmueble.</p></div></details>
+
+<details class="q"><summary><span class="n">24</span>¿En qué propiedades?</summary><div class="b">
+<ul><li>Terrenos baldíos aptos para construir.</li><li>Lotes urbanos con potencial edificatorio.</li><li>Terrenos para edificios de departamentos o desarrollos comerciales.</li><li>Propiedades a demoler para un nuevo emprendimiento.</li><li>Grandes parcelas para urbanizaciones.</li></ul></div></details>
+
+<h2 id="g">7. Terrenos: esquina y medial</h2>
+
+<details class="q"><summary><span class="n">25</span>Ventajas y desventajas del terreno en esquina</summary><div class="b">
+<table><tr><th>Ventajas (mayor valor unitario)</th><th>Desventajas</th></tr>
+<tr><td><ul><li>Mejor acceso</li><li>Más posibilidades de locales comerciales</li><li>Más vidrieras, en dos frentes</li><li>Mejor luz natural y ventilación (sobre todo en pisos altos)</li><li>Mejor distribución y economía de los edificios</li></ul></td>
+<td><ul><li>Impuestos y tasas más altos</li><li>Mayor costo de infraestructura (pavimento)</li><li>Mayor costo de construcción y mantenimiento</li><li>Ruido y peligro del tránsito</li><li>Menor intimidad (en uso residencial)</li></ul></td></tr></table>
+<p>La ventaja se reduce si la forma es triangular o irregular, o hay desproporción entre frentes y superficie.</p>
+<div class="note">Antes se sumaba un <b>25 %</b> fijo sobre el valor del lote medial; hoy se considera arbitrario. Se evalúan: características comerciales de la zona, relación de valores unitarios de las calles que forman la esquina y medidas del terreno sobre cada calle.</div></div></details>
+
+<details class="q"><summary><span class="n">26 · 27</span>Terreno medial de manzana</summary><div class="b">
+<p><b>Medial:</b> lote con frente a una sola calle, que <b>no es esquina</b>, ubicado entre dos lotes. Tiene dos linderos laterales y fondo, un solo frente, y no goza de la accesibilidad y exposición de la esquina.</p>
+<p><b>Lote de transición:</b> el influenciado por la esquina. En barrios residenciales alcanza solo al esquinero; en comerciales puede alcanzar a uno o más vecinos. Se admite que la influencia no pasa de <b>30 m</b> desde la intersección de las líneas municipales.</p>
+<p><b>Su valor depende de:</b> dimensión (superficie), proporción (frente-fondo), forma, orientación y vista (además de zonificación y servicios).</p>
+<div class="f">En una misma manzana: <b>esquina</b> → mayor valor · <b>medial</b> → valor intermedio y de referencia · <b>interno o de menor frente</b> → menor valor</div>
+<p>El medial sirve de referencia para comparar y ajustar los demás lotes con coeficientes.</p></div></details>
+
+<h2 id="h">8. Alquiler ⇄ venta</h2>
+
+<details class="q"><summary><span class="n">28 · 32</span>Del valor de venta al alquiler</summary><div class="b">
+<div class="f"><b>Alquiler mensual = Valor de venta × Tasa anual ÷ 12</b></div>
+<p>La tasa debe corresponder al tipo de inmueble y al mercado de la zona.</p></div></details>
+
+<details class="q"><summary><span class="n">29 · 30</span>Del alquiler al valor de venta</summary><div class="b">
+<p>Se usa la capitalización de rentas.</p>
+<div class="f"><b>Valor = Alquiler anual ÷ Tasa de rentabilidad</b><br><b>Valor = Alquiler mensual × 12 ÷ Tasa de capitalización</b></div></div></details>
+
+<details class="q"><summary><span class="n">31</span>¿Cómo se obtiene la tasa de capitalización?</summary><div class="b">
+<ul><li><b>Método directo:</b> comparar inmuebles similares en venta y alquiler y obtener su rentabilidad.</li>
+<li><b>Método de mercado:</b> analizar tasas de propiedades comparables de la zona.</li>
+<li><b>Método de inversión:</b> tasa requerida por un inversor según riesgo y rentabilidad esperada.</li></ul>
+<p>Luego: <b>Valor = Renta anual ÷ Tasa</b>. El más usado es el directo, por comparación de mercado.</p></div></details>
+
+<h2>Resumen: qué método para qué</h2>
+<table>
+<tr><th>Método</th><th>Fórmula clave</th><th>Cuándo</th></tr>
+<tr><td>Comparación de mercado</td><td>Precio comparable ± ajustes</td><td>Uso general al salir a tasar</td></tr>
+<tr><td>Costo</td><td>Reposición − depreciación + terreno</td><td>Singulares, seguros, a estrenar</td></tr>
+<tr><td>Capitalización de rentas</td><td>Renta anual ÷ tasa</td><td>Inmuebles que producen renta</td></tr>
+<tr><td>Residual</td><td>Venta total − costos − gastos − ganancia</td><td>Terrenos con potencial de desarrollo</td></tr>
+</table>
+</main>
+<script>function t(o){document.querySelectorAll('details').forEach(d=>d.open=o)}</script>
 </body>
 </html>
