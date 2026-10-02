@@ -1,0 +1,31 @@
+/* organigrama animado: solo nombres; los nodos aparecen y desaparecen con el scroll */
+.tree .nd{padding:12px 20px 13px!important;border-radius:12px}
+.tree .nd h3{margin:0!important;font-size:16px!important;letter-spacing:-.01em}
+.nd--top{min-width:210px}.nd--mid{min-width:170px}.nd--ger{min-width:130px}.nd--ag{min-width:96px}.nd--team{min-width:150px}
+.tree .nd{opacity:0;transform:translateY(14px) scale(.96);transition:opacity .5s var(--ease),transform .5s var(--ease)}
+.tree li.on>.nd{opacity:1;transform:none}
+.tree li::before,.tree li::after,.tree li>ul::before{opacity:0;transition:opacity .5s .15s}
+.tree li.on::before,.tree li.on::after,.tree li.on>ul::before{opacity:1}
+.tree>li::before,.tree>li::after{display:none}
+.tree{min-width:760px}
+
+/* producto, al estilo de "la plataforma se encarga de trabajar por vos" */
+.prodx{padding-top:clamp(20px,4vw,50px)}
+.prodx .live{padding-top:clamp(70px,10vw,130px)}
+.prodx .live__l h2{font-size:clamp(32px,4vw,52px);margin-bottom:44px}
+.live__g.rev .live__l{order:3}.live__g.rev .live__r{order:1}.live__g.rev .live__c{order:2}
+.feed li.r{justify-content:space-between;color:var(--ink)}
+.feed li.r time{color:var(--mut);font-size:13px;min-width:42px;font-variant-numeric:tabular-nums}
+.feed li.r span{flex:1}
+.feed li.r span b{font-weight:600}
+.feed__h--t{border-top:1px solid var(--line);border-bottom:0;padding-bottom:6px}
+.lead-pills{display:flex;flex-wrap:wrap;gap:8px;padding:6px 20px 18px}
+.lead-pills .pill{font-size:12.5px;padding:7px 10px}
+.rk{padding:6px 20px 18px;display:grid;gap:16px}
+.rk>div{display:grid;grid-template-columns:104px 1fr 40px;gap:12px;align-items:center;font-size:14px;color:var(--mut)}
+.rk i{display:block;height:6px;border-radius:3px;background:var(--bg2);overflow:hidden}
+.rk u{display:block;height:100%;width:var(--w);background:var(--ink);border-radius:3px}
+.rk>div:first-child u{background:var(--tc)}
+.rk b{text-align:right;color:var(--ink);font-weight:600}
+@media (max-width:980px){.live__g.rev .live__l,.live__g.rev .live__r,.live__g.rev .live__c{order:0}}
+.rk>div{grid-template-columns:128px 1fr 38px}.rk>div span{white-space:nowrap}

@@ -1,0 +1,16 @@
+/* inicio como Berry: el inicio sube con el scroll (un poco más lento) y aparece la siguiente sección debajo */
+.hero{position:relative;min-height:100vh;will-change:opacity,transform}
+.say,.act,.roles,.sig,.int,.faq{background:#fff}
+main>section:not(.hero){position:relative;z-index:1}
+
+/* panel de actividad: las columnas entran de a una; el recuadro general ya no se desvanece entero */
+.pan.rv{opacity:1;transform:none}
+.pan__g>.rv{transform:translateY(22px)}
+.pan__g>.rv.in{transform:none}
+.pan__g>.rv:nth-child(2){transition-delay:.12s}.pan__g>.rv:nth-child(3){transition-delay:.24s}.pan__g>.rv:nth-child(4){transition-delay:.36s}
+.pan__top{transition:opacity .8s var(--ease)}
+
+/* letras de títulos y párrafos: mismo efecto en todos */
+.w{display:inline-block;white-space:nowrap}
+.w i{font-style:normal;opacity:.16}
+@media (prefers-reduced-motion:reduce){.w i{opacity:1}}

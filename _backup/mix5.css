@@ -1,0 +1,21 @@
+/* organigrama: sin scroll interno; se arma por etapas y empieza grande */
+.org{overflow:visible;padding:0}
+@media (max-width:900px){.org{overflow-x:auto;overflow-y:hidden;padding-bottom:10px}}
+.tree{min-width:0;transform-origin:50% 0;transition:none}
+.tree li:not(.on),.tree ul.empty{display:none}
+
+/* los nodos entran con una animación (la aparición manda el display) */
+.tree .nd{opacity:1;transform:none;transition:none}
+.tree li.on>.nd{animation:ndpop .55s var(--ease) both}.tree li.on::before,.tree li.on::after,.tree li.on>ul::before{animation:linefade .6s .2s both}@keyframes linefade{from{opacity:0}to{opacity:1}}
+@keyframes ndpop{from{opacity:0;transform:translateY(14px) scale(.95)}to{opacity:1;transform:none}}
+
+/* conectores calculados con los hermanos visibles */
+.tree li::before,.tree li::after,.tree li>ul::before{opacity:1;transition:none}
+.tree li.on::before,.tree li.on::after{border:0 none;border-radius:0}
+.tree li.on:not(.vf):not(.so)::before{border-top:2px solid #cdd8da}
+.tree li.on:not(.vl2):not(.so)::after{border-top:2px solid #cdd8da;border-left:2px solid #cdd8da}
+.tree li.on.vl2:not(.so):not(.vf)::before{border-top:2px solid #cdd8da;border-right:2px solid #cdd8da;border-radius:0 8px 0 0}
+.tree li.on.vf:not(.so):not(.vl2)::after{border-radius:8px 0 0 0}
+.tree li.on.so::before,.tree li.on.so::after{display:none}
+.tree>li::before,.tree>li::after{display:none!important}
+@media (prefers-reduced-motion:reduce){.tree{transition:none}.tree li.on>.nd{animation:none}}

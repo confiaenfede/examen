@@ -1,259 +1,289 @@
-<!DOCTYPE html>
-<html lang="es">
+<!doctype html>
+<html lang="es-AR">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Tasaciones · Primer parcial</title>
-<style>
-:root{--bg:#eef2f6;--card:#f8fafc;--ink:#2f3b4a;--mute:#66768a;--line:#d5dde6;--blue:#4a78a8;--sky:#dbe8f4;--gray:#e6eaef;--key:#e3edf7}
-@media (prefers-color-scheme:dark){:root{--bg:#1f2731;--card:#28323e;--ink:#dbe3ec;--mute:#93a3b5;--line:#3a4655;--blue:#8db4dc;--sky:#31465b;--gray:#333e4b;--key:#2f4258}}
-*{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.65 Georgia,"Times New Roman",serif}
-header{padding:2.2rem 1.2rem 1rem;max-width:860px;margin:auto}
-h1{margin:0;font-size:1.9rem;color:var(--blue)}
-header p{margin:.3rem 0 0;color:var(--mute);font-family:system-ui,sans-serif;font-size:.95rem}
-nav{max-width:860px;margin:0 auto;padding:.4rem 1.2rem;display:flex;flex-wrap:wrap;gap:.4rem;font-family:system-ui,sans-serif}
-nav a{background:var(--sky);color:var(--ink);text-decoration:none;padding:.3rem .8rem;border-radius:99px;font-size:.85rem}
-nav a:hover{background:var(--blue);color:#fff}
-main{max-width:860px;margin:auto;padding:0 1.2rem 3rem}
-h2{margin:2.2rem 0 .8rem;padding-bottom:.3rem;border-bottom:2px solid var(--blue);color:var(--blue);font-size:1.35rem}
-.q{background:var(--card);border:1px solid var(--line);border-radius:10px;margin:.7rem 0}
-.q summary{cursor:pointer;padding:.75rem 1rem;font-weight:bold;list-style:none;display:flex;gap:.7rem;align-items:baseline}
-.q summary::-webkit-details-marker{display:none}
-.q summary::before{content:"▸";color:var(--blue)}
-.q[open] summary::before{content:"▾"}
-.n{background:var(--blue);color:#fff;font:.78rem system-ui;padding:.05rem .5rem;border-radius:99px}
-.b{padding:0 1.1rem 1rem 1.1rem}
-.b p{margin:.5rem 0}
-.b ul{margin:.4rem 0;padding-left:1.3rem}
-.f{background:var(--key);border-left:4px solid var(--blue);padding:.6rem .9rem;border-radius:6px;margin:.7rem 0;font-family:system-ui,sans-serif;font-size:.95rem}
-.note{background:var(--gray);padding:.55rem .9rem;border-radius:6px;font-size:.9rem;color:var(--mute);margin:.7rem 0}
-table{border-collapse:collapse;width:100%;font-family:system-ui,sans-serif;font-size:.9rem;margin:.6rem 0}
-th,td{border:1px solid var(--line);padding:.4rem .6rem;text-align:left;vertical-align:top}
-th{background:var(--sky)}
-.tools{font-family:system-ui,sans-serif;font-size:.85rem;margin:.6rem 0}
-b.e{}
-.ej{background:var(--sky);border-radius:8px;padding:.6rem .9rem;margin:.8rem 0 .2rem;font-family:system-ui,sans-serif;font-size:.95rem}
-button{background:var(--sky);color:var(--ink);border:1px solid var(--line);padding:.3rem .8rem;border-radius:6px;cursor:pointer}
-</style>
+<title>Tueria — Plataforma de gestión inmobiliaria</title>
+<meta name="description" content="Clientes, consultas, tasaciones, propiedades y agenda. Todo conectado, sin perder el hilo. Probá Tueria con tu equipo 30 días, sin tarjeta.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230c252d'/%3E%3Ccircle cx='11' cy='22' r='3.6' fill='%23e06538'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.css">
+<link rel="stylesheet" href="styles.css">
 </head>
 <body>
-<header>
-<h1>Tasaciones · Primer parcial</h1>
-<p>Guía de estudio con las 32 preguntas. Tocá cada pregunta para ver la respuesta.</p>
+
+<header class="nav" id="nav">
+  <div class="nav__in">
+    <a href="#top" class="brand nav__logo" aria-label="Tueria, inicio"><svg class="isologo" viewBox="45 23.4 90 133.2" aria-hidden="true" focusable="false"><path d="M45,23.4h86.7c1.8,0,3.3,1.5,3.3,3.3v19.1c0,1.8-1.5,3.3-3.3,3.3H45v-25.7Z"/><circle cx="61.9" cy="139.8" r="16.8"/><path d="M45,91.1c35.5,0,64.3,28.8,64.3,64.3h25.8c0-49.7-40.3-90.1-90.1-90.1v25.8Z"/></svg><span>Tueria</span></a>
+    <nav class="nav__links" aria-label="Principal">
+      <a href="#recorrido">Recorrido</a>
+      <a href="#rubro">Por qué Tueria</a>
+      <a href="#planes">Planes</a>
+    </nav>
+    <a href="#acceso" class="btn btn--sm">Solicitá acceso</a>
+  </div>
 </header>
-<nav>
-<a href="#a">Conceptos</a><a href="#b">Etapas</a><a href="#c">Comparación</a><a href="#d">Costo</a><a href="#e">Rentas</a><a href="#f">Residual</a><a href="#g">Terrenos</a><a href="#h">Alquiler ⇄ venta</a><a href="#i">Fórmulas</a>
-</nav>
-<main>
-<div class="tools"><button onclick="t(true)">Abrir todo</button> <button onclick="t(false)">Cerrar todo</button></div>
 
-<h2 id="a">1. Conceptos básicos</h2>
+<main id="top">
 
-<details class="q"><summary><span class="n">1</span>Tasación como ciencia</summary><div class="b">
-<p>Disciplina <b>técnica y científica</b> que determina el <b>valor económico objetivo</b> de un bien con métodos estandarizados, análisis de mercado y normativa legal.</p>
-<p>Combina conocimiento técnico, estudio riguroso y experiencia práctica del perito para llegar a un precio justo y fundamentado.</p><div class="ej">👵 <b>Ejemplo para la tía:</b> Es como el médico: no dice “te ves bien” a ojo, mide y compara antes de opinar. El tasador hace lo mismo con una casa: no adivina el precio, lo calcula con método.</div></div></details>
+<!-- HERO -->
+<section class="hero">
+  <p class="eyebrow">Plataforma de gestión inmobiliaria</p>
+  <h1 aria-label="Tu inmobiliaria, en un solo lugar."><span class="tw" id="tw0" aria-hidden="true">Tu inmobiliaria,</span><br><span class="tw tw--dyn" id="tw" aria-hidden="true">en un solo lugar</span><span class="caret" aria-hidden="true"></span></h1>
+  <p class="sub">Clientes, tasaciones, propiedades, compradores, agenda, estadísticas, objetivos, KPIs y más. <br class="d">Todo conectado, sin perder el hilo.</p>
+  <div class="cta">
+    <a href="#acceso" class="btn">Solicitá acceso</a>
+    <a href="https://wa.me/5491124080698?text=Hola%20Federico%2C%20quiero%20conocer%20Tueria" class="more" target="_blank" rel="noopener">Escribinos por WhatsApp <i>›</i></a>
+  </div>
+  <p class="fine">30 días de prueba · sin tarjeta · con tu equipo</p>
+</section>
 
-<details class="q"><summary><span class="n">2</span>Autorización de venta</summary><div class="b">
-<p>Contrato <b>por escrito</b> que formaliza la relación entre propietario e inmobiliaria para comercializar un inmueble. Está regulado como <b>contrato de corretaje</b> por el Código Civil y Comercial (CCCN).</p>
-<ul><li>El propietario entrega el inmueble al corredor para comercializarlo.</li><li>Se compromete a permitir el ingreso a la propiedad y a pagar los <b>honorarios</b> si se vende.</li></ul><div class="ej">👵 <b>Ejemplo para la tía:</b> Tía Rosa quiere vender su casa. Firma un papel con la inmobiliaria: le da permiso para mostrarla y, si se vende, le paga la comisión.</div></div></details>
+<!-- DECLARACIÓN -->
+<section class="say">
+  <p class="say__t wr" id="say">Excel, anotaciones, agenda, portales y sistemas sueltos. Tueria los junta en un solo lugar para que veas el negocio entero.</p>
+</section>
 
-<details class="q"><summary><span class="n">3</span>Reserva</summary><div class="b">
-<p>Primer paso de la negociación de compraventa. Es un contrato que <b>compromete al comprador</b> a concretar su intención de compra y ayuda a iniciar la negociación entre las partes.</p><div class="ej">👵 <b>Ejemplo para la tía:</b> Alguien dice “me gusta, la quiero” y deja una platita chica para que la casa no se ofrezca a otro mientras arreglan los detalles. Todavía no es la compra.</div></div></details>
 
-<details class="q"><summary><span class="n">4</span>Seña (y diferencia con la reserva)</summary><div class="b">
-<p>La <b>seña</b> es un compromiso formal; si se incumple hay penalidad económica: el comprador <b>pierde el dinero</b> o el vendedor <b>devuelve el doble</b>. Se hace cuando ambas partes ya acordaron todas las condiciones.</p>
-<table><tr><th></th><th>Reserva</th><th>Seña</th></tr>
-<tr><td>Naturaleza</td><td>Intención de compra preliminar (ad referéndum)</td><td>Compromiso formal, con penalidad</td></tr>
-<tr><td>Monto aprox.</td><td>≈ 5 %</td><td>10 % a 15 % del precio</td></tr></table><div class="ej">👵 <b>Ejemplo para la tía:</b> Ya acordaron todo y el comprador deja 10.000 de una casa de 100.000. Si él se arrepiente, pierde esa plata; si se arrepiente la tía, devuelve 20.000 (el doble). La reserva sería dejar unos 5.000 solo para “apartarla”.</div></div></details>
+<!-- ACTIVIDAD -->
+<section class="act" id="actividad">
+  <header class="head">
+    <h2>El trabajo, sin ruido<span class="pt">.</span></h2>
+    <p class="sub">Clientes, propiedades y seguimiento conectados en una vista que ayuda a decidir qué sigue.</p>
+  </header>
+  <div class="pan rv">
+    <div class="pan__top"><b>Actividad de la inmobiliaria</b><span><em>Septiembre 2026</em><em class="on">USD</em></span></div>
+    <div class="pan__g">
+      <div class="rv"><h4>Clientes</h4><p class="m">Contactos e historial</p>
+        <ul class="ppl"><li><i>MG</i><div><b>María Gómez</b><span>Propietaria</span></div></li><li><i>JP</i><div><b>Juan Pérez</b><span>Comprador</span></div></li><li><i>GS</i><div><b>Grupo Sur</b><span>Inversor</span></div></li></ul></div>
+      <div class="rv"><h4>Operaciones</h4><p class="m">Tasaciones y propiedades</p>
+        <p class="k">Propiedades activas</p><p class="n2">24 <small>12 tasaciones</small></p>
+        <ul class="pr"><li><div><b>Av. Corrientes 1234</b><span>US$ 139.000</span></div><em class="pill b">Publicada</em></li><li><div><b>Thames 870</b><span>US$ 189.500</span></div><em class="pill warn">Reservada</em></li></ul></div>
+      <div class="rv"><h4>Seguimiento</h4><p class="m">Consultas y agenda</p>
+        <p class="k k2"><span>Hoy</span><span>3 actividades</span></p>
+        <ul class="tl"><li><time>10:00</time><div><b>Visita · Thames 870</b><span>Propiedad</span></div></li><li><time>12:30</time><div><b>Seguimiento · María Gómez</b><span>Consulta</span></div></li><li><time>15:30</time><div><b>Tasación · Cabildo 2450</b><span class="tcd">Tasación</span></div></li></ul></div>
+      <div class="rv"><h4>Resultados</h4><p class="m">Honorarios y objetivos</p>
+        <p class="k">Próximo a cobrar</p><p class="n3">US$ 24.300</p><p class="k">2 operaciones en curso</p>
+        <p class="k k2 mt"><span>Objetivo anual</span></p><p class="n4">59% <small>US$ 47.200</small></p>
+        <i class="bar2"><u></u></i>
+        <svg class="spark" viewBox="0 0 200 60" preserveAspectRatio="none" aria-hidden="true"><path d="M0 52 C30 46,50 38,80 38 S120 44,150 36 S185 22,200 12 V60 H0Z" fill="#e3e9ea"/><path d="M0 52 C30 46,50 38,80 38 S120 44,150 36 S185 22,200 12" fill="none" stroke="#0c252d" stroke-width="2"/></svg></div>
+    </div>
+  </div>
+  <p class="demo">Datos de ejemplo</p>
+</section>
 
-<details class="q"><summary><span class="n">5</span>Precio</summary><div class="b">
-<p>Cantidad <b>pedida, ofrecida o pagada</b> por un bien o servicio. Es un <b>hecho histórico</b> (público o reservado).</p>
-<p>Por las capacidades financieras, motivaciones o intereses especiales de comprador y vendedor, el precio puede o no tener relación con el valor que otros le asignen; aun así suele indicar el valor relativo que las partes dan al bien.</p><div class="ej">👵 <b>Ejemplo para la tía:</b> La tía pide 100.000 por su casa, pero un vecino apurado vendió la suya en 80.000. Lo que realmente se pagó (80.000) es el precio: ya pasó, es un hecho.</div></div></details>
+<!-- PRODUCTO -->
 
-<details class="q"><summary><span class="n">6</span>Gasto</summary><div class="b">
-<p>Desembolso o costo necesario para llevar adelante una operación y obtener un resultado económico.</p>
-<ul><li><b>De funcionamiento:</b> impuestos, tasas, servicios, seguros, limpieza, gastos laborales y administrativos.</li><li><b>De mantenimiento:</b> reparaciones, reposiciones, pintura, revoques, modernizaciones y modificaciones normales.</li></ul>
-<p>En una reserva deben indicarse los gastos de la compra (sellos, honorarios) para que el día de la escrituración no queden saldos pendientes.</p><div class="ej">👵 <b>Ejemplo para la tía:</b> Como un auto: la patente y el seguro son gastos de funcionamiento; cambiar las gomas y el aceite, de mantenimiento. En una casa: los impuestos y el pintado.</div></div></details>
+<!-- RECORRIDO -->
+<section class="rec" id="recorrido">
+  <div class="rec__run"><div class="rec__pin">
+    <header class="head">
+      <p class="eyebrow">Recorrido de punta a punta</p>
+      <h2>Una operación, de la tasación al cierre<span class="pt">.</span></h2>
+      <p class="sub">Cada etapa deja todo registrado, y la siguiente se abre sola.</p>
+    </header>
+    <ol class="stepper" id="recStepper"><li data-i="0"><i>1</i><span>Tasación aceptada</span></li><li data-i="1"><i>2</i><span>Publicada</span></li><li data-i="2"><i>3</i><span>Reservada</span></li><li data-i="3"><i>4</i><span>Conformada</span></li><li data-i="4"><i>5</i><span>Cerrada</span></li></ol>
+    <div class="rec__g">
+      <div class="rec__txt"><div class="st" data-i="0"><span class="st__n">01</span><h3>Tasación aceptada</h3><p>Todo empieza con la tasación: le seguís el estado hasta que el propietario acepta. Cuando acepta, pasa a ser una propiedad lista para publicar, con toda su información (o la traés sincronizada desde Mercado Libre).</p></div><div class="st" data-i="1"><span class="st__n">02</span><h3>Publicada</h3><p>Ves todo tu stock en un solo listado, con su precio, su agente y el próximo paso de cada propiedad.</p></div><div class="st" data-i="2"><span class="st__n">03</span><h3>Reservada</h3><p>Cargás la oferta, los honorarios, la seña y el comprador. Si la operación es compartida, elegís con qué inmobiliaria o agente.</p></div><div class="st" data-i="3"><span class="st__n">04</span><h3>Conformada</h3><p>Confirmás el acuerdo con el precio final. Desde acá se abre el reparto entre las puntas.</p></div><div class="st" data-i="4"><span class="st__n">05</span><h3>Cerrada</h3><p>Los honorarios quedan registrados, el reparto entre inmobiliaria y agente se calcula solo y la foto financiera queda sellada.</p></div></div>
+      <div class="rec__card"><div class="pn" data-i="0">
+  <div class="pn__tabs"><span>Pendiente <i>1</i></span><span>Enviada <i>0</i></span><span class="on">Aceptada <i>1</i></span><span>Rechazada <i>1</i></span><span>Decide esperar <i>0</i></span><span>Todas <i>3</i></span></div>
+  <ul class="tbl tbl--t">
+    <li><div><b>Cabildo 2450</b><small>Belgrano · Departamento · Venta</small></div><em class="pill">Pendiente</em><span class="ow">Laura Ríos</span></li>
+    <li><div><b>Av. Corrientes 1234</b><small>Balvanera · Departamento · Venta</small></div><em class="pill ok">Aceptada</em><span class="ow">María Gómez</span></li>
+    <li><div><b>Pedro Goyena 2500</b><small>Caballito · Casa · Venta</small></div><em class="pill bad">Rechazada</em><span class="ow">Juan Pérez</span></li>
+  </ul>
+  <div class="next next--ok"><div><small>AL ACEPTAR · Pendiente de publicar</small><b>Pasa a Propiedad</b><span>Es la misma ficha que evoluciona, no una copia. Después, publicala y listo.</span></div></div>
+</div><div class="pn" data-i="1">
+  <div class="pn__tabs"><span>Pendiente <i>1</i></span><span class="on">Publicada <i>19</i></span><span>Reservada <i>1</i></span><span>Conformada <i>0</i></span><span>Cerrada <i>1</i></span></div>
+  <ul class="tbl"><li><div><b>España 1700, Castelar</b><small>Castelar · Morón · Casa</small></div><em class="pill b">Publicada</em><span class="pr">USD 450.000</span><span class="ag">Asignar</span><span class="nx">Registrar reserva ›</span></li><li><div><b>Pepirí al 1500</b><small>Castelar · Morón · Casa</small></div><em class="pill b">Publicada</em><span class="pr">USD 39.900</span><span class="ag">Asignar</span><span class="nx">Registrar reserva ›</span></li><li><div><b>Av. Presidente Perón al 500</b><small>Castelar · Morón · Casa</small></div><em class="pill b">Publicada</em><span class="pr">USD 215.000</span><span class="ag ag--on"><i>AP</i>Admin</span><span class="nx">Registrar reserva ›</span></li><li><div><b>Paraná al 500</b><small>Castelar · Morón · Casa</small></div><em class="pill b">Publicada</em><span class="pr">ARS 400.000</span><span class="ag">Asignar</span><span class="nx">Registrar reserva ›</span></li><li><div><b>Pasaje Blandengues al 2700</b><small>Castelar · Morón · Casa</small></div><em class="pill b">Publicada</em><span class="pr">USD 95.000</span><span class="ag ag--on"><i>AP</i>Admin</span><span class="nx">Registrar reserva ›</span></li></ul>
+</div><div class="pn" data-i="2">
+  <div class="next"><div><small>PRÓXIMO PASO · Reservada · <em class="ro">Solo lectura</em></small><b>Confirmá el acuerdo</b><span>Declará el precio final acordado y guardá para conformar.</span></div><span class="btn btn--sm">Ir al acuerdo</span></div>
+  <div class="pn__tabs pn__tabs--p"><span>Inmueble</span><span class="on">Reserva</span><span class="lk">Reparto</span><span class="lk">Cerrada</span></div>
+  <p class="lock"><i>🔒</i>Reparto se abre al pasar la propiedad a Conformada.</p>
+  <div class="frm">
+    <label>Comprador<span class="fi">Buscá una consulta o escribí un nombre…</span></label>
+    <div class="frm2"><label>Oferta (monto)<span class="fi">20000</span></label><label>Honorarios al comprador<span class="fi">3 %</span></label></div>
+    <div class="frm2"><label>Seña (monto)<span class="fi">1000</span></label><label>Fecha de la seña<span class="fi">27 oct 2026</span></label></div>
+  </div>
+  <div class="shr"><b>Compartido con</b><span><i></i>Otra inmobiliaria</span><span><i></i>Interno</span></div>
+</div>
+<div class="pn" data-i="3">
+  <div class="next"><div><small>PRÓXIMO PASO · Conformada</small><b>Registrá el cierre</b><span>Cargá la fecha de cobro y sellá la operación.</span></div><span class="btn btn--sm">Cerrar operación</span></div>
+  <div class="pn__tabs pn__tabs--p"><span>Inmueble</span><span>Reserva</span><span class="on">Reparto</span><span class="lk">Cerrada</span></div>
+  <div class="chips2"><span class="pill ok">Captación · 1 punta</span><span class="pill ok">Comprador · 1 punta</span></div>
+  <div class="kv"><div><small>Precio del inmueble</small><b>US$ 100.000</b></div><div><small>H. Bruto</small><b>US$ 7.000</b></div></div>
+</div><div class="pn" data-i="4">
+  <div class="next next--ok"><div><small>RESULTADO · Cerrada</small><b>Honorarios registrados</b><span>La foto financiera quedó sellada.</span></div><span class="btn btn--sm">Ver resultado</span></div>
+  <div class="split2">
+    <div class="rep"><b>Reparto del cierre</b>
+      <div class="rep__r"><span>Honorarios al propietario <small>3 % sobre el precio de venta</small></span><b>US$ 3.000</b></div>
+      <div class="rep__r"><span>Honorarios al comprador <small>4 % sobre el precio de venta</small></span><b>US$ 4.000</b></div>
+      <div class="rep__t"><span>Total ingresado</span><b>US$ 7.000</b></div>
+    </div>
+    <div class="who2"><div><span>Inmobiliaria <em>70 %</em></span><b>US$ 4.900</b></div><div><span>Agente <em>30 %</em></span><b>US$ 2.100</b></div></div>
+  </div>
+</div></div>
+    </div>
+    <p class="demo">Datos de ejemplo</p>
+  </div></div>
+</section>
 
-<details class="q"><summary><span class="n">7</span>Mercado</summary><div class="b">
-<p>Sistema (a veces un sitio) donde se <b>intercambian bienes y servicios</b> entre compradores y vendedores mediante mecanismos de precios, sin restricciones indebidas. Cada parte responde a <b>oferta y demanda</b> según sus capacidades, conocimientos y necesidades. Puede ser local, regional, nacional o internacional.</p><div class="ej">👵 <b>Ejemplo para la tía:</b> La feria del barrio: si todos quieren tomates, suben; si sobran, bajan. Con las casas de un barrio pasa lo mismo.</div></div></details>
+<!-- ROLES -->
+<section class="roles"><div class="roles__run"><div class="roles__pin">
+  <header class="head">
+    <p class="eyebrow">Roles y permisos</p>
+    <h2>Cada uno ve lo suyo<span class="pt">.</span></h2>
+    <p class="sub">De la inmobiliaria al staff, cada nivel ve lo que le corresponde.</p>
+  </header>
+  <div class="org">
+    <ul class="tree">
+      <li><div class="nd nd--top"><h3>Inmobiliaria</h3></div>
+        <ul>
+          <li><div class="nd nd--mid"><h3>Sucursal Palermo</h3></div>
+            <ul><li><div class="nd nd--ag"><h3>Staff</h3></div></li><li><div class="nd nd--ag"><h3>Staff</h3></div></li><li><div class="nd nd--ag"><h3>Staff</h3></div></li><li><div class="nd nd--plus" role="img" aria-label="Y más"><h3>+</h3></div></li></ul>
+          </li>
+          <li><div class="nd nd--mid"><h3>Sucursal Canning</h3></div>
+            <ul>
+              <li><div class="nd nd--ger"><h3>Gerente</h3></div>
+                <ul><li><div class="nd nd--ag"><h3>Staff</h3></div></li><li><div class="nd nd--ag"><h3>Staff</h3></div></li>
+                  <li><div class="nd nd--plus" role="img" aria-label="Y más"><h3>+</h3></div></li>
+                  <li><div class="nd nd--team"><h3>Líder de equipo</h3></div>
+                    <ul><li><div class="nd nd--ag"><h3>Staff</h3></div></li><li><div class="nd nd--ag"><h3>Staff</h3></div></li><li><div class="nd nd--plus" role="img" aria-label="Y más"><h3>+</h3></div></li></ul>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+          <li><div class="nd nd--mid nd--plus" role="img" aria-label="Y más sucursales"><h3>+</h3></div></li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+  <p class="org__note">Sucursales, gerentes, equipos y staff: tantos como necesites.</p>
+</div></div></section>
 
-<details class="q"><summary><span class="n">8</span>Valor</summary><div class="b">
-<p>Concepto económico: el <b>precio más probable</b> al que llegarán compradores y vendedores de un bien disponible.</p>
-<div class="f">El valor <b>no es un hecho</b>, es una <b>estimación</b> del precio probable en un tiempo dado (fecha efectiva de tasación), según una definición específica de valor. El precio, en cambio, sí es un hecho.</div><div class="ej">👵 <b>Ejemplo para la tía:</b> La tía dice “mi casa vale 120.000”: eso es una opinión. El tasador estima que hoy se pagarían unos 100.000: eso es el valor. Precio es lo que efectivamente se pagó.</div></div></details>
+<!-- MAPA -->
+<section class="mapa" id="mapa">
+  <header class="head">
+    <p class="eyebrow">Mapa colaborativo <em class="pill pill--soon">Próximamente</em></p>
+    <h2>El mercado, visto por quienes lo viven<span class="pt">.</span></h2>
+    <p class="sub">+300 cierres registrados en todo el GBA y Capital Federal. Próximamente Santa Fe y La Plata, y creciendo.</p>
+  </header>
+  <div class="mapa__box rv"><div class="mapa__tabs" id="mapTabs" role="tablist" aria-label="Zonas del mapa"><button type="button" data-z="gba" class="on">GBA</button><button type="button" data-z="caba">Capital Federal</button></div><div id="map" role="img" aria-label="Mapa de cierres de ejemplo en el Gran Buenos Aires"></div>
+    <div class="mapa__leg mapa__leg--priv"><span class="lk-i">🔒</span><p><b>Anónimo</b>Nunca se identifica a las partes ni a la inmobiliaria.</p></div></div>
+  <p class="demo">Datos de ejemplo</p>
+</section>
 
-<details class="q"><summary><span class="n">9</span>Valor económico vs. valor propiamente dicho</summary><div class="b">
-<table><tr><th>Valor propiamente dicho</th><th>Valor económico</th></tr>
-<tr><td>Importancia, utilidad o significación que una persona o sociedad atribuye a algo, aunque no se exprese en dinero (moral, cultural, afectivo, histórico…).</td><td>Estimación <b>monetaria</b> de un bien, derecho o servicio según utilidad, escasez, demanda, oferta y condiciones de mercado.</td></tr>
-<tr><td>Expresa <i>qué importancia</i> tiene.</td><td>Expresa <i>cuánto dinero</i> se estaría dispuesto a pagar.</td></tr></table><div class="ej">👵 <b>Ejemplo para la tía:</b> El anillo de la abuela: para la tía vale muchísimo (valor afectivo). En la joyería vale 200.000 (valor económico). El tasador mide solo lo segundo.</div></div></details>
+<!-- INTEGRACIONES -->
+<section class="int">
+  <div class="int__g">
+    <div class="bot rv" id="imp">
+      <div class="bot__w imp__w">
+        <div class="imp__top"><b>Importación de propiedades</b><em class="pill" id="impState">Importando…</em></div>
+        <div class="imp__bar"><u id="impBar"></u></div>
+        <p class="imp__n"><b id="impN">0</b> propiedades importadas</p>
+        <ul class="imp__list" id="impList">
+          <li><div><b>España 1700, Castelar</b><small>Casa · Venta</small></div><em class="pill b">Publicada</em></li>
+          <li><div><b>Pepirí al 1500</b><small>Departamento · Venta</small></div><em class="pill b">Publicada</em></li>
+          <li><div><b>Av. Presidente Perón al 500</b><small>Departamento · Venta</small></div><em class="pill b">Publicada</em></li>
+          <li><div><b>Paraná al 500</b><small>Departamento · Venta</small></div><em class="pill b">Publicada</em></li>
+        </ul>
+        <div class="imp__cal" id="impCal">
+          <div class="imp__ch"><span><i>G</i>Google Calendar</span><em class="pill ok">Sincronizado</em></div>
+          <ul><li><time>10:00</time>Visita · Thames 870</li><li><time>12:30</time>Seguimiento · María Gómez</li><li><time>15:30</time>Tasación · Cabildo 2450</li></ul>
+        </div>
+      </div>
+    </div>
+    <div class="int__r">
+      <p class="eyebrow">Integraciones</p>
+      <h2>Funciona donde ya trabajás<span class="pt">.</span></h2>
+      <ul class="irows">
+        <li class="rv"><i><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="17" rx="3"/><path d="M3 9h18M8 2.5v3M16 2.5v3"/></svg></i><div><h3>Google <em class="pill ok">Hoy</em></h3><p>Entrás con tu cuenta de Google y tu calendario se sincroniza. Nada que configurar.</p></div></li>
+        <li class="rv"><i><svg viewBox="0 0 24 24"><path d="M12 3 3 8l9 5 9-5z"/><path d="m3 13 9 5 9-5"/></svg></i><div><h3>Mercado Libre <em class="pill ok">Hoy</em></h3><p>Importá tus propiedades y tenés todo ordenado desde el día uno.</p></div></li>
+        <li class="rv"><i><svg viewBox="0 0 24 24"><path d="M3 6 9 4l6 2 6-2v14l-6 2-6-2-6 2z"/><path d="M9 4v14M15 6v14"/></svg></i><div><h3>CRM Multiportal <em class="pill">Próximamente</em></h3><p>Conectá Tokko Broker, KiteProp y más por API. Sincronizá propiedades y contactos sin migrar nada, y seguí publicando donde quieras.</p></div></li>
+        <li class="rv"><i><svg viewBox="0 0 24 24"><path d="M12 3a9 9 0 0 0-7.8 13.5L3 21l4.6-1.2A9 9 0 1 0 12 3z"/></svg></i><div><h3>WhatsApp <em class="pill">Próximamente</em></h3><p>Operá Tueria® desde el chat donde ya vive el equipo: consultas, agenda y leads.</p></div></li>
+      </ul>
+    </div>
+  </div>
+  <p class="demo">Datos de ejemplo</p>
+</section>
 
-<h2 id="b">2. Etapas de una tasación</h2>
+<!-- RUBRO -->
+<section class="rubro" id="rubro">
+  <div class="rubro__in">
+    <p class="eyebrow eyebrow--l">Por qué Tueria®</p>
+    <h2 class="rv grow-in">En constante crecimiento.<br>Pensada desde el rubro<span class="pt">.</span></h2>
+    <p class="sub sub--l wr">Nació escuchando a inmobiliarias y se sigue construyendo con feedback directo de quienes gestionan el negocio todos los días.</p>
+    <dl class="stats">
+      <div><dt data-suf="hs" data-count="150" data-pre="+" data-step="1" data-every="5000">+150</dt><dd>con inmobiliarias, en constantes reuniones de validación</dd></div>
+      <div><dt data-count="50" data-pre="+" data-step="2-5" data-every="2200">+50</dt><dd>usuarios activos en la plataforma</dd></div>
+    </dl>
+    <div class="path" id="path">
+      <div class="path__line"><i></i></div>
+      <div class="path__g">
+        <div class="stop now"><span class="stop__d"></span><b>Hoy</b>
+          <ul><li>Gestión integral</li><li>Integración histórica de tu inmobiliaria con un click</li><li>Red de oportunidades</li><li>Mapa colaborativo</li></ul></div>
+        <div class="stop"><span class="stop__d"></span><b>2027</b>
+          <ul><li>Firma electrónica</li><li>IA aplicada</li><li>Reportes</li><li>Tasaciones inteligentes</li><li>Seguimiento a compradores</li><li>Y más</li></ul></div>
+      </div>
+    </div>
+  </div>
+</section>
 
-<details class="q"><summary><span class="n">10</span>Etapas operativas</summary><div class="b">
-<ul>
-<li><b>a) Recopilación de información:</b> valores de tierra y construcciones, compraventas efectivas (fecha y monto), forma y ubicación de terrenos, tipología, superficie y estado de edificios, costo de materiales y mano de obra, oferta y demanda.</li>
-<li><b>b) Estudio del bien:</b> ubicación, forma, dimensiones, calidad del suelo, tipo de edificación, superficie, conservación, vida útil futura, calidad, funcionalidad, adaptabilidad.</li>
-<li><b>c) Estudio de la zona:</b> infraestructura y servicios, carácter del área (residencial, comercial, mixta), tipología y calidad edilicia, densidad poblacional, nivel socioeconómico, vecinos.</li>
-<li><b>d) Cálculo del avalúo</b> por todos los métodos posibles.</li>
-<li><b>e) Balance de resultados</b> según las condiciones particulares de la tasación.</li></ul><div class="ej">👵 <b>Ejemplo para la tía:</b> Como comprar un auto usado: junto precios de otros, miro este por dentro, miro cómo es el barrio, calculo, y al final comparo resultados y me quedo con uno razonable.</div></div></details>
+<!-- PLANES -->
+<section class="plans" id="planes">
+  <header class="head head--l">
+    <h2>Planes para cada equipo<span class="pt">.</span></h2>
+    <p class="sub">Plataforma completa, impuestos incluidos y 30 días de prueba.</p>
+  </header>
+  <div class="ptab rv">
+    <div class="ptab__row">
+      <div class="pc"><div class="pc__h"><b>Starter</b><span>3 lugares</span></div><p class="pc__p">$&nbsp;74.900 <small>ARS / mes</small></p><p class="pc__a">+ $&nbsp;22.900 por lugar adicional</p></div>
+      <div class="pc"><div class="pc__h"><b>Business</b><span>10 lugares</span></div><p class="pc__p">$&nbsp;149.900 <small>ARS / mes</small></p><p class="pc__a">+ $&nbsp;14.900 por lugar adicional</p></div>
+      <div class="pc"><div class="pc__h"><b>Scale</b><span>25 lugares</span></div><p class="pc__p">$&nbsp;274.900 <small>ARS / mes</small></p><p class="pc__a">+ $&nbsp;11.900 por lugar adicional</p></div>
+    </div>
+    <div class="ptab__ent"><p><b>Enterprise</b><span>Desde 25 lugares · a medida</span></p><a href="#acceso" class="btn">Solicitá acceso</a></div>
+  </div>
+</section>
 
-<h2 id="c">3. Método de comparación de mercado</h2>
+<!-- ACCESO -->
+<section class="acceso" id="acceso">
+  <div class="acceso__g">
+    <div class="acceso__t">
+      <h2>Probalo con tu equipo.</h2>
+      <p>Dejanos tus datos. Tenés 30 días de prueba y no necesitás tarjeta.</p>
+      <a class="more more--l" href="https://wa.me/5491124080698?text=Hola%20Federico%2C%20quiero%20probar%20Tueria%20con%20mi%20equipo" target="_blank" rel="noopener">O escribinos por WhatsApp <i>›</i></a>
+    </div>
+    <form class="form" id="accesoForm" novalidate>
+      <div class="form__2">
+        <label>Nombre *<input name="nombre" type="text" autocomplete="name" required></label>
+        <label>Email *<input name="email" type="email" autocomplete="email" required></label>
+      </div>
+      <label>Inmobiliaria o equipo<input name="empresa" type="text" autocomplete="organization"></label>
+      <div class="form__sep"></div>
+      <label class="chk"><input type="checkbox" name="ok" required><span>Acepto que Tueria® use estos datos para responder mi solicitud, según la <a href="https://tueria.com/privacidad/1.0" target="_blank" rel="noopener">Política de Privacidad</a>.</span></label>
+      <button class="btn btn--tc" type="submit">Solicitá acceso</button>
+      <p class="form__msg" id="formMsg" role="status"></p>
+    </form>
+  </div>
+</section>
 
-<details class="q"><summary><span class="n">11 · 12</span>Fundamento (técnica por comparación)</summary><div class="b">
-<p>El valor de la <b>propiedad sujeto</b> (la que se tasa) está relacionado directamente con los precios de venta u oferta de <b>propiedades comparables</b>.</p>
-<div class="f"><b>Principio de sustitución:</b> un comprador bien informado no pagará por una propiedad más que el precio de una comparable.</div><div class="ej">👵 <b>Ejemplo para la tía:</b> Quiere saber cuánto vale su departamento. Mira tres parecidos del barrio: si puede comprar uno igual por 100.000, nadie va a pagar 150.000 por el suyo.</div></div></details>
-
-<details class="q"><summary><span class="n">13</span>Operatoria</summary><div class="b">
-<p>Se localizan propiedades (razonablemente <b>no menos de tres</b>) vendidas u ofrecidas, similares a la sujeto. Se detectan las diferencias y se ajusta cada una:</p>
-<div class="f"><b>Precio de venta del comparable ± Ajustes = Valor indicado de la sujeto</b></div>
-<ul><li><b>Suma</b> el valor de características que tiene la sujeto y no el comparable.</li><li><b>Resta</b> el valor de características que tiene el comparable y no la sujeto.</li></ul><div class="ej">👵 <b>Ejemplo para la tía:</b> Un vecino vendió por 100.000 uno con cochera, y el de la tía no tiene (la cochera vale 10.000). Entonces: 100.000 − 10.000 = 90.000. Se hace con tres vecinos y se compara.</div></div></details>
-
-<details class="q"><summary><span class="n">14</span>Características de los comparables y ajustes</summary><div class="b">
-<p><b>Requisitos:</b></p>
-<ul><li>Razonablemente <b>similar</b> a la sujeto.</li><li>Venta u oferta <b>relativamente reciente</b>.</li><li>Si es venta: <b>negociación libre</b> (mercado abierto, tiempo razonable, conocimiento de causa, sin coerción).</li><li>Si es oferta: de <b>fuente responsable</b>, sin interés de parte.</li></ul>
-<p><b>Factores de ajuste:</b></p>
-<ol><li><b>Fecha</b> de venta u oferta (si el mercado cambió hasta la fecha del avalúo).</li><li><b>Ubicación</b> (proximidad a usos del suelo, restricciones, frente a calle principal).</li><li><b>Características físicas:</b> terreno (dimensiones, forma, proporción), calidad constructiva, antigüedad, conservación, superficie edificada, cantidad y tipo de ambientes, calidad funcional, instalaciones accesorias, mejoras externas.</li><li><b>Términos y condiciones de venta</b> (crédito o financiamiento anormal).</li></ol>
-<div class="note">La precisión depende de usar ajustes confiables. El ajuste <b>no es simplemente el costo</b> de construir una mejora: hay mejoras que el comprador medio no paga, o que incluso restan valor (desproporción, mal gusto, excentricidad). El <b>análisis de parejas coincidentes</b> (dos propiedades iguales salvo una variable) puede no ser confiable.</div><div class="ej">👵 <b>Ejemplo para la tía:</b> No sirve la casa que un primo vendió a mitad de precio por cariño, ni una venta de hace 10 años. Sirve una casa parecida, del barrio, vendida hace poco entre desconocidos.</div></div></details>
-
-<details class="q"><summary><span class="n">15</span>¿Qué método usamos cuando salimos a tasar?</summary><div class="b">
-<p><b>Comparación de mercado.</b> Según Chandías, en lotes urbanos se determina el valor venal comparando con ventas reales de la vecindad, afectadas por coeficientes y reducidas a un <b>lote patrón</b> sin influencia de esquina.</p>
-<p><b>Forma simple:</b> 4 o 5 ventas próximas (idealmente misma cuadra), contemporáneas al avalúo, reducidas al lote patrón con tablas de frente y fondo, y comparación directa.</p>
-<p><b>Forma completa (científica), en 7 etapas:</b></p>
-<ol><li>Información amplia de ventas en la zona, de fuentes responsables.</li>
-<li>Selección y saneamiento (descartar operaciones extraordinarias o sospechosas); ordenar y clasificar.</li>
-<li>Precio <b>neto de la tierra</b> de cada operación (descontando las mejoras).</li>
-<li>Reducción al <b>lote patrón</b> con tablas de frente y fondo.</li>
-<li>Corrección por <b>ubicación</b>.</li>
-<li>Corrección por <b>fecha</b> de las operaciones.</li>
-<li>Corrección final por <b>factores particulares</b>.</li></ol>
-<div class="note">Los coeficientes son empíricos o estimados por el tasador: ahí se pone a prueba su criterio y conocimiento.</div><div class="ej">👵 <b>Ejemplo para la tía:</b> Es preguntar en la cuadra: “a los vecinos les pagaron 100.000, 105.000 y 98.000 por casas parecidas”. Descarto la venta rara, ajusto las diferencias y saco un valor.</div></div></details>
-
-<h2 id="d">4. Método de costo</h2>
-
-<details class="q"><summary><span class="n">16</span>¿Qué es el método de costo?</summary><div class="b">
-<p>Valora un bien según el <b>costo de reproducirlo</b>, considerando materiales, mano de obra, depreciación y obsolescencia. Es aplicable a edificios construidos, en construcción o en proyecto.</p>
-<div class="f"><b>Fundamento:</b> en condiciones normales, nadie paga por un lote con edificio más de lo que costaría construir una mejora idéntica (considerando antigüedad y conservación) en un terreno baldío.</div><div class="ej">👵 <b>Ejemplo para la tía:</b> ¿Cuánto vale una casa ya hecha? Lo que costaría hacer otra igual hoy, menos lo gastada que está, más el terreno.</div></div></details>
-
-<details class="q"><summary><span class="n">17</span>¿Cómo se calcula?</summary><div class="b">
-<ol><li>Calcular el <b>costo de reposición o reproducción</b> de la mejora (superficie cubierta × valor del m² nuevo a precios actuales según categoría: económico, medio, lujo; referencia: Cámara Argentina de la Construcción).</li>
-<li><b>Restar la depreciación</b> (desgaste físico, obsolescencia funcional, antigüedad; línea recta o tablas de vida útil).</li>
-<li><b>Sumar el valor del terreno</b> (por comparación con lotes similares de la zona).</li></ol>
-<div class="f"><b>Valor = Costo de reposición − Depreciación + Valor del terreno</b></div><div class="ej">👵 <b>Ejemplo para la tía:</b> Casa de 100 m². Hacerla nueva cuesta 1.000 por m²: 100.000. Está usada y pierde 30%: −30.000. El terreno vale 40.000. Total: 100.000 − 30.000 + 40.000 = 110.000.</div></div></details>
-
-<details class="q"><summary><span class="n">18</span>¿Cuándo se usa?</summary><div class="b">
-<ul><li>Cuando no es factible comparar ni capitalizar rentas: edificios <b>institucionales o singulares</b> (escuelas, museos, bibliotecas, fábricas, galpones especiales).</li>
-<li>Propiedades a estrenar o en construcción.</li>
-<li>Tasaciones contables y <b>de seguros</b>: para algunos fines es el <b>único método posible</b>.</li></ul>
-<div class="note">Pregunta sin respuesta en el material: «¿Cómo obtengo el valor de seguro?». Con lo visto: se usa el método de costo (valor de reconstrucción/reposición del edificio).</div><div class="ej">👵 <b>Ejemplo para la tía:</b> ¿Cuánto vale la escuela del barrio? Nadie la alquila ni se vende seguido, así que se calcula cuánto costaría reconstruirla. Igual para el seguro: si se incendia, cuánto cuesta rehacerla.</div></div></details>
-
-<h2 id="e">5. Capitalización de rentas</h2>
-
-<details class="q"><summary><span class="n">19</span>¿Qué es?</summary><div class="b">
-<p>Convierte la <b>renta en valor presente</b> capitalizándola a una tasa de interés equitativa. Es un método universalmente aceptado como básico, pero con reservas: leyes que regulan las locaciones, inestabilidad económica y monetaria, dificultad para fijar una tasa equitativa, y falta de elementos de comparación en inmuebles que no producen renta.</p>
-<p><b>Renta bruta:</b> suma de todos los ingresos de la explotación.</p>
-<div class="f">Renta líquida = Renta bruta − (Gastos de operación + Amortización)<br>Valor presente = Renta líquida ÷ Tasa</div><div class="ej">👵 <b>Ejemplo para la tía:</b> La tía alquila un departamento a 500 por mes: 6.000 al año. Descuenta impuestos y arreglos y le quedan 5.000 limpios. Con tasa de 5%: 5.000 ÷ 0,05 = 100.000.</div></div></details>
-
-<details class="q"><summary><span class="n">20</span>Gastos de operación, amortización y tasa</summary><div class="b">
-<ul><li><b>Gastos de operación:</b> necesarios para el funcionamiento y mantenimiento en buen servicio.
-<ul><li><i>De funcionamiento:</i> impuestos, tasas de servicios y municipales, seguros, mantenimiento de instalaciones, gastos laborales y administrativos (propiedad horizontal).</li><li><i>De mantenimiento:</i> reposición de artefactos e instalaciones, refacciones, modernizaciones normales. Si falta mantenimiento y hay reparaciones costosas, se <b>castiga</b> el valor total.</li></ul></li>
-<li><b>Amortización:</b> aparta partidas anuales (teóricamente en un fondo) para restituir el capital al final de la vida del bien. También llamados <i>gastos de perpetuidad</i>.</li>
-<li><b>Tasa de capitalización:</b> es el problema más delicado del método; depende del estado, procesos, variabilidad y riesgos de la economía.</li></ul>
-<div class="note">El título de la pregunta 20 (promedios en dólares y pesos) no tiene respuesta en el material; el desarrollo trata gastos, amortización y tasa. Los valores actuales de tasas hay que consultarlos al día.</div><div class="ej">👵 <b>Ejemplo para la tía:</b> Como un auto: patente y seguro (funcionamiento), el service (mantenimiento) y guardar un poquito cada año para cambiarlo cuando se termine su vida (amortización). La tasa es cuánto “rinde” la inversión: a más riesgo, más tasa.</div></div></details>
-
-<details class="q"><summary><span class="n">21</span>¿En qué inmuebles se usa?</summary><div class="b">
-<p>En inmuebles que generan <b>ingresos periódicos</b>: locales comerciales, oficinas, galpones y depósitos, edificios de departamentos para alquiler, cocheras, hoteles y apart-hoteles, centros comerciales, inmuebles industriales, campos arrendados.</p>
-<p>Es adecuado cuando el valor está relacionado con la renta que produce o puede producir.</p><div class="ej">👵 <b>Ejemplo para la tía:</b> Sirve para lo que se alquila: el local de la esquina, la cochera, un edificio de departamentos. No para la casa donde vive la tía, porque no produce renta.</div></div></details>
-
-<h2 id="f">6. Método residual</h2>
-
-<details class="q"><summary><span class="n">22</span>¿Qué es?</summary><div class="b">
-<p>Determina el <b>valor del terreno</b> a partir del valor del proyecto terminado, restando costos necesarios y la utilidad esperada del desarrollador. El resultado es el <b>valor máximo que se puede pagar</b> por el terreno.</p>
-<p>Muy usado en Buenos Aires para baldíos o propiedades a demoler con potencial de edificar (según Código Urbanístico).</p><div class="ej">👵 <b>Ejemplo para la tía:</b> Hay un terreno donde entra un edificio. El constructor piensa: “vendiendo todo junto 1.000.000; construir cuesta 600.000; quiero ganar 200.000”. Lo máximo que puede pagar por el terreno son 200.000.</div></div></details>
-
-<details class="q"><summary><span class="n">23</span>Fórmula y cuándo usarlo</summary><div class="b">
-<div class="f"><b>Valor del terreno = Valor de venta total − (Costos de construcción + Gastos indirectos + Ganancia del desarrollador)</b></div>
-<p>Se usa cuando <b>no hay suficientes comparables</b> de terrenos y se puede determinar qué proyecto es viable en ese inmueble.</p><div class="ej">👵 <b>Ejemplo para la tía:</b> Con los mismos números: 1.000.000 − (600.000 + 200.000) = 200.000. Se usa cuando en la zona no hay terrenos parecidos para comparar.</div></div></details>
-
-<details class="q"><summary><span class="n">24</span>¿En qué propiedades?</summary><div class="b">
-<ul><li>Terrenos baldíos aptos para construir.</li><li>Lotes urbanos con potencial edificatorio.</li><li>Terrenos para edificios de departamentos o desarrollos comerciales.</li><li>Propiedades a demoler para un nuevo emprendimiento.</li><li>Grandes parcelas para urbanizaciones.</li></ul><div class="ej">👵 <b>Ejemplo para la tía:</b> Una casita vieja rodeada de edificios nuevos: nadie la compra para vivir, la compran para tirarla y construir. Se tasa por lo que se podría construir ahí.</div></div></details>
-
-<h2 id="g">7. Terrenos: esquina y medial</h2>
-
-<details class="q"><summary><span class="n">25</span>Ventajas y desventajas del terreno en esquina</summary><div class="b">
-<table><tr><th>Ventajas (mayor valor unitario)</th><th>Desventajas</th></tr>
-<tr><td><ul><li>Mejor acceso</li><li>Más posibilidades de locales comerciales</li><li>Más vidrieras, en dos frentes</li><li>Mejor luz natural y ventilación (sobre todo en pisos altos)</li><li>Mejor distribución y economía de los edificios</li></ul></td>
-<td><ul><li>Impuestos y tasas más altos</li><li>Mayor costo de infraestructura (pavimento)</li><li>Mayor costo de construcción y mantenimiento</li><li>Ruido y peligro del tránsito</li><li>Menor intimidad (en uso residencial)</li></ul></td></tr></table>
-<p>La ventaja se reduce si la forma es triangular o irregular, o hay desproporción entre frentes y superficie.</p>
-<div class="note">Antes se sumaba un <b>25 %</b> fijo sobre el valor del lote medial; hoy se considera arbitrario. Se evalúan: características comerciales de la zona, relación de valores unitarios de las calles que forman la esquina y medidas del terreno sobre cada calle.</div><div class="ej">👵 <b>Ejemplo para la tía:</b> La panadería de la esquina tiene dos vidrieras y pasa más gente: le conviene. Pero para vivir hay más ruido, más tránsito y más impuestos. Por eso la esquina vale más para comercio.</div></div></details>
-
-<details class="q"><summary><span class="n">26 · 27</span>Terreno medial de manzana</summary><div class="b">
-<p><b>Medial:</b> lote con frente a una sola calle, que <b>no es esquina</b>, ubicado entre dos lotes. Tiene dos linderos laterales y fondo, un solo frente, y no goza de la accesibilidad y exposición de la esquina.</p>
-<p><b>Lote de transición:</b> el influenciado por la esquina. En barrios residenciales alcanza solo al esquinero; en comerciales puede alcanzar a uno o más vecinos. Se admite que la influencia no pasa de <b>30 m</b> desde la intersección de las líneas municipales.</p>
-<p><b>Su valor depende de:</b> dimensión (superficie), proporción (frente-fondo), forma, orientación y vista (además de zonificación y servicios).</p>
-<div class="f">En una misma manzana: <b>esquina</b> → mayor valor · <b>medial</b> → valor intermedio y de referencia · <b>interno o de menor frente</b> → menor valor</div>
-<p>El medial sirve de referencia para comparar y ajustar los demás lotes con coeficientes.</p><div class="ej">👵 <b>Ejemplo para la tía:</b> La casa del medio de la cuadra: vecinos a los costados y una sola calle. Si ella vale 100, la de la esquina puede valer 120 y una angosta de atrás, 80. La del medio sirve de referencia.</div></div></details>
-
-<h2 id="h">8. Alquiler ⇄ venta</h2>
-
-<details class="q"><summary><span class="n">28 · 32</span>Del valor de venta al alquiler</summary><div class="b">
-<div class="f"><b>Alquiler mensual = Valor de venta × Tasa anual ÷ 12</b></div>
-<p>La tasa debe corresponder al tipo de inmueble y al mercado de la zona.</p><div class="ej">👵 <b>Ejemplo para la tía:</b> Un departamento vale 100.000 y la tasa es 6% anual: 100.000 × 0,06 = 6.000 al año; ÷ 12 = 500 por mes de alquiler.</div></div></details>
-
-<details class="q"><summary><span class="n">29 · 30</span>Del alquiler al valor de venta</summary><div class="b">
-<p>Se usa la capitalización de rentas.</p>
-<div class="f"><b>Valor = Alquiler anual ÷ Tasa de rentabilidad</b><br><b>Valor = Alquiler mensual × 12 ÷ Tasa de capitalización</b></div><div class="ej">👵 <b>Ejemplo para la tía:</b> Se alquila a 500 por mes: 500 × 12 = 6.000 al año. Con tasa de 6%: 6.000 ÷ 0,06 = 100.000 vale el departamento.</div></div></details>
-
-<details class="q"><summary><span class="n">31</span>¿Cómo se obtiene la tasa de capitalización?</summary><div class="b">
-<ul><li><b>Método directo:</b> comparar inmuebles similares en venta y alquiler y obtener su rentabilidad.</li>
-<li><b>Método de mercado:</b> analizar tasas de propiedades comparables de la zona.</li>
-<li><b>Método de inversión:</b> tasa requerida por un inversor según riesgo y rentabilidad esperada.</li></ul>
-<p>Luego: <b>Valor = Renta anual ÷ Tasa</b>. El más usado es el directo, por comparación de mercado.</p><div class="ej">👵 <b>Ejemplo para la tía:</b> Miro departamentos parecidos: uno se vende a 100.000 y se alquila a 500 por mes. Tasa = 6.000 ÷ 100.000 = 6%. Esa tasa la uso para tasar otros parecidos.</div></div></details>
-
-<h2>Resumen: qué método para qué</h2>
-<table>
-<tr><th>Método</th><th>Fórmula clave</th><th>Cuándo</th></tr>
-<tr><td>Comparación de mercado</td><td>Precio comparable ± ajustes</td><td>Uso general al salir a tasar</td></tr>
-<tr><td>Costo</td><td>Reposición − depreciación + terreno</td><td>Singulares, seguros, a estrenar</td></tr>
-<tr><td>Capitalización de rentas</td><td>Renta anual ÷ tasa</td><td>Inmuebles que producen renta</td></tr>
-<tr><td>Residual</td><td>Venta total − costos − gastos − ganancia</td><td>Terrenos con potencial de desarrollo</td></tr>
-</table>
-
-<h2 id="i">Fórmulas</h2>
-
-<h3 style="color:var(--blue);margin:1.2rem 0 .4rem">Depreciación</h3>
-<table>
-<tr><th>Criterio</th><th>Fórmula</th><th>Idea</th></tr>
-<tr><td>Línea recta</td><td>Valor a nuevo × e ÷ Vp</td><td>Función lineal de la edad: la depreciación es <b>uniforme</b> a lo largo de la vida del edificio.</td></tr>
-<tr><td>Ross</td><td>(VR − Vr) × e ÷ Vp</td><td>La depreciación <b>no es constante</b>: es lenta al comienzo y va aumentando hacia el final de la vida. Utiliza estados de conservación.</td></tr>
-<tr><td>Heidecke</td><td>Se combina con los estados de conservación</td><td>Un bien regularmente conservado se deprecia de modo regular; uno mal conservado se deprecia más rápido y acorta su vida útil.</td></tr>
-</table>
-<div class="note">e = edad del edificio · Vp = vida probable. Confirmá con tu clase qué significan exactamente VR y Vr en la fórmula de Ross (así figura en tus apuntes).</div>
-<table>
-<tr><th>Estado (Heidecke)</th><th>Descripción</th></tr>
-<tr><td>1</td><td>Nuevo</td></tr><tr><td>2</td><td>Regular</td></tr><tr><td>3</td><td>Reparaciones sencillas</td></tr><tr><td>4</td><td>Reparaciones importantes</td></tr><tr><td>5</td><td>Demolición</td></tr>
-</table>
-
-<h3 style="color:var(--blue);margin:1.4rem 0 .4rem">Capitalización de rentas (apuntes)</h3>
-<div class="f">Renta bruta − Gastos = <b>Renta neta</b> (anual)<br>Renta neta ÷ Tasa de interés (rentabilidad anual) = <b>Valor de venta</b></div>
-<p><b>Del valor de venta al alquiler:</b></p>
-<div class="f">Precio de venta × Coeficiente = $ anual<br>$ anual ÷ 12 meses = <b>$ mensual de alquiler</b></div>
-<p><b>Se usa en:</b> inmuebles de renta (locales, oficinas, edificios de alquiler, hoteles, cocheras) y para inversores que evalúan rentabilidad.</p>
-
-<h3 style="color:var(--blue);margin:1.4rem 0 .4rem">Cuadro general de fórmulas (parte práctica)</h3>
-<table>
-<tr><th>Método / tema</th><th>Fórmula</th></tr>
-<tr><td>Comparación de mercado</td><td>Valor del sujeto = Precio del comparable ± Ajustes</td></tr>
-<tr><td>Costo</td><td>Valor = Costo de reposición − Depreciación + Valor del terreno</td></tr>
-<tr><td>Renta líquida</td><td>Renta líquida = Renta bruta − (Gastos de operación + Amortización)</td></tr>
-<tr><td>Capitalización de rentas</td><td>Valor presente = Renta líquida ÷ Tasa</td></tr>
-<tr><td>Valor de venta desde alquiler</td><td>Valor = (Alquiler mensual × 12) ÷ Tasa</td></tr>
-<tr><td>Alquiler desde valor de venta</td><td>Alquiler mensual = (Valor de venta × Tasa anual) ÷ 12</td></tr>
-<tr><td>Residual</td><td>Valor del terreno = Valor de venta total − (Costos de construcción + Gastos indirectos + Ganancia del desarrollador)</td></tr>
-<tr><td>Seña / Reserva</td><td>Seña = 10 % a 15 % del precio · Reserva = aprox. 5 % del precio</td></tr>
-</table>
-<div class="note">En tus apuntes manuscritos la renta neta es «Renta bruta − gastos»; en el cuadro impreso, la renta líquida descuenta gastos de operación <b>y amortización</b>. Es el mismo esquema: si tu cátedra lo pide, usá la versión del cuadro.</div>
 </main>
-<script>function t(o){document.querySelectorAll('details').forEach(d=>d.open=o)}</script>
+
+<footer class="foot">
+  <div class="foot__in">
+    <div class="foot__top">
+      <a href="#top" class="brand foot__brand" aria-label="Tueria, inicio"><svg class="isologo" viewBox="45 23.4 90 133.2" aria-hidden="true" focusable="false"><path d="M45,23.4h86.7c1.8,0,3.3,1.5,3.3,3.3v19.1c0,1.8-1.5,3.3-3.3,3.3H45v-25.7Z"/><circle cx="61.9" cy="139.8" r="16.8"/><path d="M45,91.1c35.5,0,64.3,28.8,64.3,64.3h25.8c0-49.7-40.3-90.1-90.1-90.1v25.8Z"/></svg><span>Tueria</span></a>
+      <nav class="foot__nav" aria-label="Legal"><a href="https://tueria.com/terminos" target="_blank" rel="noopener">Términos</a><a href="https://tueria.com/privacidad" target="_blank" rel="noopener">Privacidad</a></nav>
+    </div>
+    <div class="foot__bot">
+      <p>© <span id="yr">2026</span> Tueria®</p>
+    </div>
+  </div>
+</footer>
+
+<script src="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.js"></script>
+<script src="script.js"></script>
 </body>
 </html>

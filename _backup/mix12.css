@@ -1,0 +1,15 @@
+/* texto que se descubre letra por letra al scrollear */
+.wr .w{display:inline-block;white-space:nowrap}
+.wr i{font-style:normal;opacity:.16}
+.wr span{opacity:1!important;transition:none}
+@media (prefers-reduced-motion:reduce){.wr i{opacity:1}}
+
+/* línea Hoy -> 2027 que se arma con el scroll */
+.path__line i{transition:none!important;width:calc(var(--p,0)*100%)!important}
+.path .stop{opacity:0;transform:translateY(14px);transition:opacity .5s var(--ease),transform .5s var(--ease)}
+.path .stop.on{opacity:1;transform:none}
+.path .stop li{opacity:0;transform:translateX(-8px);transition:opacity .45s var(--ease),transform .45s var(--ease)}
+.path .stop li.on{opacity:1;transform:none}
+.path .stop__d{transition:background .4s,border-color .4s,box-shadow .4s}
+.path .stop.on:not(.now) .stop__d{background:#f4a98a;border-color:#f4a98a;box-shadow:0 0 0 6px rgba(244,169,138,.2)}
+@media (prefers-reduced-motion:reduce){.path .stop,.path .stop li{opacity:1;transform:none}.path__line i{width:100%!important}}

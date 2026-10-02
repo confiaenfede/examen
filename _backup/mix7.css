@@ -1,0 +1,21 @@
+/* organigrama fijo mientras se arma + menos espacio en blanco entre secciones */
+.roles{padding:clamp(50px,6vw,80px) 0 0}
+.roles__run{height:200vh;position:relative}
+.roles__pin{position:sticky;top:64px;padding:0 24px 20px}
+.roles__pin .head{margin-bottom:clamp(24px,3vw,40px)}
+@media (max-width:900px){.roles__run{height:auto}.roles__pin{position:static}}
+
+.say{padding:clamp(60px,8vw,110px) 24px}
+.act{padding-top:clamp(40px,6vw,80px)}
+.prodx{padding-top:0}
+.prodx .live{padding-top:clamp(36px,5vw,70px)}
+.cen{padding-bottom:0}
+.cen__in h2{margin-bottom:28px}
+.trio{margin-top:34px}
+.sig{padding-top:clamp(40px,5vw,70px)}
+.sig .head{margin-bottom:clamp(28px,4vw,48px)}
+.int{padding-top:clamp(60px,8vw,100px)}
+.rubro{padding:clamp(60px,8vw,110px) 24px}
+.plans{padding-top:clamp(60px,8vw,100px);margin-top:clamp(60px,8vw,100px)}
+.faq{padding-top:clamp(50px,7vw,90px)}
+.head{margin-bottom:clamp(32px,5vw,56px)}

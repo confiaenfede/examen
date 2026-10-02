@@ -1,0 +1,5 @@
+/* lo que se va armando en el titular va en naranja (para pasarlo a gris: --dyn:#8fa4a9) */
+.hero{--dyn:var(--tc)}
+.tw--dyn{color:var(--dyn)}
+.hero .eyebrow,.hero .sub,.hero .cta,.hero .fine{transition:opacity .9s var(--ease),transform .9s var(--ease)}
+.hero.typing .eyebrow,.hero.typing .sub,.hero.typing .cta,.hero.typing .fine{opacity:0;transform:translateY(10px)}

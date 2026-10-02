@@ -1,0 +1,35 @@
+/* organigrama con la paleta de marca: Opulent #133039 · Terracota #e8743b · Spa Day #4d6a73 · Oat Milk #f6f0ec */
+.org{background:#f6f0ec;border-radius:30px;padding:44px 24px 34px;position:relative;overflow:visible}
+.org::before{content:"";position:absolute;inset:0;border-radius:30px;pointer-events:none;background:radial-gradient(520px 260px at 50% 0,rgba(232,116,59,.10),transparent 70%)}
+.tree .nd{box-shadow:0 8px 18px -12px rgba(19,48,57,.45)!important}
+.tree .nd--top{background:linear-gradient(135deg,#133039,#0f262c)!important;border:0!important;color:#fff;box-shadow:0 14px 26px -14px rgba(19,48,57,.7)!important}
+.tree .nd--top h3{color:#fff!important;position:relative}
+.tree .nd--top h3::after{content:"";display:block;width:26px;height:3px;border-radius:2px;background:#e8743b;margin:7px auto 0}
+.tree .nd--mid{background:#4d6a73!important;border:0!important;color:#fff}
+.tree .nd--mid h3{color:#fff!important}
+.tree .nd--ger{background:#c2d1d4!important;border:0!important;color:#133039}
+.tree .nd--ger h3{color:#133039!important}
+.tree .nd--team{background:#e8743b!important;border:0!important;color:#fff;box-shadow:0 12px 22px -12px rgba(232,116,59,.8)!important}
+.tree .nd--team h3{color:#fff!important}
+.tree .nd--ag{background:#fff!important;border:1px solid #e5dad2!important;color:#133039}
+.tree .nd--ag h3{color:#133039!important}
+.tree .nd--plus{background:transparent!important;border:2px dashed #f3a98b!important;box-shadow:none!important}
+.tree .nd--plus h3{color:#e8743b!important}
+.tree li.on::before,.tree li.on::after,.tree li.on>ul::before{border-color:#9db3b8!important}
+.org__note{color:#4d6a73}
+
+/* sin el panel de fondo: el árbol va directo sobre la página */
+.org{background:transparent!important;padding:10px 0 10px!important;border-radius:0}
+.org::before{display:none!important}
+.tree .nd--ag{border-color:#dfd3ca!important}
+.tree .nd--top h3::after{display:none!important}
+
+/* línea Hoy -> 2027 por tiempo (no por scroll) */
+.path .path__line i{width:0!important;transition:width 3s cubic-bezier(.4,.1,.2,1)!important}
+.path.go .path__line i{width:100%!important}
+
+/* dos cifras: horas (naranja) y usuarios */
+.stats{grid-template-columns:repeat(2,1fr)!important;max-width:760px;margin-left:auto;margin-right:auto}
+.stats>div:nth-child(1) dt{color:var(--tc)!important}
+.stats>div:nth-child(2) dt{color:#fff!important}
+.plans{margin-top:0!important}

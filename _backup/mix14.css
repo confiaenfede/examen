@@ -1,0 +1,38 @@
+/* sección Firma con el mismo estilo tipográfico que el resto */
+.fs-head h2{font-size:clamp(34px,5.6vw,72px);font-weight:700;letter-spacing:-.04em;line-height:1.04}
+.fs-head h2 .hl.v2{background-image:linear-gradient(#f8cdba,#f8cdba);background-size:100% 42%;font-weight:700}
+.fs-head p{font-size:clamp(19px,2vw,24px);letter-spacing:-.01em;line-height:1.35;max-width:30em;margin:18px auto 0}
+.fs-squig{display:none}
+.firmashow .eyebrow{text-align:center;margin-bottom:18px}
+.f4 h3{font-size:19px;font-weight:700;letter-spacing:-.02em}
+.f4 p{font-size:15.5px}
+.badge b{font-weight:600}
+.fs-card .ttl,.fs-signer b{font-weight:700}
+.mock .ttl{font-weight:700}
+
+/* hijo único (p. ej. Gerente bajo Sucursal Canning): lleva su propia línea vertical hasta el nodo */
+.tree li.on.so::before{display:block!important;content:"";position:absolute;top:0;left:50%;right:auto;width:0;height:30px;border:0;border-left:2px solid #cdd8da;border-radius:0}
+.tree li.on.so::after{display:none!important}
+
+/* nodos "+": lugar vacío para mostrar que crece sin límite */
+.tree .nd--plus{background:transparent!important;border:2px dashed #b9c8cc!important;box-shadow:none!important;color:var(--tc)}
+.tree .nd--plus h3{font-size:22px!important;font-weight:500!important;line-height:1;color:var(--tc)}
+.tree .nd--plus.nd--mid{min-width:170px}
+.tree li>.nd--plus:not(.nd--mid){min-width:64px}
+
+/* árbol más compacto: la rama de Canning se acerca a Palermo y al "+" de sucursal */
+.tree li{padding-left:6px;padding-right:6px}
+.tree li.on::after{width:var(--aw,50%)!important}
+.tree li.on::before{width:var(--bw,50%)!important}
+.tree li.on.so::before{width:0!important}
+.tree li{--aw:50%;--bw:50%}
+
+/* organigrama más grande */
+.tree .nd{padding:16px 26px 17px!important;border-radius:14px}
+.tree .nd h3{font-size:20px!important}
+.nd--top{min-width:250px}.nd--mid{min-width:210px}.nd--ger{min-width:160px}.nd--ag{min-width:110px}.nd--team{min-width:185px}
+.tree .nd--plus h3{font-size:26px!important}
+.tree li>.nd--plus:not(.nd--mid){min-width:76px}
+.tree .nd--plus.nd--mid{min-width:210px}
+.tree li{padding-left:8px;padding-right:8px}
+.org__note{font-size:17px}
