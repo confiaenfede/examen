@@ -702,3 +702,19 @@ main>section:not(.hero){position:relative;z-index:1}
 
 .eyebrow .pill{margin-left:8px;vertical-align:middle}
 .pill--soon{text-transform:uppercase;letter-spacing:.04em;font-size:11px;background:var(--tcs);color:var(--tcd)}
+
+/* responsive: ajustes del organigrama en lista y del recorrido en celular */
+@media (max-width:800px){
+  .tree li{margin:0!important}
+  .tree li>.nd{position:relative}
+  .tree li>.nd::before{content:"";position:absolute;left:-16px;top:50%;width:16px;border-top:2px solid #cdd8da}
+  .tree>li>.nd::before{display:none}
+}
+@media (max-width:900px){
+  .pn__tabs{overflow-x:auto;scrollbar-width:none}
+  .pn__tabs::-webkit-scrollbar{display:none}
+  .pn__tabs .on{margin-bottom:-11px}
+  .who2{grid-template-columns:1fr}
+  .who2>div+div{border-left:0;border-top:1px solid var(--line)}
+  .who2 span,.who2 b{white-space:nowrap}
+}
