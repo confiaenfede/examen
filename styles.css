@@ -686,16 +686,6 @@ main>section:not(.hero){position:relative;z-index:1}
 .nav--dark .btn{background:#fff;color:var(--ink)}
 .nav--dark .btn:hover{background:var(--bg2)}
 
-/* responsive: organigrama en lista indentada en pantallas chicas */
-@media (max-width:800px){
-  .org{overflow:visible;padding:0 4px!important}
-  .tree,.tree ul{flex-direction:column;align-items:stretch;justify-content:flex-start;min-width:0;padding-top:0}
-  .tree ul{margin:6px 0 0 14px;padding-left:0;border-left:2px solid #cdd8da}
-  .tree li{align-items:flex-start;padding:8px 0 0 16px!important}
-  .tree>li{padding-left:0!important}
-  .tree li::before,.tree li::after,.tree ul::before,.tree li>ul::before,.tree li.on::before,.tree li.on::after,.tree li.on.so::before,.tree li.on.so::after{display:none!important}
-  .tree .nd,.tree .nd--top,.tree .nd--mid,.tree .nd--ger,.tree .nd--ag,.tree .nd--team,.tree li>.nd--plus:not(.nd--mid),.tree .nd--plus.nd--mid{min-width:0}
-}
 @media (max-width:560px){
   .mapa__leg--priv{position:static;max-width:none;border:0;border-top:1px solid var(--line);border-radius:0;box-shadow:none}
 }
@@ -703,13 +693,7 @@ main>section:not(.hero){position:relative;z-index:1}
 .eyebrow .pill{margin-left:8px;vertical-align:middle}
 .pill--soon{text-transform:uppercase;letter-spacing:.04em;font-size:11px;background:var(--tcs);color:var(--tcd)}
 
-/* responsive: ajustes del organigrama en lista y del recorrido en celular */
-@media (max-width:800px){
-  .tree li{margin:0!important}
-  .tree li>.nd{position:relative}
-  .tree li>.nd::before{content:"";position:absolute;left:-16px;top:50%;width:16px;border-top:2px solid #cdd8da}
-  .tree>li>.nd::before{display:none}
-}
+/* responsive: recorrido y paneles en celular */
 @media (max-width:900px){
   .pn__tabs{overflow-x:auto;scrollbar-width:none}
   .pn__tabs::-webkit-scrollbar{display:none}
@@ -717,4 +701,21 @@ main>section:not(.hero){position:relative;z-index:1}
   .who2{grid-template-columns:1fr}
   .who2>div+div{border-left:0;border-top:1px solid var(--line)}
   .who2 span,.who2 b{white-space:nowrap}
+}
+
+/* celular y tablet: organigrama como en la compu (con scroll lateral) y recorrido con barra de pasos */
+@media (max-width:900px){
+  .org{overflow-x:auto;overflow-y:hidden;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+  .org::-webkit-scrollbar{display:none}
+  .tree{min-width:820px}
+  .stepper{display:flex;margin-bottom:16px}
+  .stepper::before{top:13px}
+  .stepper li{font-size:10px;gap:6px;padding-bottom:10px;line-height:1.15}
+  .stepper i{width:26px;height:26px;font-size:11px}
+  .rec__txt{position:relative;min-height:250px;display:block}
+  .st{position:absolute;inset:0;opacity:0;transform:translateY(16px);pointer-events:none}
+  .st.on{opacity:1;transform:none}
+  .rec__card{display:block;min-height:560px;padding:14px;background:var(--bg2)}
+  .pn{position:absolute;inset:14px;opacity:0;transform:translateY(18px) scale(.985);pointer-events:none;padding:16px 14px}
+  .pn.on{opacity:1;transform:none;pointer-events:auto}
 }

@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Vista previa — Tueria</title>
+<style>
+:root{--bg:#e9eef0;--ink:#0c252d;--mut:#63787e;--tc:#e06538}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{font:500 14px/1.4 system-ui,-apple-system,"Segoe UI",sans-serif;color:var(--ink);background:var(--bg);display:flex;flex-direction:column;overflow:hidden}
+.bar{display:flex;align-items:center;gap:10px;flex-wrap:wrap;justify-content:center;padding:12px 16px;background:#fff;border-bottom:1px solid #d5dee0}
+.bar button{font:inherit;font-weight:600;padding:9px 16px;border-radius:9px;border:1px solid #cdd8da;background:#fff;color:var(--ink);cursor:pointer}
+.bar button.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+.bar .sp{width:1px;height:24px;background:#d5dee0;margin:0 4px}
+.bar .info{color:var(--mut);font-weight:500;min-width:110px;text-align:center}
+.stage{flex:1;min-height:0;position:relative;overflow:hidden}
+.wrap{position:absolute;left:50%;top:50%;transform-origin:center center}
+.dev{background:#14191a;border-radius:var(--r,28px);padding:var(--p,14px);box-shadow:0 30px 70px -25px rgba(12,37,45,.55),inset 0 0 0 2px #2c3335;position:relative}
+.dev::after{content:"";position:absolute;background:#2c3335;border-radius:99px;left:50%;transform:translateX(-50%);top:var(--nt,6px);width:var(--nw,0);height:var(--nh,0)}
+.dev iframe{display:block;border:0;background:#fff;border-radius:calc(var(--r,28px) - 12px)}
+.dev[data-d="desktop"]{--r:16px;--p:10px 10px 16px;--nw:0}
+.dev[data-d="tablet"]{--r:34px;--p:16px}
+.dev[data-d="phone"]{--r:48px;--p:14px;--nw:90px;--nh:20px;--nt:20px}
+.dev[data-d="phone"] iframe{border-radius:36px}
+.dev[data-d="phone"][data-rot="1"]{--nw:0}
+</style>
+</head>
+<body>
+<div class="bar">
+  <button data-d="desktop" class="on">Computadora</button>
+  <button data-d="tablet">Tablet</button>
+  <button data-d="phone">Celular</button>
+  <span class="sp"></span>
+  <button id="rot" title="Girar">Girar</button>
+  <button id="rel" title="Recargar">Recargar</button>
+  <span class="info" id="info"></span>
+</div>
+<div class="stage"><div class="wrap" id="wrap"><div class="dev" id="dev" data-d="desktop"><iframe id="fr" src="index.html" title="Landing"></iframe></div></div></div>
+<script>
+// Cada tamaño es un navegador real de ese ancho, así que la landing aplica sus estilos responsive tal cual.
+var SIZES={desktop:[1440,900],tablet:[820,1180],phone:[390,844]};
+var dev=document.getElementById('dev'),fr=document.getElementById('fr'),wrap=document.getElementById('wrap'),info=document.getElementById('info');
+var cur='desktop',rot=false;
+function fit(){
+  var s=SIZES[cur],w=rot?s[1]:s[0],h=rot?s[0]:s[1];
+  fr.style.width=w+'px';fr.style.height=h+'px';
+  dev.setAttribute('data-rot',rot?'1':'0');
+  var st=document.querySelector('.stage'),pad=36;
+  var bw=w+40,bh=h+40;
+  var k=Math.min((st.clientWidth-pad)/bw,(st.clientHeight-pad)/bh,1);
+  wrap.style.transform='translate(-50%,-50%) scale('+k+')';
+  wrap.style.width=bw+'px';wrap.style.height=bh+'px';
+  info.textContent=w+' × '+h+' px · '+Math.round(k*100)+'%';
+}
+document.querySelectorAll('.bar button[data-d]').forEach(function(b){
+  b.onclick=function(){
+    document.querySelectorAll('.bar button[data-d]').forEach(function(x){x.classList.toggle('on',x===b)});
+    cur=b.getAttribute('data-d');rot=false;dev.setAttribute('data-d',cur);fit();fr.src=fr.src;
+  };
+});
+document.getElementById('rot').onclick=function(){rot=!rot;fit();fr.src=fr.src};
+document.getElementById('rel').onclick=function(){fr.src=fr.src};
+window.addEventListener('resize',fit);fit();
+</script>
+</body>
+</html>

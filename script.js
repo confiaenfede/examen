@@ -263,6 +263,8 @@
   if(mapEl){new IntersectionObserver(function(es,ob){if(es[0].isIntersecting){startMap();ob.disconnect()}},{rootMargin:'300px'}).observe(mapEl)}
 
   var darkSecs=$$('.rubro,.acceso,.foot');
+  // en pantallas chicas el organigrama se desliza: arranca centrado
+  (function orgScroll(){var o=$('.org');if(o&&window.innerWidth<=900){o.scrollLeft=(o.scrollWidth-o.clientWidth)/2}})();
   var tick=false;
   function frame(){
     tick=false;
