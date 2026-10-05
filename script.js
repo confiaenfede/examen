@@ -21,8 +21,9 @@
       var i=0,j=0;
       function l1(){
         i++;tw0.textContent=fijo.slice(0,i);
+        if(i===fijo.indexOf('inmo')+4)hero.classList.remove('typing');
         if(i<fijo.length){setTimeout(l1,72+Math.random()*40)}
-        else{tw.after(caret);hero.classList.remove('typing');setTimeout(l2,320)}
+        else{tw.after(caret);setTimeout(l2,320)}
       }
       function l2(){
         j++;tw.textContent=frases[0].slice(0,j);
@@ -265,6 +266,41 @@
   var darkSecs=$$('.rubro,.acceso,.foot');
   // en pantallas chicas el organigrama se desliza: arranca centrado
   (function orgScroll(){var o=$('.org');if(o&&window.innerWidth<=900){o.scrollLeft=(o.scrollWidth-o.clientWidth)/2}})();
+
+  // chat del MCP: preguntas que se escriben solas y respuestas en vivo (datos de ejemplo)
+  var chatB=$('#chatB'),chatIn=$('#chatIn'),chatTxt=$('#chatTxt');
+  if(chatB&&chatTxt&&!reduce){
+    var li3=function(a){return '<ul>'+a.map(function(x){return '<li>'+x+'</li>'}).join('')+'</ul>'};
+    var QA=[
+      {q:'¿Qué consultas tengo sin responder?',a:'<p>Tenés 3 consultas pendientes:</p>'+li3(['<span><b>María Gómez</b> · Av. Corrientes 1234</span><span>hace 2 h</span>','<span><b>Juan Pérez</b> · Thames 870</span><span>hace 5 h</span>','<span><b>Grupo Sur</b> · Cabildo 2450</span><span>ayer</span>'])},
+      {q:'Armame la agenda de mañana',a:'<p>Mañana tenés 3 actividades:</p>'+li3(['<span><b>10:00</b> Visita · Thames 870</span>','<span><b>12:30</b> Seguimiento · María Gómez</span>','<span><b>15:30</b> Tasación · Cabildo 2450</span>'])},
+      {q:'¿Cómo voy con el objetivo anual?',a:'<p>Vas en un <b>59 %</b> del objetivo: US$ 47.200 cerrados este año y 2 operaciones en curso.</p>'},
+      {q:'¿Qué tasaciones están pendientes?',a:'<p>Tenés 1 pendiente de respuesta:</p>'+li3(['<span><b>Cabildo 2450</b> · Belgrano</span><span>Laura Ríos</span>'])},
+      {q:'¿Cuánto tengo para cobrar?',a:'<p>Próximo a cobrar: <b>US$ 24.300</b>, repartido en 2 operaciones en curso.</p>'},
+      {q:'¿Qué propiedades tengo publicadas?',a:'<p>Tenés 19 publicadas. Las últimas:</p>'+li3(['<span><b>España 1700</b> · Castelar</span><span>USD 450.000</span>','<span><b>Pepirí al 1500</b> · Castelar</span><span>USD 39.900</span>'])}
+    ];
+    var chatSeen=false,chatGo=false;
+    var chatAdd=function(tag,cls,html){var e=document.createElement(tag);e.className=cls;e.innerHTML=html||'';chatB.appendChild(e);while(chatB.children.length>4)chatB.removeChild(chatB.firstChild);return e};
+    var chatAsk=function(i){
+      if(!chatSeen){setTimeout(function(){chatAsk(i)},700);return}
+      var qa=QA[i%QA.length],n=0;
+      chatIn.classList.add('typing');chatTxt.textContent='';
+      (function t(){
+        n++;chatTxt.textContent=qa.q.slice(0,n);
+        if(n<qa.q.length){setTimeout(t,30+Math.random()*34)}
+        else{setTimeout(function(){
+          chatIn.classList.remove('typing');chatTxt.textContent='Preguntale lo que quieras sobre tu inmobiliaria…';
+          chatAdd('p','cu',qa.q);
+          var d=chatAdd('div','ca ca--dots','<span></span><span></span><span></span>');
+          setTimeout(function(){d.className='ca';d.innerHTML=qa.a;setTimeout(function(){chatAsk(i+1)},3800)},1200);
+        },380)}
+      })();
+    };
+    new IntersectionObserver(function(es,ob){
+      chatSeen=es[0].isIntersecting;
+      if(chatSeen&&!chatGo){chatGo=true;chatB.innerHTML='';chatAsk(0)}
+    },{threshold:.3}).observe(chatB.parentNode);
+  }
   var tick=false;
   function frame(){
     tick=false;
